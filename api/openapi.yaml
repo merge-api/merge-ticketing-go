@@ -1,0 +1,5669 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: hello@merge.dev
+    name: Merge Team
+    url: https://www.merge.dev/
+  description: The unified API for building rich integrations with multiple Ticketing
+    platforms.
+  title: Merge Ticketing API
+  version: "1.0"
+servers:
+- description: Production
+  url: https://api.merge.dev/api/ticketing/v1
+- description: Sandbox
+  url: https://api-sandbox.merge.dev/api/ticketing/v1
+paths:
+  /account-details:
+    get:
+      description: Get details for a linked account.
+      operationId: account_details_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetails'
+      security:
+      - tokenAuth: []
+      tags:
+      - account-details
+  /account-token/{public_token}:
+    get:
+      description: Returns the account token for the end user with the provided public
+        token.
+      operationId: account_token_retrieve
+      parameters:
+      - explode: false
+        in: path
+        name: public_token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountToken'
+      security:
+      - tokenAuth: []
+      tags:
+      - account-token
+  /accounts:
+    get:
+      description: Returns a list of `Account` objects.
+      operationId: accounts_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountList'
+      security:
+      - tokenAuth: []
+      tags:
+      - accounts
+  /accounts/{id}:
+    get:
+      description: Returns an `Account` object with the given `id`.
+      operationId: accounts_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+      security:
+      - tokenAuth: []
+      tags:
+      - accounts
+  /attachments:
+    get:
+      description: Returns a list of `Attachment` objects.
+      operationId: attachments_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return comments for this ticket.
+        examples:
+          TicketId:
+            summary: ticket_id
+        explode: true
+        in: query
+        name: ticket_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAttachmentList'
+      security:
+      - tokenAuth: []
+      tags:
+      - attachments
+    post:
+      description: Creates an `Attachment` object with the given values.
+      operationId: attachments_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to include debug fields (such as log file links) in the
+          response.
+        explode: true
+        in: query
+        name: is_debug_mode
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketingAttachmentEndpointRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketingAttachmentEndpointRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketingAttachmentEndpointRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketingAttachmentResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - attachments
+  /attachments/{id}:
+    get:
+      description: Returns an `Attachment` object with the given `id`.
+      operationId: attachments_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attachment'
+      security:
+      - tokenAuth: []
+      tags:
+      - attachments
+  /attachments/meta/post:
+    get:
+      description: Returns metadata for `TicketingAttachment` POSTs.
+      operationId: attachments_meta_post_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - attachments
+  /available-actions:
+    get:
+      description: Returns a list of models and actions available for an account.
+      operationId: available_actions_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailableActions'
+      security:
+      - tokenAuth: []
+      tags:
+      - available-actions
+  /comments:
+    get:
+      description: Returns a list of `Comment` objects.
+      operationId: comments_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return comments for this ticket.
+        examples:
+          TicketId:
+            summary: ticket_id
+        explode: true
+        in: query
+        name: ticket_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCommentList'
+      security:
+      - tokenAuth: []
+      tags:
+      - comments
+    post:
+      description: Creates a `Comment` object with the given values.
+      operationId: comments_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to include debug fields (such as log file links) in the
+          response.
+        explode: true
+        in: query
+        name: is_debug_mode
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentEndpointRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CommentEndpointRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CommentEndpointRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - comments
+  /comments/{id}:
+    get:
+      description: Returns a `Comment` object with the given `id`.
+      operationId: comments_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+      security:
+      - tokenAuth: []
+      tags:
+      - comments
+  /comments/meta/post:
+    get:
+      description: Returns metadata for `Comment` POSTs.
+      operationId: comments_meta_post_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - comments
+  /contacts:
+    get:
+      description: Returns a list of `Contact` objects.
+      operationId: contacts_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedContactList'
+      security:
+      - tokenAuth: []
+      tags:
+      - contacts
+  /contacts/{id}:
+    get:
+      description: Returns a `Contact` object with the given `id`.
+      operationId: contacts_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+      security:
+      - tokenAuth: []
+      tags:
+      - contacts
+  /delete-account:
+    post:
+      description: Delete a linked account.
+      operationId: delete_account_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: No response body
+      security:
+      - tokenAuth: []
+      tags:
+      - delete-account
+  /generate-key:
+    post:
+      description: Create a remote key.
+      operationId: generate_key_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GenerateRemoteKeyRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteKey'
+      security:
+      - tokenAuth: []
+      tags:
+      - generate-key
+  /issues:
+    get:
+      description: Gets issues.
+      operationId: issues_list
+      parameters:
+      - explode: true
+        in: query
+        name: account_token
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If included, will only include issues whose most recent action
+          occurred before this time
+        explode: true
+        in: query
+        name: end_date
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: end_user_organization_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was after this datetime.
+        explode: true
+        in: query
+        name: first_incident_time_after
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was before this datetime.
+        explode: true
+        in: query
+        name: first_incident_time_before
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: If True, will include muted issues
+        explode: true
+        in: query
+        name: include_muted
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: integration_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was after this datetime.
+        explode: true
+        in: query
+        name: last_incident_time_after
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: If provided, will only return issues whose first incident time
+          was before this datetime.
+        explode: true
+        in: query
+        name: last_incident_time_before
+        required: false
+        schema:
+          format: date-time
+          nullable: true
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: If included, will only include issues whose most recent action
+          occurred after this time
+        explode: true
+        in: query
+        name: start_date
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          enum:
+          - ONGOING
+          - RESOLVED
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedIssueList'
+      security:
+      - tokenAuth: []
+      tags:
+      - issues
+  /issues/{id}:
+    get:
+      description: Get a specific issue.
+      operationId: issues_retrieve
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Issue'
+      security:
+      - tokenAuth: []
+      tags:
+      - issues
+  /link-token:
+    post:
+      description: Creates a link token to be used when linking a new end user.
+      operationId: link_token_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndUserDetailsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EndUserDetailsRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EndUserDetailsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkToken'
+      security:
+      - tokenAuth: []
+      tags:
+      - link-token
+  /linked-accounts:
+    get:
+      description: List linked accounts for your organization.
+      operationId: linked_accounts_list
+      parameters:
+      - explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          enum:
+          - accounting
+          - ats
+          - crm
+          - hris
+          - ticketing
+          nullable: true
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return linked accounts associated with
+          the given email address.
+        explode: true
+        in: query
+        name: end_user_email_address
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return linked accounts associated with
+          the given organization name.
+        explode: true
+        in: query
+        name: end_user_organization_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return linked accounts associated with
+          the given origin ID.
+        explode: true
+        in: query
+        name: end_user_origin_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Comma-separated list of EndUser origin IDs, making it possible
+          to specify multiple EndUsers at once.
+        explode: true
+        in: query
+        name: end_user_origin_ids
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Comma-separated list of LinkedAccount IDs, making it possible
+          to specify multiple LinkedAccounts at once.
+        explode: true
+        in: query
+        name: ids
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If `true`, will include complete production duplicates of the
+          account specified by the `id` query parameter in the response. `id` must
+          be for a complete production linked account.
+        explode: true
+        in: query
+        name: include_duplicates
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return linked accounts associated with
+          the given integration name.
+        explode: true
+        in: query
+        name: integration_name
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If included, will only include test linked accounts. If not included,
+          will only include non-test linked accounts.
+        explode: true
+        in: query
+        name: is_test_account
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: 'Filter by status. Options: `COMPLETE`, `INCOMPLETE`, `RELINK_NEEDED`'
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccountDetailsAndActionsList'
+      security:
+      - tokenAuth: []
+      tags:
+      - linked-accounts
+  /passthrough:
+    post:
+      description: Pull data from an endpoint not currently supported by Merge.
+      operationId: passthrough_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataPassthroughRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DataPassthroughRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DataPassthroughRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - passthrough
+  /projects:
+    get:
+      description: Returns a list of `Project` objects.
+      operationId: projects_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectList'
+      security:
+      - tokenAuth: []
+      tags:
+      - projects
+  /projects/{id}:
+    get:
+      description: Returns a `Project` object with the given `id`.
+      operationId: projects_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+      security:
+      - tokenAuth: []
+      tags:
+      - projects
+  /projects/{id}/users:
+    get:
+      description: Returns a `User` object with the given `id`.
+      operationId: projects_users_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+      security:
+      - tokenAuth: []
+      tags:
+      - projects
+  /regenerate-key:
+    post:
+      description: Exchange remote keys.
+      operationId: regenerate_key_create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RemoteKeyForRegenerationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoteKey'
+      security:
+      - tokenAuth: []
+      tags:
+      - regenerate-key
+  /sync-status:
+    get:
+      description: 'Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`,
+        `PAUSED`, `SYNCING`'
+      operationId: sync_status_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSyncStatusList'
+      security:
+      - tokenAuth: []
+      tags:
+      - sync-status
+  /sync-status/resync:
+    post:
+      description: Force re-sync of all models. This is only available for organizations
+        on Merge's Grow and Expand plans.
+      operationId: sync_status_resync_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SyncStatus'
+                type: array
+      security:
+      - tokenAuth: []
+      tags:
+      - force-resync
+  /tags:
+    get:
+      description: Returns a list of `Tag` objects.
+      operationId: tags_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTagList'
+      security:
+      - tokenAuth: []
+      tags:
+      - tags
+  /tags/{id}:
+    get:
+      description: Returns a `Tag` object with the given `id`.
+      operationId: tags_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+      security:
+      - tokenAuth: []
+      tags:
+      - tags
+  /teams:
+    get:
+      description: Returns a list of `Team` objects.
+      operationId: teams_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTeamList'
+      security:
+      - tokenAuth: []
+      tags:
+      - teams
+  /teams/{id}:
+    get:
+      description: Returns a `Team` object with the given `id`.
+      operationId: teams_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+      security:
+      - tokenAuth: []
+      tags:
+      - teams
+  /tickets:
+    get:
+      description: Returns a list of `Ticket` objects.
+      operationId: tickets_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return tickets for this account.
+        examples:
+          AccountId:
+            summary: account_id
+        explode: true
+        in: query
+        name: account_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: If provided, will only return tickets for this project.
+        examples:
+          ProjectId:
+            summary: project_id
+        explode: true
+        in: query
+        name: project_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Which fields should be returned in non-normalized form.
+        examples:
+          RemoteFieldsStatus:
+            summary: Remote Fields Status
+            value: status
+        explode: true
+        in: query
+        name: remote_fields
+        required: false
+        schema:
+          enum:
+          - status
+          type: string
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedTicketList'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+    post:
+      description: Creates a `Ticket` object with the given values.
+      operationId: tickets_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Whether to include debug fields (such as log file links) in the
+          response.
+        explode: true
+        in: query
+        name: is_debug_mode
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketEndpointRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketEndpointRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketEndpointRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+  /tickets/{id}:
+    get:
+      description: Returns a `Ticket` object with the given `id`.
+      operationId: tickets_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Which fields should be returned in non-normalized form.
+        examples:
+          RemoteFieldsStatus:
+            summary: Remote Fields Status
+            value: status
+        explode: true
+        in: query
+        name: remote_fields
+        required: false
+        schema:
+          enum:
+          - status
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticket'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+    patch:
+      operationId: tickets_partial_update
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include debug fields (such as log file links) in the
+          response.
+        explode: true
+        in: query
+        name: is_debug_mode
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether or not third-party updates should be run asynchronously.
+        explode: true
+        in: query
+        name: run_async
+        required: false
+        schema:
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketEndpointRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketEndpointRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketEndpointRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+  /tickets/{id}/collaborators:
+    get:
+      description: Returns a `User` object with the given `id`.
+      operationId: tickets_collaborators_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+  /tickets/meta/patch/{id}:
+    get:
+      description: Returns metadata for `Ticket` PATCHs.
+      operationId: tickets_meta_patch_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+  /tickets/meta/post:
+    get:
+      description: Returns metadata for `Ticket` POSTs.
+      operationId: tickets_meta_post_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetaResponse'
+      security:
+      - tokenAuth: []
+      tags:
+      - tickets
+  /users:
+    get:
+      description: Returns a list of `User` objects.
+      operationId: users_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: If provided, will only return objects created after this datetime.
+        explode: true
+        in: query
+        name: created_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects created before this datetime.
+        explode: true
+        in: query
+        name: created_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: The pagination cursor value.
+        examples:
+          CursorExample:
+            summary: Cursor Example
+            value: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Whether to include data that was marked as deleted by third party
+          webhooks.
+        explode: true
+        in: query
+        name: include_deleted_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: If provided, will only return objects modified after this datetime.
+        explode: true
+        in: query
+        name: modified_after
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: If provided, will only return objects modified before this datetime.
+        explode: true
+        in: query
+        name: modified_before
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Number of results to return per page.
+        explode: true
+        in: query
+        name: page_size
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: The API provider's ID for the given object.
+        explode: true
+        in: query
+        name: remote_id
+        required: false
+        schema:
+          nullable: true
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+      security:
+      - tokenAuth: []
+      tags:
+      - users
+  /users/{id}:
+    get:
+      description: Returns a `User` object with the given `id`.
+      operationId: users_retrieve
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Whether to include the original data Merge fetched from the third-party
+          to produce these models.
+        explode: true
+        in: query
+        name: include_remote_data
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+      security:
+      - tokenAuth: []
+      tags:
+      - users
+  /webhook-receivers:
+    get:
+      description: Returns a list of `WebhookReceiver` objects.
+      operationId: webhook_receivers_list
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookReceiver'
+                type: array
+      security:
+      - tokenAuth: []
+      tags:
+      - webhook-receivers
+    post:
+      description: Creates a `WebhookReceiver` object with the given values.
+      operationId: webhook_receivers_create
+      parameters:
+      - description: Token identifying the end user.
+        explode: false
+        in: header
+        name: X-Account-Token
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WebhookReceiverRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookReceiver'
+      security:
+      - tokenAuth: []
+      tags:
+      - webhook-receivers
+components:
+  schemas:
+    Account:
+      description: |-
+        # The Account Object
+        ### Description
+        The `Account` object is used to represent the account that a ticket is associated with.
+
+        The account is a company that may be a customer. This does not represent the company that is receiving the ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        remote_id: "19202938"
+        name: Waystar Royco
+        domains:
+        - waystar-royco.com
+        - royco.com
+        id: 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_was_deleted: true
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The account's name.
+          example: Waystar Royco
+          nullable: true
+          type: string
+        domains:
+          description: The account's domain names.
+          example:
+          - waystar-royco.com
+          - royco.com
+          items:
+            nullable: true
+            type: string
+          nullable: true
+          type: array
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          type: boolean
+      type: object
+      x-merge-expands: '{"owner": "User"}'
+      x-merge-category: ticketing
+    AccountDetails:
+      example:
+        integration: BambooHR
+        end_user_organization_name: Waystar Royco
+        end_user_email_address: kendall.roy@waystar-royco.com
+        id: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
+        category: hris
+        is_duplicate: true
+        end_user_origin_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        integration_slug: bamboohr
+        status: COMPLETE
+        webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+      properties:
+        id:
+          example: 0496d4c2-42e6-4072-80b3-7b69bfdc76fd
+          format: uuid
+          readOnly: true
+          type: string
+        integration:
+          example: BambooHR
+          readOnly: true
+          type: string
+        integration_slug:
+          example: bamboohr
+          readOnly: true
+          type: string
+        category:
+          allOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          example: hris
+          nullable: true
+        end_user_origin_id:
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          readOnly: true
+          type: string
+        end_user_organization_name:
+          example: Waystar Royco
+          readOnly: true
+          type: string
+        end_user_email_address:
+          example: kendall.roy@waystar-royco.com
+          format: email
+          readOnly: true
+          type: string
+        status:
+          example: COMPLETE
+          readOnly: true
+          type: string
+        webhook_listener_url:
+          example: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+          format: uri
+          readOnly: true
+          type: string
+        is_duplicate:
+          description: Whether a Production Linked Account's credentials match another
+            existing Production Linked Account. This field is `null` for Test Linked
+            Accounts, incomplete Production Linked Accounts, and ignored duplicate
+            Production Linked Account sets.
+          example: true
+          nullable: true
+          readOnly: true
+          type: boolean
+      type: object
+      x-merge-category: ticketing
+    AccountDetailsAndActions:
+      description: |-
+        # The LinkedAccount Object
+        ### Description
+        The `LinkedAccount` object is used to represent an end user's link with a specific integration.
+
+        ### Usage Example
+        View a list of your organization's `LinkedAccount` objects.
+      example:
+        end_user_organization_name: Foo Bar, LLC
+        integration:
+          image: image
+          available_model_operations:
+          - supported_fields:
+            - first_name
+            - last_name
+            - company
+            - title
+            model_name: Candidate
+            required_post_parameters:
+            - remote_user_id
+            available_operations:
+            - FETCH
+            - CREATE
+          - supported_fields:
+            - first_name
+            - last_name
+            - company
+            - title
+            model_name: Candidate
+            required_post_parameters:
+            - remote_user_id
+            available_operations:
+            - FETCH
+            - CREATE
+          color: color
+          name: name
+          square_image: square_image
+          categories:
+          - null
+          - null
+          slug: slug
+          passthrough_available: true
+        end_user_email_address: hradmin@foobar.dev
+        id: e59b1821-f85c-4e28-a6b3-1804156f3563
+        category: hris
+        is_duplicate: true
+        end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
+        status: COMPLETE
+        status_detail: status_detail
+        webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+      properties:
+        id:
+          example: e59b1821-f85c-4e28-a6b3-1804156f3563
+          type: string
+        category:
+          allOf:
+          - $ref: '#/components/schemas/CategoryEnum'
+          example: hris
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AccountDetailsAndActionsStatusEnum'
+          example: COMPLETE
+        status_detail:
+          type: string
+        end_user_origin_id:
+          example: 3ac95cde-6c7f-4eef-afec-be710b42308d
+          type: string
+        end_user_organization_name:
+          example: Foo Bar, LLC
+          type: string
+        end_user_email_address:
+          example: hradmin@foobar.dev
+          type: string
+        webhook_listener_url:
+          example: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+          type: string
+        is_duplicate:
+          description: Whether a Production Linked Account's credentials match another
+            existing Production Linked Account. This field is `null` for Test Linked
+            Accounts, incomplete Production Linked Accounts, and ignored duplicate
+            Production Linked Account sets.
+          example: true
+          nullable: true
+          type: boolean
+        integration:
+          $ref: '#/components/schemas/AccountDetailsAndActionsIntegration'
+      required:
+      - end_user_email_address
+      - end_user_organization_name
+      - id
+      - status
+      - webhook_listener_url
+      type: object
+      x-merge-sample-json: '{"id": "e59b1821-f85c-4e28-a6b3-1804156f3563", "category":
+        "hris", "status": "COMPLETE", "status_detail": null, "end_user_origin_id":
+        "3ac95cde-6c7f-4eef-afec-be710b42308d", "end_user_organization_name": "Foo
+        Bar, LLC", "end_user_email_address": "hradmin@foobar.dev", "webhook_listener_url":
+        "https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4",
+        "is_duplicate": true, "integration": {"name": "SAP SuccessFactors", "categories":
+        ["hris", "ats"], "image": "https://cdn.merge.dev/SuccessFactors_Logo.png",
+        "square_image": "https://cdn.merge.dev/SuccessFactors_Square_Logo.jpg", "color":
+        "#F6A704", "slug": "sap-successfactors", "passthrough_available": true, "available_model_operations":
+        [{"model_name": "Candidate", "available_operations": ["FETCH", "CREATE"],
+        "required_post_parameters": ["remote_user_id"], "supported_fields": ["first_name",
+        "last_name", "company", "title"]}]}}'
+      x-merge-category: ticketing
+    AccountDetailsAndActionsIntegration:
+      example:
+        image: image
+        available_model_operations:
+        - supported_fields:
+          - first_name
+          - last_name
+          - company
+          - title
+          model_name: Candidate
+          required_post_parameters:
+          - remote_user_id
+          available_operations:
+          - FETCH
+          - CREATE
+        - supported_fields:
+          - first_name
+          - last_name
+          - company
+          - title
+          model_name: Candidate
+          required_post_parameters:
+          - remote_user_id
+          available_operations:
+          - FETCH
+          - CREATE
+        color: color
+        name: name
+        square_image: square_image
+        categories:
+        - null
+        - null
+        slug: slug
+        passthrough_available: true
+      properties:
+        name:
+          type: string
+        categories:
+          items:
+            $ref: '#/components/schemas/CategoriesEnum'
+          type: array
+        image:
+          type: string
+        square_image:
+          type: string
+        color:
+          type: string
+        slug:
+          type: string
+        passthrough_available:
+          type: boolean
+        available_model_operations:
+          items:
+            $ref: '#/components/schemas/ModelOperation'
+          type: array
+      required:
+      - categories
+      - color
+      - name
+      - passthrough_available
+      - slug
+      type: object
+      x-merge-category: ticketing
+    AccountDetailsAndActionsStatusEnum:
+      enum:
+      - COMPLETE
+      - INCOMPLETE
+      - RELINK_NEEDED
+      type: string
+      x-merge-category: ticketing
+    AccountIntegration:
+      example:
+        image: https://openapi-generator.tech
+        color: color
+        name: name
+        square_image: https://openapi-generator.tech
+        categories:
+        - null
+        - null
+        slug: slug
+      properties:
+        name:
+          description: Company name.
+          type: string
+        categories:
+          description: 'Category or categories this integration belongs to. Multiple
+            categories should be comma separated.<br/><br>Example: For [ats, hris],
+            enter <i>ats,hris</i>'
+          items:
+            $ref: '#/components/schemas/CategoriesEnum'
+          type: array
+        image:
+          description: Company logo in rectangular shape. <b>Upload an image with
+            a clear background.</b>
+          format: uri
+          nullable: true
+          type: string
+        square_image:
+          description: Company logo in square shape. <b>Upload an image with a white
+            background.</b>
+          format: uri
+          nullable: true
+          type: string
+        color:
+          description: The color of this integration used for buttons and text throughout
+            the app and landing pages. <b>Choose a darker, saturated color.</b>
+          maxLength: 18
+          pattern: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$
+          type: string
+        slug:
+          readOnly: true
+          type: string
+      required:
+      - name
+      type: object
+      x-merge-category: ticketing
+    AccountToken:
+      example:
+        account_token: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
+        integration:
+          image: https://openapi-generator.tech
+          color: color
+          name: name
+          square_image: https://openapi-generator.tech
+          categories:
+          - null
+          - null
+          slug: slug
+      properties:
+        account_token:
+          example: T9klMDQrcHdm9jrtHuOS2Nf06BIHwMNjpPXPMB
+          type: string
+        integration:
+          $ref: '#/components/schemas/AccountIntegration'
+      required:
+      - account_token
+      - integration
+      type: object
+      x-merge-category: ticketing
+    Attachment:
+      description: |-
+        # The Attachment Object
+        ### Description
+        The `Attachment` object is used to represent an attachment for a ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        file_url: http://alturl.com/p749b
+        uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+        ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        content_type: jpeg
+        file_name: Screenshot.png
+        remote_id: "19202938"
+        id: 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_was_deleted: true
+        remote_created_at: 2022-11-10T00:00:00Z
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        file_name:
+          description: The attachment's name.
+          example: Screenshot.png
+          nullable: true
+          type: string
+        ticket:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Ticket
+        file_url:
+          description: The attachment's url.
+          example: http://alturl.com/p749b
+          nullable: true
+          type: string
+        content_type:
+          description: The attachment's file format.
+          example: jpeg
+          nullable: true
+          type: string
+        uploaded_by:
+          example: 28b54125-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          nullable: true
+          type: string
+        remote_created_at:
+          description: When the third party's attachment was created.
+          example: 2022-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          readOnly: true
+          type: boolean
+      type: object
+      x-merge-expands: '{"ticket": "Ticket"}'
+      x-merge-category: ticketing
+    AttachmentRequest:
+      description: |-
+        # The Attachment Object
+        ### Description
+        The `Attachment` object is used to represent an attachment for a ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        file_url: http://alturl.com/p749b
+        uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+        ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        content_type: jpeg
+        file_name: Screenshot.png
+        remote_id: "19202938"
+        remote_created_at: 2022-11-10T00:00:00Z
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        file_name:
+          description: The attachment's name.
+          example: Screenshot.png
+          nullable: true
+          type: string
+        ticket:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          nullable: true
+          type: string
+        file_url:
+          description: The attachment's url.
+          example: http://alturl.com/p749b
+          nullable: true
+          type: string
+        content_type:
+          description: The attachment's file format.
+          example: jpeg
+          nullable: true
+          type: string
+        uploaded_by:
+          example: 28b54125-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          nullable: true
+          type: string
+        remote_created_at:
+          description: When the third party's attachment was created.
+          example: 2022-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+      x-merge-category: ticketing
+    AvailableActions:
+      description: |-
+        # The AvailableActions Object
+        ### Description
+        The `Activity` object is used to see all available model/operation combinations for an integration.
+
+        ### Usage Example
+        Fetch all the actions available for the `Zenefits` integration.
+      example:
+        available_model_operations:
+        - model_name: Candidate
+          available_operations:
+          - FETCH
+          - CREATE
+          required_post_parameters:
+          - remote_user_id
+          supported_fields:
+          - first_name
+          - last_name
+          - company
+          - title
+        integration:
+          image: https://openapi-generator.tech
+          color: color
+          name: name
+          square_image: https://openapi-generator.tech
+          categories:
+          - null
+          - null
+          slug: slug
+        passthrough_available: true
+      properties:
+        integration:
+          $ref: '#/components/schemas/AccountIntegration'
+        passthrough_available:
+          example: true
+          type: boolean
+        available_model_operations:
+          example:
+          - model_name: Candidate
+            available_operations:
+            - FETCH
+            - CREATE
+            required_post_parameters:
+            - remote_user_id
+            supported_fields:
+            - first_name
+            - last_name
+            - company
+            - title
+          items:
+            $ref: '#/components/schemas/ModelOperation'
+          type: array
+      required:
+      - integration
+      - passthrough_available
+      type: object
+      x-merge-category: ticketing
+    CategoriesEnum:
+      enum:
+      - hris
+      - ats
+      - accounting
+      - ticketing
+      - crm
+      type: string
+      x-merge-category: ticketing
+    CategoryEnum:
+      enum:
+      - hris
+      - ats
+      - accounting
+      - ticketing
+      - crm
+      type: string
+      x-merge-category: ticketing
+    Comment:
+      description: |-
+        # The Comment Object
+        ### Description
+        The `Comment` object is used to represent a comment on a ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        is_private: true
+        ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        html_body: When will these integrations be done? You all should use <b>Merge<b>.
+        remote_id: "19202938"
+        contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        remote_was_deleted: true
+        body: When will these integrations be done? You all should use Merge.
+        remote_created_at: 1990-11-10T00:00:00Z
+        user: 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        user:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: User
+        contact:
+          example: dde3fb16-b8eb-483d-81c4-b78100816f15
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Contact
+        body:
+          description: The comment's text body.
+          example: When will these integrations be done? You all should use Merge.
+          nullable: true
+          type: string
+        html_body:
+          description: The comment's text body formatted as html.
+          example: When will these integrations be done? You all should use <b>Merge<b>.
+          nullable: true
+          type: string
+        ticket:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Ticket
+        is_private:
+          description: Whether or not the comment is internal.
+          nullable: true
+          type: boolean
+        remote_created_at:
+          description: When the third party's comment was created.
+          example: 1990-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          readOnly: true
+          type: boolean
+      type: object
+      x-merge-expands: '{"contact": "Contact", "ticket": "Ticket", "user": "User"}'
+      x-merge-category: ticketing
+    CommentEndpointRequest:
+      example:
+        model:
+          is_private: true
+          ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          html_body: When will these integrations be done? You all should use <b>Merge<b>.
+          remote_id: "19202938"
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          body: When will these integrations be done? You all should use Merge.
+          remote_created_at: 1990-11-10T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
+      properties:
+        model:
+          $ref: '#/components/schemas/CommentRequest'
+      required:
+      - model
+      type: object
+      x-merge-category: ticketing
+    CommentRequest:
+      description: |-
+        # The Comment Object
+        ### Description
+        The `Comment` object is used to represent a comment on a ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        is_private: true
+        ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        html_body: When will these integrations be done? You all should use <b>Merge<b>.
+        remote_id: "19202938"
+        contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+        body: When will these integrations be done? You all should use Merge.
+        remote_created_at: 1990-11-10T00:00:00Z
+        user: 17a54124-287f-494d-965e-3c5b330c9a68
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        user:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          nullable: true
+          type: string
+        contact:
+          example: dde3fb16-b8eb-483d-81c4-b78100816f15
+          format: uuid
+          nullable: true
+          type: string
+        body:
+          description: The comment's text body.
+          example: When will these integrations be done? You all should use Merge.
+          nullable: true
+          type: string
+        html_body:
+          description: The comment's text body formatted as html.
+          example: When will these integrations be done? You all should use <b>Merge<b>.
+          nullable: true
+          type: string
+        ticket:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          nullable: true
+          type: string
+        is_private:
+          description: Whether or not the comment is internal.
+          nullable: true
+          type: boolean
+        remote_created_at:
+          description: When the third party's comment was created.
+          example: 1990-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+      x-merge-category: ticketing
+    CommentResponse:
+      example:
+        warnings:
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        model:
+          is_private: true
+          ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          html_body: When will these integrations be done? You all should use <b>Merge<b>.
+          remote_id: "19202938"
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          body: When will these integrations be done? You all should use Merge.
+          remote_created_at: 1990-11-10T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        logs:
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        errors:
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+      properties:
+        model:
+          $ref: '#/components/schemas/Comment'
+        warnings:
+          items:
+            $ref: '#/components/schemas/WarningValidationProblem'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorValidationProblem'
+          type: array
+        logs:
+          items:
+            $ref: '#/components/schemas/DebugModeLog'
+          type: array
+      required:
+      - errors
+      - model
+      - warnings
+      type: object
+      x-merge-category: ticketing
+    Contact:
+      description: |-
+        # The Contact Object
+        ### Description
+        The `Contact` object is used to represent the customer, lead, or external user that a ticket is associated with.
+
+        ### Usage Example
+        TODO
+      example:
+        email_address: greg@waystar-royco.com
+        remote_id: "19202938"
+        name: Cousin Greg
+        phone_number: "5108890293"
+        details: Executive Assistant to Tom Wambsgans
+        id: 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_was_deleted: true
+        account: 28b54125-287f-494d-965e-3c5b330c9a68
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The contact's name.
+          example: Cousin Greg
+          nullable: true
+          type: string
+        email_address:
+          description: The contact's email address.
+          example: greg@waystar-royco.com
+          nullable: true
+          type: string
+        phone_number:
+          description: The contact's phone number.
+          example: "5108890293"
+          nullable: true
+          type: string
+        details:
+          description: The contact's details.
+          example: Executive Assistant to Tom Wambsgans
+          nullable: true
+          type: string
+        account:
+          description: The contact's account.
+          example: 28b54125-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Account
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          readOnly: true
+          type: boolean
+      type: object
+      x-merge-expands: '{"account": "Account"}'
+      x-merge-category: ticketing
+    DataPassthroughRequest:
+      description: |-
+        # The DataPassthrough Object
+        ### Description
+        The `DataPassthrough` object is used to send information to an otherwise-unsupported third-party endpoint.
+
+        ### Usage Example
+        Create a `DataPassthrough` to get team hierarchies from your Rippling integration.
+      example:
+        path: /scooters
+        headers:
+          EXTRA-HEADER: value
+        request_format: JSON
+        method: POST
+        data: '{"company": "Lime", "model": "Gen 2.5"}'
+        normalize_response: true
+        base_url_override: base_url_override
+        multipart_form_data:
+        - data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          content_type: application/pdf
+          file_name: resume.pdf
+          name: resume
+          encoding: BASE64
+        - data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          content_type: application/pdf
+          file_name: resume.pdf
+          name: resume
+          encoding: BASE64
+      properties:
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          example: POST
+        path:
+          example: /scooters
+          minLength: 1
+          type: string
+        base_url_override:
+          minLength: 1
+          nullable: true
+          type: string
+        data:
+          example: '{"company": "Lime", "model": "Gen 2.5"}'
+          minLength: 1
+          nullable: true
+          type: string
+        multipart_form_data:
+          description: Pass an array of `MultipartFormField` objects in here instead
+            of using the `data` param if `request_format` is set to `MULTIPART`.
+          items:
+            $ref: '#/components/schemas/MultipartFormFieldRequest'
+          nullable: true
+          type: array
+        headers:
+          additionalProperties: {}
+          description: The headers to use for the request (Merge will handle the account's
+            authorization headers). `Content-Type` header is required for passthrough.
+            Choose content type corresponding to expected format of receiving server.
+          example:
+            EXTRA-HEADER: value
+          nullable: true
+          type: object
+        request_format:
+          allOf:
+          - $ref: '#/components/schemas/RequestFormatEnum'
+          example: JSON
+          nullable: true
+        normalize_response:
+          type: boolean
+      required:
+      - method
+      - path
+      type: object
+      x-merge-category: ticketing
+    DebugModeLog:
+      example:
+        log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+        dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+        log_summary:
+          status_code: 200
+          method: POST
+          url: https://harvest.greenhouse.io/v1/candidates/
+      properties:
+        log_id:
+          example: 99433219-8017-4acd-bb3c-ceb23d663832
+          type: string
+        dashboard_view:
+          example: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          type: string
+        log_summary:
+          $ref: '#/components/schemas/DebugModelLogSummary'
+      required:
+      - dashboard_view
+      - log_id
+      - log_summary
+      type: object
+      x-merge-sample-json: '{"log_id": "99433219-8017-4acd-bb3c-ceb23d663832", "dashboard_view":
+        "https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832", "log_summary":
+        {"url": "https://harvest.greenhouse.io/v1/candidates/", "method": "POST",
+        "status_code": 200}}'
+      x-merge-category: ticketing
+    DebugModelLogSummary:
+      example:
+        status_code: 200
+        method: POST
+        url: https://harvest.greenhouse.io/v1/candidates/
+      properties:
+        url:
+          example: https://harvest.greenhouse.io/v1/candidates/
+          type: string
+        method:
+          example: POST
+          type: string
+        status_code:
+          example: 200
+          type: integer
+      required:
+      - method
+      - status_code
+      - url
+      type: object
+      x-merge-sample-json: '{"url": "https://harvest.greenhouse.io/v1/candidates/",
+        "method": "POST", "status_code": 200}'
+      x-merge-category: ticketing
+    EncodingEnum:
+      enum:
+      - RAW
+      - BASE64
+      - GZIP_BASE64
+      type: string
+      x-merge-category: ticketing
+    EndUserDetailsRequest:
+      example:
+        end_user_organization_name: end_user_organization_name
+        integration: integration
+        end_user_email_address: end_user_email_address
+        categories:
+        - null
+        - null
+        should_create_magic_link_url: false
+        end_user_origin_id: end_user_origin_id
+        link_expiry_mins: 834
+      properties:
+        end_user_email_address:
+          description: Your end user's email address.
+          maxLength: 100
+          minLength: 1
+          type: string
+        end_user_organization_name:
+          description: Your end user's organization.
+          maxLength: 100
+          minLength: 1
+          type: string
+        end_user_origin_id:
+          description: Unique ID for your end user.
+          maxLength: 100
+          minLength: 1
+          type: string
+        categories:
+          description: The integration categories to show in Merge Link.
+          items:
+            $ref: '#/components/schemas/CategoriesEnum'
+          type: array
+        integration:
+          description: The slug of a specific pre-selected integration for this linking
+            flow token. For examples of slugs, see https://www.merge.dev/docs/basics/integration-metadata/.
+          minLength: 1
+          nullable: true
+          type: string
+        link_expiry_mins:
+          default: 30
+          description: An integer number of minutes between [30, 720 or 10080 if for
+            a Magic Link URL] for how long this token is valid. Defaults to 30.
+          maximum: 10080
+          minimum: 30
+          type: integer
+        should_create_magic_link_url:
+          default: false
+          description: Whether to generate a Magic Link URL. Defaults to false. For
+            more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/.
+          nullable: true
+          type: boolean
+      required:
+      - categories
+      - end_user_email_address
+      - end_user_organization_name
+      - end_user_origin_id
+      type: object
+      x-merge-category: ticketing
+    ErrorValidationProblem:
+      example:
+        problem_type: MISSING_REQUIRED_FIELD
+        source:
+          pointer: pointer
+        detail: custom_fields is a required field on model.
+        title: Missing Required Field
+      properties:
+        source:
+          $ref: '#/components/schemas/ValidationProblemSource'
+        title:
+          example: Missing Required Field
+          type: string
+        detail:
+          example: custom_fields is a required field on model.
+          type: string
+        problem_type:
+          example: MISSING_REQUIRED_FIELD
+          type: string
+      required:
+      - detail
+      - problem_type
+      - title
+      type: object
+      x-merge-category: ticketing
+    GenerateRemoteKeyRequest:
+      description: |-
+        # The GenerateRemoteKey Object
+        ### Description
+        The `GenerateRemoteKey` object is used to represent a request for a new remote key.
+
+        ### Usage Example
+        Post a `GenerateRemoteKey` to create a new remote key.
+      example:
+        name: Remote Deployment Key 1
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          minLength: 1
+          type: string
+      required:
+      - name
+      type: object
+      x-merge-category: ticketing
+    Issue:
+      example:
+        end_user:
+          key: ""
+        error_description: error_description
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        is_muted: true
+        last_incident_time: 2000-01-23T04:56:07.000+00:00
+        first_incident_time: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+        status:
+          $ref: '#/components/schemas/IssueStatusEnum'
+        error_description:
+          type: string
+        end_user:
+          additionalProperties: {}
+          readOnly: true
+          type: object
+        first_incident_time:
+          format: date-time
+          nullable: true
+          type: string
+        last_incident_time:
+          format: date-time
+          nullable: true
+          type: string
+        is_muted:
+          readOnly: true
+          type: boolean
+      required:
+      - error_description
+      type: object
+      x-merge-category: ticketing
+    IssueStatusEnum:
+      enum:
+      - ONGOING
+      - RESOLVED
+      type: string
+      x-merge-category: ticketing
+    LinkToken:
+      example:
+        integration_name: Lever
+        magic_link_url: https://link.merge.dev/asdfjkl12345jsndfgi2i83n
+        link_token: necdP7FtdASl1fQwm62be2_dM4wBG8_GactqoUV0
+      properties:
+        link_token:
+          example: necdP7FtdASl1fQwm62be2_dM4wBG8_GactqoUV0
+          type: string
+        integration_name:
+          example: Lever
+          type: string
+        magic_link_url:
+          example: https://link.merge.dev/asdfjkl12345jsndfgi2i83n
+          type: string
+      required:
+      - integration_name
+      - link_token
+      type: object
+      x-merge-category: ticketing
+    LinkedAccountStatus:
+      example:
+        linked_account_status: linked_account_status
+        can_make_request: true
+      properties:
+        linked_account_status:
+          type: string
+        can_make_request:
+          type: boolean
+      required:
+      - can_make_request
+      - linked_account_status
+      type: object
+      x-merge-category: ticketing
+    MetaResponse:
+      example:
+        has_required_linked_account_params: true
+        request_schema:
+          key: ""
+        has_conditional_params: true
+        status:
+          linked_account_status: linked_account_status
+          can_make_request: true
+      properties:
+        request_schema:
+          additionalProperties: {}
+          type: object
+        status:
+          $ref: '#/components/schemas/LinkedAccountStatus'
+        has_conditional_params:
+          type: boolean
+        has_required_linked_account_params:
+          type: boolean
+      required:
+      - has_conditional_params
+      - has_required_linked_account_params
+      - request_schema
+      type: object
+      x-merge-category: ticketing
+    MethodEnum:
+      enum:
+      - GET
+      - OPTIONS
+      - HEAD
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      type: string
+      x-merge-category: ticketing
+    ModelOperation:
+      description: |-
+        # The ModelOperation Object
+        ### Description
+        The `ModelOperation` object is used to represent the operations that are currently supported for a given model.
+
+        ### Usage Example
+        View what operations are supported for the `Candidate` endpoint.
+      example:
+        supported_fields:
+        - first_name
+        - last_name
+        - company
+        - title
+        model_name: Candidate
+        required_post_parameters:
+        - remote_user_id
+        available_operations:
+        - FETCH
+        - CREATE
+      properties:
+        model_name:
+          example: Candidate
+          type: string
+        available_operations:
+          example:
+          - FETCH
+          - CREATE
+          items:
+            type: string
+          type: array
+        required_post_parameters:
+          example:
+          - remote_user_id
+          items:
+            type: string
+          type: array
+        supported_fields:
+          example:
+          - first_name
+          - last_name
+          - company
+          - title
+          items:
+            type: string
+          type: array
+      required:
+      - available_operations
+      - model_name
+      - required_post_parameters
+      - supported_fields
+      type: object
+      x-merge-category: ticketing
+    MultipartFormFieldRequest:
+      description: |-
+        # The MultipartFormField Object
+        ### Description
+        The `MultipartFormField` object is used to represent fields in an HTTP request using `multipart/form-data`.
+
+        ### Usage Example
+        Create a `MultipartFormField` to define a multipart form entry.
+      example:
+        data: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+        content_type: application/pdf
+        file_name: resume.pdf
+        name: resume
+        encoding: BASE64
+      properties:
+        name:
+          description: The name of the form field
+          example: resume
+          minLength: 1
+          type: string
+        data:
+          description: The data for the form field.
+          example: SW50ZWdyYXRlIGZhc3QKSW50ZWdyYXRlIG9uY2U=
+          minLength: 1
+          type: string
+        encoding:
+          allOf:
+          - $ref: '#/components/schemas/EncodingEnum'
+          description: The encoding of the value of `data`. Defaults to `RAW` if not
+            defined.
+          example: BASE64
+          nullable: true
+        file_name:
+          description: The file name of the form field, if the field is for a file.
+          example: resume.pdf
+          minLength: 1
+          nullable: true
+          type: string
+        content_type:
+          description: The MIME type of the file, if the field is for a file.
+          example: application/pdf
+          minLength: 1
+          nullable: true
+          type: string
+      required:
+      - data
+      - name
+      type: object
+      x-merge-category: ticketing
+    PaginatedAccountDetailsAndActionsList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - end_user_organization_name: Foo Bar, LLC
+          integration:
+            image: image
+            available_model_operations:
+            - supported_fields:
+              - first_name
+              - last_name
+              - company
+              - title
+              model_name: Candidate
+              required_post_parameters:
+              - remote_user_id
+              available_operations:
+              - FETCH
+              - CREATE
+            - supported_fields:
+              - first_name
+              - last_name
+              - company
+              - title
+              model_name: Candidate
+              required_post_parameters:
+              - remote_user_id
+              available_operations:
+              - FETCH
+              - CREATE
+            color: color
+            name: name
+            square_image: square_image
+            categories:
+            - null
+            - null
+            slug: slug
+            passthrough_available: true
+          end_user_email_address: hradmin@foobar.dev
+          id: e59b1821-f85c-4e28-a6b3-1804156f3563
+          category: hris
+          is_duplicate: true
+          end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
+          status: COMPLETE
+          status_detail: status_detail
+          webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+        - end_user_organization_name: Foo Bar, LLC
+          integration:
+            image: image
+            available_model_operations:
+            - supported_fields:
+              - first_name
+              - last_name
+              - company
+              - title
+              model_name: Candidate
+              required_post_parameters:
+              - remote_user_id
+              available_operations:
+              - FETCH
+              - CREATE
+            - supported_fields:
+              - first_name
+              - last_name
+              - company
+              - title
+              model_name: Candidate
+              required_post_parameters:
+              - remote_user_id
+              available_operations:
+              - FETCH
+              - CREATE
+            color: color
+            name: name
+            square_image: square_image
+            categories:
+            - null
+            - null
+            slug: slug
+            passthrough_available: true
+          end_user_email_address: hradmin@foobar.dev
+          id: e59b1821-f85c-4e28-a6b3-1804156f3563
+          category: hris
+          is_duplicate: true
+          end_user_origin_id: 3ac95cde-6c7f-4eef-afec-be710b42308d
+          status: COMPLETE
+          status_detail: status_detail
+          webhook_listener_url: https://api.merge.dev/api/integrations/webhook-listener/7fc3mee0UW8ecV4
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/AccountDetailsAndActions'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedAccountList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "19202938"
+          name: Waystar Royco
+          domains:
+          - waystar-royco.com
+          - royco.com
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - remote_id: "19202938"
+          name: Waystar Royco
+          domains:
+          - waystar-royco.com
+          - royco.com
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Account'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedAttachmentList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - file_url: http://alturl.com/p749b
+          uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+          ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          content_type: jpeg
+          file_name: Screenshot.png
+          remote_id: "19202938"
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_created_at: 2022-11-10T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - file_url: http://alturl.com/p749b
+          uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+          ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          content_type: jpeg
+          file_name: Screenshot.png
+          remote_id: "19202938"
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_created_at: 2022-11-10T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Attachment'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedCommentList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - is_private: true
+          ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          html_body: When will these integrations be done? You all should use <b>Merge<b>.
+          remote_id: "19202938"
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          body: When will these integrations be done? You all should use Merge.
+          remote_created_at: 1990-11-10T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - is_private: true
+          ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          html_body: When will these integrations be done? You all should use <b>Merge<b>.
+          remote_id: "19202938"
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          body: When will these integrations be done? You all should use Merge.
+          remote_created_at: 1990-11-10T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Comment'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedContactList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - email_address: greg@waystar-royco.com
+          remote_id: "19202938"
+          name: Cousin Greg
+          phone_number: "5108890293"
+          details: Executive Assistant to Tom Wambsgans
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          account: 28b54125-287f-494d-965e-3c5b330c9a68
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - email_address: greg@waystar-royco.com
+          remote_id: "19202938"
+          name: Cousin Greg
+          phone_number: "5108890293"
+          details: Executive Assistant to Tom Wambsgans
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          account: 28b54125-287f-494d-965e-3c5b330c9a68
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Contact'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedIssueList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - end_user:
+            key: ""
+          error_description: error_description
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          is_muted: true
+          last_incident_time: 2000-01-23T04:56:07.000+00:00
+          first_incident_time: 2000-01-23T04:56:07.000+00:00
+        - end_user:
+            key: ""
+          error_description: error_description
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          is_muted: true
+          last_incident_time: 2000-01-23T04:56:07.000+00:00
+          first_incident_time: 2000-01-23T04:56:07.000+00:00
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Issue'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedProjectList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "19202938"
+          name: Q1 Platform
+          description: For tracking all tasks related to Platform for Q1
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - remote_id: "19202938"
+          name: Q1 Platform
+          description: For tracking all tasks related to Platform for Q1
+          id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Project'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedSyncStatusList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
+          model_name: Candidate
+          model_id: ats.Candidate
+          last_sync_start: 2021-03-30T19:44:18.695973Z
+          is_initial_sync: true
+          status: SYNCING
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
+          model_name: Candidate
+          model_id: ats.Candidate
+          last_sync_start: 2021-03-30T19:44:18.695973Z
+          is_initial_sync: true
+          status: SYNCING
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/SyncStatus'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedTagList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "19202938"
+          name: Ticketing API
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - remote_id: "19202938"
+          name: Ticketing API
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedTeamList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - remote_id: "19202938"
+          name: Platform
+          description: Platform and Integrations Team
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - remote_id: "19202938"
+          name: Platform
+          description: Platform and Integrations Team
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Team'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedTicketList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - ticket_type: incident
+          attachments:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          remote_id: "19202938"
+          due_date: 2022-10-11T00:00:00Z
+          assignees:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          description: Can you please add more integrations? It'll make syncing data
+            much easier!
+          project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+          priority: HIGH
+          tags:
+          - enterprise
+          - other-tag
+          remote_updated_at: 2021-12-09T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+          completed_at: 2021-12-09T00:00:00Z
+          contact: 65c345ba-6870-4974-87ba-dd31509c367a
+          name: Please add more integrations
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 2021-11-10T00:00:00Z
+          parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+          account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          status: OPEN
+        - ticket_type: incident
+          attachments:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          remote_id: "19202938"
+          due_date: 2022-10-11T00:00:00Z
+          assignees:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          description: Can you please add more integrations? It'll make syncing data
+            much easier!
+          project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+          priority: HIGH
+          tags:
+          - enterprise
+          - other-tag
+          remote_updated_at: 2021-12-09T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+          completed_at: 2021-12-09T00:00:00Z
+          contact: 65c345ba-6870-4974-87ba-dd31509c367a
+          name: Please add more integrations
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 2021-11-10T00:00:00Z
+          parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+          account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          status: OPEN
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/Ticket'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PaginatedUserList:
+      example:
+        next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+        previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+        results:
+        - email_address: help@merge.dev
+          is_active: true
+          teams:
+          - 28b54125-287f-494d-965e-3c5b330c9a68
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_id: "19202938"
+          name: Gil Feig
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          avatar: https://merge.dev/user_profile_pic.png
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        - email_address: help@merge.dev
+          is_active: true
+          teams:
+          - 28b54125-287f-494d-965e-3c5b330c9a68
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_id: "19202938"
+          name: Gil Feig
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          avatar: https://merge.dev/user_profile_pic.png
+          remote_was_deleted: true
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+      properties:
+        next:
+          example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+          nullable: true
+          type: string
+        previous:
+          example: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
+          nullable: true
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/User'
+          type: array
+      type: object
+      x-merge-category: ticketing
+    PatchedTicketEndpointRequest:
+      example:
+        model:
+          ticket_type: incident
+          due_date: 2022-10-11T00:00:00Z
+          assignees:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          description: Can you please add more integrations? It'll make syncing data
+            much easier!
+          project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+          priority: HIGH
+          tags:
+          - enterprise
+          - other-tag
+          remote_updated_at: 2021-12-09T00:00:00Z
+          completed_at: 2021-12-09T00:00:00Z
+          contact: 65c345ba-6870-4974-87ba-dd31509c367a
+          name: Please add more integrations
+          remote_created_at: 2021-11-10T00:00:00Z
+          parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+          account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          status: OPEN
+      properties:
+        model:
+          $ref: '#/components/schemas/PatchedTicketRequest'
+      required:
+      - model
+      type: object
+      x-merge-category: ticketing
+    PatchedTicketRequest:
+      description: |-
+        # The Ticket Object
+        ### Description
+        The `Ticket` object is used to represent a ticket or a task within a system.
+
+        ### Usage Example
+        TODO
+      example:
+        ticket_type: incident
+        due_date: 2022-10-11T00:00:00Z
+        assignees:
+        - 17a54124-287f-494d-965e-3c5b330c9a68
+        description: Can you please add more integrations? It'll make syncing data
+          much easier!
+        project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+        priority: HIGH
+        tags:
+        - enterprise
+        - other-tag
+        remote_updated_at: 2021-12-09T00:00:00Z
+        completed_at: 2021-12-09T00:00:00Z
+        contact: 65c345ba-6870-4974-87ba-dd31509c367a
+        name: Please add more integrations
+        remote_created_at: 2021-11-10T00:00:00Z
+        parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+        account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        status: OPEN
+      properties:
+        name:
+          description: The ticket's name.
+          example: Please add more integrations
+          nullable: true
+          type: string
+        assignees:
+          example:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+        due_date:
+          description: The ticket's due date.
+          example: 2022-10-11T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/TicketStatusEnum'
+          description: The current status of the ticket.
+          example: OPEN
+          nullable: true
+        description:
+          description: The ticket's description.
+          example: Can you please add more integrations? It'll make syncing data much
+            easier!
+          nullable: true
+          type: string
+        project:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          nullable: true
+          type: string
+        ticket_type:
+          description: The ticket's type.
+          example: incident
+          nullable: true
+          type: string
+        account:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          nullable: true
+          type: string
+        contact:
+          example: 65c345ba-6870-4974-87ba-dd31509c367a
+          format: uuid
+          nullable: true
+          type: string
+        parent_ticket:
+          example: 75b33d04-30d2-4f3e-be45-27838bc94342
+          format: uuid
+          nullable: true
+          type: string
+        tags:
+          example:
+          - enterprise
+          - other-tag
+          items:
+            type: string
+          type: array
+        remote_created_at:
+          description: When the third party's ticket was created.
+          example: 2021-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_updated_at:
+          description: When the third party's ticket was updated.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        completed_at:
+          description: When the ticket was completed.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        ticket_url:
+          description: The 3rd party url of the Ticket.
+          example: https://thirdpartysoftware.com/project/3/issue/1
+          format: uri
+          maxLength: 2000
+          nullable: true
+          type: string
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/PriorityEnum'
+          description: 'The priority or urgency of the Ticket. Possible values include:
+            URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping -
+            the original value passed through.'
+          example: HIGH
+          nullable: true
+      type: object
+      x-merge-category: ticketing
+    PriorityEnum:
+      enum:
+      - URGENT
+      - HIGH
+      - NORMAL
+      - LOW
+      type: string
+      x-merge-category: ticketing
+    Project:
+      description: |-
+        # The Project Object
+        ### Description
+        The `Project` object is used to represent all projects within a company.
+
+        ### Usage Example
+        TODO
+      example:
+        remote_id: "19202938"
+        name: Q1 Platform
+        description: For tracking all tasks related to Platform for Q1
+        id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        remote_was_deleted: true
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: 'The project''s name. '
+          example: Q1 Platform
+          nullable: true
+          type: string
+        description:
+          description: The project's description.
+          example: For tracking all tasks related to Platform for Q1
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          type: boolean
+      type: object
+      x-merge-category: ticketing
+    RemoteData:
+      example:
+        path: path
+        data:
+          key: ""
+      properties:
+        path:
+          type: string
+        data:
+          additionalProperties: {}
+          type: object
+      required:
+      - path
+      type: object
+      x-merge-category: ticketing
+    RemoteKey:
+      description: |-
+        # The RemoteKey Object
+        ### Description
+        The `RemoteKey` object is used to represent a request for a new remote key.
+
+        ### Usage Example
+        Post a `GenerateRemoteKey` to receive a new `RemoteKey`.
+      example:
+        name: Remote Deployment Key 1
+        key: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          type: string
+        key:
+          example: hXY57W0g0WkdRHjCaPvwijK63fwfN-o_Wh7f30SLTq_uPCOLo-WFcA
+          type: string
+      required:
+      - key
+      - name
+      type: object
+      x-merge-category: ticketing
+    RemoteKeyForRegenerationRequest:
+      description: |-
+        # The RemoteKeyForRegeneration Object
+        ### Description
+        The `RemoteKeyForRegeneration` object is used to exchange an old remote key for a new one
+
+        ### Usage Example
+        Post a `RemoteKeyForRegeneration` to swap out an old remote key for a new one
+      example:
+        name: Remote Deployment Key 1
+      properties:
+        name:
+          example: Remote Deployment Key 1
+          minLength: 1
+          type: string
+      required:
+      - name
+      type: object
+      x-merge-category: ticketing
+    RemoteResponse:
+      description: |-
+        # The RemoteResponse Object
+        ### Description
+        The `RemoteResponse` object is used to represent information returned from a third-party endpoint.
+
+        ### Usage Example
+        View the `RemoteResponse` returned from your `DataPassthrough`.
+      example:
+        path: /scooters
+        headers:
+          EXTRA-HEADER: value
+          Authorization: <redacted>
+        response_headers:
+          X-Page-Token: value
+        method: GET
+        response:
+          scooters:
+          - company: Lime
+            model: Gen 2.5
+          - company: Bird
+            model: Bird Zero
+        response_type: JSON
+        status: 200
+      properties:
+        method:
+          example: GET
+          type: string
+        path:
+          example: /scooters
+          type: string
+        status:
+          example: 200
+          type: integer
+        response:
+          example:
+            scooters:
+            - company: Lime
+              model: Gen 2.5
+            - company: Bird
+              model: Bird Zero
+        response_headers:
+          additionalProperties: {}
+          example:
+            X-Page-Token: value
+          type: object
+        response_type:
+          allOf:
+          - $ref: '#/components/schemas/ResponseTypeEnum'
+          example: JSON
+        headers:
+          additionalProperties: {}
+          example:
+            EXTRA-HEADER: value
+            Authorization: <redacted>
+          type: object
+      required:
+      - method
+      - path
+      - response
+      - status
+      type: object
+      x-merge-category: ticketing
+    RequestFormatEnum:
+      enum:
+      - JSON
+      - XML
+      - MULTIPART
+      type: string
+      x-merge-category: ticketing
+    ResponseTypeEnum:
+      enum:
+      - JSON
+      - BASE64_GZIP
+      type: string
+      x-merge-category: ticketing
+    SyncStatus:
+      description: |-
+        # The SyncStatus Object
+        ### Description
+        The `SyncStatus` object is used to represent the syncing state of an account
+
+        ### Usage Example
+        View the `SyncStatus` for an account to see how recently its models were synced.
+      example:
+        next_sync_start: 2021-03-30T20:44:18.662942Z
+        model_name: Candidate
+        model_id: ats.Candidate
+        last_sync_start: 2021-03-30T19:44:18.695973Z
+        is_initial_sync: true
+        status: SYNCING
+      properties:
+        model_name:
+          example: Candidate
+          type: string
+        model_id:
+          example: ats.Candidate
+          type: string
+        last_sync_start:
+          example: 2021-03-30T19:44:18.695973Z
+          format: date-time
+          type: string
+        next_sync_start:
+          example: 2021-03-30T20:44:18.662942Z
+          format: date-time
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/SyncStatusStatusEnum'
+          example: SYNCING
+        is_initial_sync:
+          example: true
+          type: boolean
+      required:
+      - is_initial_sync
+      - model_id
+      - model_name
+      - status
+      type: object
+      x-merge-sample-json: '{"model_name": "Candidate", "model_id": "ats.Candidate",
+        "last_sync_start": "2021-03-30T19:44:18.695973Z", "next_sync_start": "2021-03-30T20:44:18.662942Z",
+        "status": "SYNCING", "is_initial_sync": true}'
+      x-merge-category: ticketing
+    SyncStatusStatusEnum:
+      enum:
+      - SYNCING
+      - DONE
+      - FAILED
+      - DISABLED
+      - PAUSED
+      type: string
+      x-merge-category: ticketing
+    Tag:
+      description: |-
+        # The Tag Object
+        ### Description
+        The `Tag` object is used to represent a tag or label for a ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        remote_id: "19202938"
+        name: Ticketing API
+        remote_was_deleted: true
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The tag's name.
+          example: Ticketing API
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          type: boolean
+      type: object
+      x-merge-category: ticketing
+    Team:
+      description: |-
+        # The Team Object
+        ### Description
+        The `Team` object is used to represent a team within the company receiving the ticket.
+
+        ### Usage Example
+        TODO
+      example:
+        remote_id: "19202938"
+        name: Platform
+        description: Platform and Integrations Team
+        id: 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_was_deleted: true
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The team's name.
+          example: Platform
+          nullable: true
+          type: string
+        description:
+          description: The team's description.
+          example: Platform and Integrations Team
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          type: boolean
+      type: object
+      x-merge-expands: '{"parent_team": "Team"}'
+      x-merge-category: ticketing
+    Ticket:
+      description: |-
+        # The Ticket Object
+        ### Description
+        The `Ticket` object is used to represent a ticket or a task within a system.
+
+        ### Usage Example
+        TODO
+      example:
+        ticket_type: incident
+        attachments:
+        - 42747df1-95e7-46e2-93cc-66f1191edca5
+        - 92f972d0-2526-434b-9409-4c3b468e08f0
+        remote_id: "19202938"
+        due_date: 2022-10-11T00:00:00Z
+        assignees:
+        - 17a54124-287f-494d-965e-3c5b330c9a68
+        description: Can you please add more integrations? It'll make syncing data
+          much easier!
+        project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+        priority: HIGH
+        tags:
+        - enterprise
+        - other-tag
+        remote_updated_at: 2021-12-09T00:00:00Z
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+        completed_at: 2021-12-09T00:00:00Z
+        contact: 65c345ba-6870-4974-87ba-dd31509c367a
+        name: Please add more integrations
+        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        remote_was_deleted: true
+        remote_created_at: 2021-11-10T00:00:00Z
+        parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+        account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        status: OPEN
+      properties:
+        id:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The ticket's name.
+          example: Please add more integrations
+          nullable: true
+          type: string
+        assignees:
+          example:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+          x-merge-expands-to: User
+        due_date:
+          description: The ticket's due date.
+          example: 2022-10-11T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/TicketStatusEnum'
+          description: The current status of the ticket.
+          example: OPEN
+          nullable: true
+        description:
+          description: The ticket's description.
+          example: Can you please add more integrations? It'll make syncing data much
+            easier!
+          nullable: true
+          type: string
+        project:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Project
+        ticket_type:
+          description: The ticket's type.
+          example: incident
+          nullable: true
+          type: string
+        account:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Account
+        contact:
+          example: 65c345ba-6870-4974-87ba-dd31509c367a
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Contact
+        parent_ticket:
+          example: 75b33d04-30d2-4f3e-be45-27838bc94342
+          format: uuid
+          nullable: true
+          type: string
+          x-merge-expands-to: Ticket
+        attachments:
+          example:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+          x-merge-expands-to: Attachment
+        tags:
+          example:
+          - enterprise
+          - other-tag
+          items:
+            type: string
+          type: array
+        remote_created_at:
+          description: When the third party's ticket was created.
+          example: 2021-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_updated_at:
+          description: When the third party's ticket was updated.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        completed_at:
+          description: When the ticket was completed.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          readOnly: true
+          type: boolean
+        ticket_url:
+          description: The 3rd party url of the Ticket.
+          example: https://thirdpartysoftware.com/project/3/issue/1
+          format: uri
+          maxLength: 2000
+          nullable: true
+          type: string
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/PriorityEnum'
+          description: 'The priority or urgency of the Ticket. Possible values include:
+            URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping -
+            the original value passed through.'
+          example: HIGH
+          nullable: true
+      type: object
+      x-merge-expands: '{"account": "Account", "assignees": "User", "attachments":
+        "Attachment", "contact": "Contact", "parent_ticket": "Ticket", "project":
+        "Project"}'
+      x-merge-category: ticketing
+    TicketEndpointRequest:
+      example:
+        model:
+          ticket_type: incident
+          attachments:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          remote_id: "19202938"
+          due_date: 2022-10-11T00:00:00Z
+          assignees:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          description: Can you please add more integrations? It'll make syncing data
+            much easier!
+          project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+          priority: HIGH
+          tags:
+          - enterprise
+          - other-tag
+          remote_updated_at: 2021-12-09T00:00:00Z
+          completed_at: 2021-12-09T00:00:00Z
+          contact: 65c345ba-6870-4974-87ba-dd31509c367a
+          name: Please add more integrations
+          remote_created_at: 2021-11-10T00:00:00Z
+          parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+          account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          status: OPEN
+      properties:
+        model:
+          $ref: '#/components/schemas/TicketRequest'
+      required:
+      - model
+      type: object
+      x-merge-category: ticketing
+    TicketRequest:
+      description: |-
+        # The Ticket Object
+        ### Description
+        The `Ticket` object is used to represent a ticket or a task within a system.
+
+        ### Usage Example
+        TODO
+      example:
+        ticket_type: incident
+        attachments:
+        - 42747df1-95e7-46e2-93cc-66f1191edca5
+        - 92f972d0-2526-434b-9409-4c3b468e08f0
+        remote_id: "19202938"
+        due_date: 2022-10-11T00:00:00Z
+        assignees:
+        - 17a54124-287f-494d-965e-3c5b330c9a68
+        description: Can you please add more integrations? It'll make syncing data
+          much easier!
+        project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+        ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+        priority: HIGH
+        tags:
+        - enterprise
+        - other-tag
+        remote_updated_at: 2021-12-09T00:00:00Z
+        completed_at: 2021-12-09T00:00:00Z
+        contact: 65c345ba-6870-4974-87ba-dd31509c367a
+        name: Please add more integrations
+        remote_created_at: 2021-11-10T00:00:00Z
+        parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+        account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        status: OPEN
+      properties:
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The ticket's name.
+          example: Please add more integrations
+          nullable: true
+          type: string
+        assignees:
+          example:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+        due_date:
+          description: The ticket's due date.
+          example: 2022-10-11T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/TicketStatusEnum'
+          description: The current status of the ticket.
+          example: OPEN
+          nullable: true
+        description:
+          description: The ticket's description.
+          example: Can you please add more integrations? It'll make syncing data much
+            easier!
+          nullable: true
+          type: string
+        project:
+          example: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          format: uuid
+          nullable: true
+          type: string
+        ticket_type:
+          description: The ticket's type.
+          example: incident
+          nullable: true
+          type: string
+        account:
+          example: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          format: uuid
+          nullable: true
+          type: string
+        contact:
+          example: 65c345ba-6870-4974-87ba-dd31509c367a
+          format: uuid
+          nullable: true
+          type: string
+        parent_ticket:
+          example: 75b33d04-30d2-4f3e-be45-27838bc94342
+          format: uuid
+          nullable: true
+          type: string
+        attachments:
+          example:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+        tags:
+          example:
+          - enterprise
+          - other-tag
+          items:
+            type: string
+          type: array
+        remote_created_at:
+          description: When the third party's ticket was created.
+          example: 2021-11-10T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        remote_updated_at:
+          description: When the third party's ticket was updated.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        completed_at:
+          description: When the ticket was completed.
+          example: 2021-12-09T00:00:00Z
+          format: date-time
+          nullable: true
+          type: string
+        ticket_url:
+          description: The 3rd party url of the Ticket.
+          example: https://thirdpartysoftware.com/project/3/issue/1
+          format: uri
+          maxLength: 2000
+          nullable: true
+          type: string
+        priority:
+          allOf:
+          - $ref: '#/components/schemas/PriorityEnum'
+          description: 'The priority or urgency of the Ticket. Possible values include:
+            URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping -
+            the original value passed through.'
+          example: HIGH
+          nullable: true
+      type: object
+      x-merge-category: ticketing
+    TicketResponse:
+      example:
+        warnings:
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        model:
+          ticket_type: incident
+          attachments:
+          - 42747df1-95e7-46e2-93cc-66f1191edca5
+          - 92f972d0-2526-434b-9409-4c3b468e08f0
+          remote_id: "19202938"
+          due_date: 2022-10-11T00:00:00Z
+          assignees:
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          description: Can you please add more integrations? It'll make syncing data
+            much easier!
+          project: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
+          ticket_url: https://thirdpartysoftware.com/project/3/issue/1
+          priority: HIGH
+          tags:
+          - enterprise
+          - other-tag
+          remote_updated_at: 2021-12-09T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+          completed_at: 2021-12-09T00:00:00Z
+          contact: 65c345ba-6870-4974-87ba-dd31509c367a
+          name: Please add more integrations
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 2021-11-10T00:00:00Z
+          parent_ticket: 75b33d04-30d2-4f3e-be45-27838bc94342
+          account: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          status: OPEN
+        logs:
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        errors:
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+      properties:
+        model:
+          $ref: '#/components/schemas/Ticket'
+        warnings:
+          items:
+            $ref: '#/components/schemas/WarningValidationProblem'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorValidationProblem'
+          type: array
+        logs:
+          items:
+            $ref: '#/components/schemas/DebugModeLog'
+          type: array
+      required:
+      - errors
+      - model
+      - warnings
+      type: object
+      x-merge-category: ticketing
+    TicketStatusEnum:
+      enum:
+      - OPEN
+      - CLOSED
+      - IN_PROGRESS
+      - ON_HOLD
+      type: string
+      x-merge-category: ticketing
+    TicketingAttachmentEndpointRequest:
+      example:
+        model:
+          file_url: http://alturl.com/p749b
+          uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+          ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          content_type: jpeg
+          file_name: Screenshot.png
+          remote_id: "19202938"
+          remote_created_at: 2022-11-10T00:00:00Z
+      properties:
+        model:
+          $ref: '#/components/schemas/AttachmentRequest'
+      required:
+      - model
+      type: object
+      x-merge-category: ticketing
+    TicketingAttachmentResponse:
+      example:
+        warnings:
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        - problem_type: UNRECOGNIZED_FIELD
+          source:
+            pointer: pointer
+          detail: An unrecognized field, age, was passed in with request data.
+          title: Unrecognized Field
+        model:
+          file_url: http://alturl.com/p749b
+          uploaded_by: 28b54125-287f-494d-965e-3c5b330c9a68
+          ticket: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          content_type: jpeg
+          file_name: Screenshot.png
+          remote_id: "19202938"
+          id: 17a54124-287f-494d-965e-3c5b330c9a68
+          remote_was_deleted: true
+          remote_created_at: 2022-11-10T00:00:00Z
+          remote_data:
+          - path: path
+            data:
+              key: ""
+          - path: path
+            data:
+              key: ""
+        logs:
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
+          dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
+          log_summary:
+            status_code: 200
+            method: POST
+            url: https://harvest.greenhouse.io/v1/candidates/
+        errors:
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+        - problem_type: MISSING_REQUIRED_FIELD
+          source:
+            pointer: pointer
+          detail: custom_fields is a required field on model.
+          title: Missing Required Field
+      properties:
+        model:
+          $ref: '#/components/schemas/Attachment'
+        warnings:
+          items:
+            $ref: '#/components/schemas/WarningValidationProblem'
+          type: array
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorValidationProblem'
+          type: array
+        logs:
+          items:
+            $ref: '#/components/schemas/DebugModeLog'
+          type: array
+      required:
+      - errors
+      - model
+      - warnings
+      type: object
+      x-merge-category: ticketing
+    User:
+      description: |-
+        # The User Object
+        ### Description
+        The `User` object is used to represent an employee within a company.
+
+        ### Usage Example
+        TODO
+      example:
+        email_address: help@merge.dev
+        is_active: true
+        teams:
+        - 28b54125-287f-494d-965e-3c5b330c9a68
+        - 17a54124-287f-494d-965e-3c5b330c9a68
+        remote_id: "19202938"
+        name: Gil Feig
+        id: 17a54124-287f-494d-965e-3c5b330c9a68
+        avatar: https://merge.dev/user_profile_pic.png
+        remote_was_deleted: true
+        remote_data:
+        - path: path
+          data:
+            key: ""
+        - path: path
+          data:
+            key: ""
+      properties:
+        id:
+          example: 17a54124-287f-494d-965e-3c5b330c9a68
+          format: uuid
+          readOnly: true
+          type: string
+        remote_id:
+          description: The third-party API ID of the matching object.
+          example: "19202938"
+          nullable: true
+          type: string
+        name:
+          description: The user's name.
+          example: Gil Feig
+          nullable: true
+          type: string
+        email_address:
+          description: The user's email address.
+          example: help@merge.dev
+          nullable: true
+          type: string
+        is_active:
+          description: Whether or not the user is active.
+          example: true
+          nullable: true
+          type: boolean
+        teams:
+          example:
+          - 28b54125-287f-494d-965e-3c5b330c9a68
+          - 17a54124-287f-494d-965e-3c5b330c9a68
+          items:
+            format: uuid
+            nullable: true
+            type: string
+          type: array
+          x-merge-expands-to: Team
+        avatar:
+          description: The user's avatar picture.
+          example: https://merge.dev/user_profile_pic.png
+          nullable: true
+          type: string
+        remote_data:
+          items:
+            $ref: '#/components/schemas/RemoteData'
+          nullable: true
+          readOnly: true
+          type: array
+        remote_was_deleted:
+          description: Indicates whether or not this object has been deleted by third
+            party webhooks.
+          readOnly: true
+          type: boolean
+      type: object
+      x-merge-expands: '{"teams": "Team"}'
+      x-merge-category: ticketing
+    ValidationProblemSource:
+      example:
+        pointer: pointer
+      properties:
+        pointer:
+          type: string
+      required:
+      - pointer
+      type: object
+      x-merge-category: ticketing
+    WarningValidationProblem:
+      example:
+        problem_type: UNRECOGNIZED_FIELD
+        source:
+          pointer: pointer
+        detail: An unrecognized field, age, was passed in with request data.
+        title: Unrecognized Field
+      properties:
+        source:
+          $ref: '#/components/schemas/ValidationProblemSource'
+        title:
+          example: Unrecognized Field
+          type: string
+        detail:
+          example: An unrecognized field, age, was passed in with request data.
+          type: string
+        problem_type:
+          example: UNRECOGNIZED_FIELD
+          type: string
+      required:
+      - detail
+      - problem_type
+      - title
+      type: object
+      x-merge-category: ticketing
+    WebhookReceiver:
+      example:
+        is_active: true
+        event: event
+        key: key
+      properties:
+        event:
+          type: string
+        is_active:
+          type: boolean
+        key:
+          type: string
+      required:
+      - event
+      - is_active
+      type: object
+      x-merge-category: ticketing
+    WebhookReceiverRequest:
+      example:
+        is_active: true
+        event: event
+        key: key
+      properties:
+        event:
+          minLength: 1
+          type: string
+        is_active:
+          type: boolean
+        key:
+          minLength: 1
+          type: string
+      required:
+      - event
+      - is_active
+      type: object
+      x-merge-category: ticketing
+  securitySchemes:
+    tokenAuth:
+      description: Token-based authentication with required prefix "Bearer"
+      in: header
+      name: Authorization
+      type: apiKey
