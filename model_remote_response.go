@@ -24,8 +24,8 @@ type RemoteResponse struct {
 	ResponseHeaders *map[string]interface{} `json:"response_headers,omitempty"`
 	ResponseType *ResponseTypeEnum `json:"response_type,omitempty"`
 	Headers *map[string]interface{} `json:"headers,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewRemoteResponse instantiates a new RemoteResponse object

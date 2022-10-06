@@ -18,8 +18,8 @@ import (
 // CommentEndpointRequest struct for CommentEndpointRequest
 type CommentEndpointRequest struct {
 	Model CommentRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewCommentEndpointRequest instantiates a new CommentEndpointRequest object

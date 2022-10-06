@@ -18,8 +18,8 @@ import (
 // TicketingAttachmentEndpointRequest struct for TicketingAttachmentEndpointRequest
 type TicketingAttachmentEndpointRequest struct {
 	Model AttachmentRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTicketingAttachmentEndpointRequest instantiates a new TicketingAttachmentEndpointRequest object

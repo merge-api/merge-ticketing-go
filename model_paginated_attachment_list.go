@@ -20,8 +20,8 @@ type PaginatedAttachmentList struct {
 	Next NullableString `json:"next,omitempty"`
 	Previous NullableString `json:"previous,omitempty"`
 	Results *[]Attachment `json:"results,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPaginatedAttachmentList instantiates a new PaginatedAttachmentList object

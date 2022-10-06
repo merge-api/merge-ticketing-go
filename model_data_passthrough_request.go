@@ -27,8 +27,8 @@ type DataPassthroughRequest struct {
 	Headers map[string]interface{} `json:"headers,omitempty"`
 	RequestFormat NullableRequestFormatEnum `json:"request_format,omitempty"`
 	NormalizeResponse *bool `json:"normalize_response,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewDataPassthroughRequest instantiates a new DataPassthroughRequest object

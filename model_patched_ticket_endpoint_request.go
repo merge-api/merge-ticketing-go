@@ -18,8 +18,8 @@ import (
 // PatchedTicketEndpointRequest struct for PatchedTicketEndpointRequest
 type PatchedTicketEndpointRequest struct {
 	Model PatchedTicketRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewPatchedTicketEndpointRequest instantiates a new PatchedTicketEndpointRequest object

@@ -24,8 +24,8 @@ type SyncStatus struct {
 	NextSyncStart *time.Time `json:"next_sync_start,omitempty"`
 	Status SyncStatusStatusEnum `json:"status"`
 	IsInitialSync bool `json:"is_initial_sync"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewSyncStatus instantiates a new SyncStatus object

@@ -27,8 +27,8 @@ type MultipartFormFieldRequest struct {
 	FileName NullableString `json:"file_name,omitempty"`
 	// The MIME type of the file, if the field is for a file.
 	ContentType NullableString `json:"content_type,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewMultipartFormFieldRequest instantiates a new MultipartFormFieldRequest object

@@ -18,8 +18,8 @@ import (
 // TicketEndpointRequest struct for TicketEndpointRequest
 type TicketEndpointRequest struct {
 	Model TicketRequest `json:"model"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTicketEndpointRequest instantiates a new TicketEndpointRequest object

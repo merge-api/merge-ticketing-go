@@ -25,8 +25,8 @@ type Issue struct {
 	FirstIncidentTime NullableTime `json:"first_incident_time,omitempty"`
 	LastIncidentTime NullableTime `json:"last_incident_time,omitempty"`
 	IsMuted *bool `json:"is_muted,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewIssue instantiates a new Issue object

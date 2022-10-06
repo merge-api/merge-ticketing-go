@@ -31,8 +31,8 @@ type CommentRequest struct {
 	IsPrivate NullableBool `json:"is_private,omitempty"`
 	// When the third party's comment was created.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewCommentRequest instantiates a new CommentRequest object

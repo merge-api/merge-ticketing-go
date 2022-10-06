@@ -47,8 +47,8 @@ type TicketRequest struct {
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
 	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewTicketRequest instantiates a new TicketRequest object

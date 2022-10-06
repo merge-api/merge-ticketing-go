@@ -20,8 +20,8 @@ type LinkToken struct {
 	LinkToken string `json:"link_token"`
 	IntegrationName string `json:"integration_name"`
 	MagicLinkUrl *string `json:"magic_link_url,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewLinkToken instantiates a new LinkToken object

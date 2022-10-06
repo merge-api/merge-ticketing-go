@@ -31,8 +31,8 @@ type EndUserDetailsRequest struct {
 	LinkExpiryMins *int32 `json:"link_expiry_mins,omitempty"`
 	// Whether to generate a Magic Link URL. Defaults to false. For more information on Magic Link, see https://merge.dev/blog/product/integrations,-fast.-say-hello-to-magic-link/.
 	ShouldCreateMagicLinkUrl NullableBool `json:"should_create_magic_link_url,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewEndUserDetailsRequest instantiates a new EndUserDetailsRequest object

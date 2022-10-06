@@ -21,8 +21,8 @@ type MetaResponse struct {
 	Status *LinkedAccountStatus `json:"status,omitempty"`
 	HasConditionalParams bool `json:"has_conditional_params"`
 	HasRequiredLinkedAccountParams bool `json:"has_required_linked_account_params"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewMetaResponse instantiates a new MetaResponse object

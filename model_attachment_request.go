@@ -30,8 +30,8 @@ type AttachmentRequest struct {
 	UploadedBy NullableString `json:"uploaded_by,omitempty"`
 	// When the third party's attachment was created.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-    // raw json response by property name
-    ResponseRaw map[string]json.RawMessage `json:"-"`
+	// raw json response by property name
+	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
 
 // NewAttachmentRequest instantiates a new AttachmentRequest object
