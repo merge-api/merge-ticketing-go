@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Avatar** | Pointer to **NullableString** | The user&#39;s avatar picture. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -318,6 +319,41 @@ SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
 HasRemoteWasDeleted returns a boolean if a field has been set.
 
+### GetFieldMappings
+
+`func (o *User) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *User) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *User) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *User) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *User) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *User) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

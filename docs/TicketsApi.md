@@ -4,7 +4,7 @@ All URIs are relative to *https://api.merge.dev/api/ticketing/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**TicketsCollaboratorsList**](TicketsApi.md#TicketsCollaboratorsList) | **Get** /tickets/{id}/collaborators | 
+[**TicketsCollaboratorsList**](TicketsApi.md#TicketsCollaboratorsList) | **Get** /tickets/{parent_id}/collaborators | 
 [**TicketsCreate**](TicketsApi.md#TicketsCreate) | **Post** /tickets | 
 [**TicketsList**](TicketsApi.md#TicketsList) | **Get** /tickets | 
 [**TicketsMetaPatchRetrieve**](TicketsApi.md#TicketsMetaPatchRetrieve) | **Get** /tickets/meta/patch/{id} | 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## TicketsCollaboratorsList
 
-> PaginatedUserList TicketsCollaboratorsList(ctx, id).XAccountToken(xAccountToken).Cursor(cursor).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+> PaginatedUserList TicketsCollaboratorsList(ctx, parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
 
 
 
@@ -36,14 +36,15 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    id := TODO // string | 
+    parentId := TODO // string | 
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TicketsApi.TicketsCollaboratorsList(context.Background(), id).XAccountToken(xAccountToken).Cursor(cursor).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+    resp, r, err := api_client.TicketsApi.TicketsCollaboratorsList(context.Background(), parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TicketsApi.TicketsCollaboratorsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,7 +60,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | [**string**](.md) |  | 
+**parentId** | [**string**](.md) |  | 
 
 ### Other Parameters
 
@@ -71,6 +72,7 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **cursor** | **string** | The pagination cursor value. | 
+ **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **pageSize** | **int32** | Number of results to return per page. | 
 
@@ -166,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## TicketsList
 
-> PaginatedTicketList TicketsList(ctx).XAccountToken(xAccountToken).AccountId(accountId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).ProjectId(projectId).RemoteFields(remoteFields).RemoteId(remoteId).Execute()
+> PaginatedTicketList TicketsList(ctx).XAccountToken(xAccountToken).AccountId(accountId).AssigneeIds(assigneeIds).CollectionIds(collectionIds).CompletedAfter(completedAfter).CompletedBefore(completedBefore).ContactId(contactId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DueAfter(dueAfter).DueBefore(dueBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).ParentTicketId(parentTicketId).Priority(priority).ProjectId(projectId).RemoteCreatedAfter(remoteCreatedAfter).RemoteCreatedBefore(remoteCreatedBefore).RemoteFields(remoteFields).RemoteId(remoteId).RemoteUpdatedAfter(remoteUpdatedAfter).RemoteUpdatedBefore(remoteUpdatedBefore).ShowEnumOrigins(showEnumOrigins).Status(status).Tags(tags).TicketType(ticketType).Execute()
 
 
 
@@ -188,21 +190,38 @@ import (
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     accountId := "accountId_example" // string | If provided, will only return tickets for this account. (optional)
+    assigneeIds := "assigneeIds_example" // string | If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. (optional)
+    collectionIds := "collectionIds_example" // string | If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. (optional)
+    completedAfter := time.Now() // time.Time | If provided, will only return tickets completed after this datetime. (optional)
+    completedBefore := time.Now() // time.Time | If provided, will only return tickets completed before this datetime. (optional)
+    contactId := "contactId_example" // string | If provided, will only return tickets for this contact. (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    dueAfter := time.Now() // time.Time | If provided, will only return tickets due after this datetime. (optional)
+    dueBefore := time.Now() // time.Time | If provided, will only return tickets due before this datetime. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
     modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
+    parentTicketId := "parentTicketId_example" // string | If provided, will only return sub tickets of the parent_ticket_id. (optional)
+    priority := "priority_example" // string | If provided, will only return tickets of this priority. (optional)
     projectId := "projectId_example" // string | If provided, will only return tickets for this project. (optional)
-    remoteFields := "status" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteCreatedAfter := time.Now() // time.Time | If provided, will only return tickets created in the third party platform after this datetime. (optional)
+    remoteCreatedBefore := time.Now() // time.Time | If provided, will only return tickets created in the third party platform before this datetime. (optional)
+    remoteFields := "priority,status,ticket_type" // string | Deprecated. Use show_enum_origins. (optional)
     remoteId := "remoteId_example" // string | The API provider's ID for the given object. (optional)
+    remoteUpdatedAfter := time.Now() // time.Time | If provided, will only return tickets updated in the third party platform after this datetime. (optional)
+    remoteUpdatedBefore := time.Now() // time.Time | If provided, will only return tickets updated in the third party platform before this datetime. (optional)
+    showEnumOrigins := "priority,status,ticket_type" // string | Which fields should be returned in non-normalized form. (optional)
+    status := "status_example" // string | If provided, will only return tickets of this status. (optional)
+    tags := "tags_example" // string | If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional)
+    ticketType := "ticketType_example" // string | If provided, will only return tickets of this type. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TicketsApi.TicketsList(context.Background()).XAccountToken(xAccountToken).AccountId(accountId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).ProjectId(projectId).RemoteFields(remoteFields).RemoteId(remoteId).Execute()
+    resp, r, err := api_client.TicketsApi.TicketsList(context.Background()).XAccountToken(xAccountToken).AccountId(accountId).AssigneeIds(assigneeIds).CollectionIds(collectionIds).CompletedAfter(completedAfter).CompletedBefore(completedBefore).ContactId(contactId).CreatedAfter(createdAfter).CreatedBefore(createdBefore).Cursor(cursor).DueAfter(dueAfter).DueBefore(dueBefore).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).ModifiedAfter(modifiedAfter).ModifiedBefore(modifiedBefore).PageSize(pageSize).ParentTicketId(parentTicketId).Priority(priority).ProjectId(projectId).RemoteCreatedAfter(remoteCreatedAfter).RemoteCreatedBefore(remoteCreatedBefore).RemoteFields(remoteFields).RemoteId(remoteId).RemoteUpdatedAfter(remoteUpdatedAfter).RemoteUpdatedBefore(remoteUpdatedBefore).ShowEnumOrigins(showEnumOrigins).Status(status).Tags(tags).TicketType(ticketType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TicketsApi.TicketsList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -225,17 +244,34 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
  **accountId** | **string** | If provided, will only return tickets for this account. | 
+ **assigneeIds** | **string** | If provided, will only return tickets assigned to the assignee_ids; multiple assignee_ids can be separated by commas. | 
+ **collectionIds** | **string** | If provided, will only return tickets assigned to the collection_ids; multiple collection_ids can be separated by commas. | 
+ **completedAfter** | **time.Time** | If provided, will only return tickets completed after this datetime. | 
+ **completedBefore** | **time.Time** | If provided, will only return tickets completed before this datetime. | 
+ **contactId** | **string** | If provided, will only return tickets for this contact. | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
+ **dueAfter** | **time.Time** | If provided, will only return tickets due after this datetime. | 
+ **dueBefore** | **time.Time** | If provided, will only return tickets due before this datetime. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
  **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
  **pageSize** | **int32** | Number of results to return per page. | 
+ **parentTicketId** | **string** | If provided, will only return sub tickets of the parent_ticket_id. | 
+ **priority** | **string** | If provided, will only return tickets of this priority. | 
  **projectId** | **string** | If provided, will only return tickets for this project. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteCreatedAfter** | **time.Time** | If provided, will only return tickets created in the third party platform after this datetime. | 
+ **remoteCreatedBefore** | **time.Time** | If provided, will only return tickets created in the third party platform before this datetime. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
  **remoteId** | **string** | The API provider&#39;s ID for the given object. | 
+ **remoteUpdatedAfter** | **time.Time** | If provided, will only return tickets updated in the third party platform after this datetime. | 
+ **remoteUpdatedBefore** | **time.Time** | If provided, will only return tickets updated in the third party platform before this datetime. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
+ **status** | **string** | If provided, will only return tickets of this status. | 
+ **tags** | **string** | If provided, will only return tickets matching the tags; multiple tags can be separated by commas. | 
+ **ticketType** | **string** | If provided, will only return tickets of this type. | 
 
 ### Return type
 
@@ -399,6 +435,8 @@ Name | Type | Description  | Notes
 
 
 
+
+
 ### Example
 
 ```go
@@ -471,7 +509,7 @@ Name | Type | Description  | Notes
 
 ## TicketsRetrieve
 
-> Ticket TicketsRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+> Ticket TicketsRetrieve(ctx, id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
 
 
 
@@ -493,11 +531,12 @@ func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
     id := TODO // string | 
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    remoteFields := "status" // string | Which fields should be returned in non-normalized form. (optional)
+    remoteFields := "priority,status,ticket_type" // string | Deprecated. Use show_enum_origins. (optional)
+    showEnumOrigins := "priority,status,ticket_type" // string | Which fields should be returned in non-normalized form. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TicketsApi.TicketsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).Execute()
+    resp, r, err := api_client.TicketsApi.TicketsRetrieve(context.Background(), id).XAccountToken(xAccountToken).IncludeRemoteData(includeRemoteData).RemoteFields(remoteFields).ShowEnumOrigins(showEnumOrigins).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TicketsApi.TicketsRetrieve``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -525,7 +564,8 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **remoteFields** | **string** | Which fields should be returned in non-normalized form. | 
+ **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 
+ **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
 
 ### Return type
 

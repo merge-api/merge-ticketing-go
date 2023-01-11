@@ -59,7 +59,11 @@ type APIClient struct {
 
 	AvailableActionsApi *AvailableActionsApiService
 
+	CollectionsApi *CollectionsApiService
+
 	CommentsApi *CommentsApiService
+
+	CommonModelScopesApi *CommonModelScopesApiService
 
 	ContactsApi *ContactsApiService
 
@@ -80,6 +84,8 @@ type APIClient struct {
 	ProjectsApi *ProjectsApiService
 
 	RegenerateKeyApi *RegenerateKeyApiService
+
+	SelectiveSyncApi *SelectiveSyncApiService
 
 	SyncStatusApi *SyncStatusApiService
 
@@ -115,7 +121,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AccountsApi = (*AccountsApiService)(&c.common)
 	c.AttachmentsApi = (*AttachmentsApiService)(&c.common)
 	c.AvailableActionsApi = (*AvailableActionsApiService)(&c.common)
+	c.CollectionsApi = (*CollectionsApiService)(&c.common)
 	c.CommentsApi = (*CommentsApiService)(&c.common)
+	c.CommonModelScopesApi = (*CommonModelScopesApiService)(&c.common)
 	c.ContactsApi = (*ContactsApiService)(&c.common)
 	c.DeleteAccountApi = (*DeleteAccountApiService)(&c.common)
 	c.ForceResyncApi = (*ForceResyncApiService)(&c.common)
@@ -126,6 +134,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.PassthroughApi = (*PassthroughApiService)(&c.common)
 	c.ProjectsApi = (*ProjectsApiService)(&c.common)
 	c.RegenerateKeyApi = (*RegenerateKeyApiService)(&c.common)
+	c.SelectiveSyncApi = (*SelectiveSyncApiService)(&c.common)
 	c.SyncStatusApi = (*SyncStatusApiService)(&c.common)
 	c.TagsApi = (*TagsApiService)(&c.common)
 	c.TeamsApi = (*TeamsApiService)(&c.common)

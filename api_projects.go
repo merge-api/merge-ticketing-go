@@ -367,8 +367,9 @@ type ApiProjectsUsersListRequest struct {
 	ctx _context.Context
 	ApiService *ProjectsApiService
 	xAccountToken *string
-	id string
+	parentId string
 	cursor *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	pageSize *int32
 }
@@ -379,6 +380,10 @@ func (r ApiProjectsUsersListRequest) XAccountToken(xAccountToken string) ApiProj
 }
 func (r ApiProjectsUsersListRequest) Cursor(cursor string) ApiProjectsUsersListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiProjectsUsersListRequest) IncludeDeletedData(includeDeletedData bool) ApiProjectsUsersListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiProjectsUsersListRequest) IncludeRemoteData(includeRemoteData bool) ApiProjectsUsersListRequest {
@@ -396,16 +401,16 @@ func (r ApiProjectsUsersListRequest) Execute() (PaginatedUserList, *_nethttp.Res
 
 /*
  * ProjectsUsersList Method for ProjectsUsersList
- * Returns a `User` object with the given `id`.
+ * Returns a list of `User` objects.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id
+ * @param parentId
  * @return ApiProjectsUsersListRequest
  */
-func (a *ProjectsApiService) ProjectsUsersList(ctx _context.Context, id string) ApiProjectsUsersListRequest {
+func (a *ProjectsApiService) ProjectsUsersList(ctx _context.Context, parentId string) ApiProjectsUsersListRequest {
 	return ApiProjectsUsersListRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		parentId: parentId,
 	}
 }
 
@@ -428,8 +433,8 @@ func (a *ProjectsApiService) ProjectsUsersListExecute(r ApiProjectsUsersListRequ
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/projects/{id}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/projects/{parent_id}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"parent_id"+"}", _neturl.PathEscape(parameterToString(r.parentId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -440,6 +445,9 @@ func (a *ProjectsApiService) ProjectsUsersListExecute(r ApiProjectsUsersListRequ
 
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))

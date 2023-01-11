@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **NextSyncStart** | Pointer to **time.Time** |  | [optional] 
 **Status** | [**SyncStatusStatusEnum**](SyncStatusStatusEnum.md) |  | 
 **IsInitialSync** | **bool** |  | 
+**SelectiveSyncConfigurationsUsage** | Pointer to [**SelectiveSyncConfigurationsUsageEnum**](SelectiveSyncConfigurationsUsageEnum.md) |  | [optional] 
 
 ## Methods
 
@@ -159,6 +160,31 @@ and a boolean to check if the value has been set.
 
 SetIsInitialSync sets IsInitialSync field to given value.
 
+
+### GetSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) GetSelectiveSyncConfigurationsUsage() SelectiveSyncConfigurationsUsageEnum`
+
+GetSelectiveSyncConfigurationsUsage returns the SelectiveSyncConfigurationsUsage field if non-nil, zero value otherwise.
+
+### GetSelectiveSyncConfigurationsUsageOk
+
+`func (o *SyncStatus) GetSelectiveSyncConfigurationsUsageOk() (*SelectiveSyncConfigurationsUsageEnum, bool)`
+
+GetSelectiveSyncConfigurationsUsageOk returns a tuple with the SelectiveSyncConfigurationsUsage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) SetSelectiveSyncConfigurationsUsage(v SelectiveSyncConfigurationsUsageEnum)`
+
+SetSelectiveSyncConfigurationsUsage sets SelectiveSyncConfigurationsUsage field to given value.
+
+### HasSelectiveSyncConfigurationsUsage
+
+`func (o *SyncStatus) HasSelectiveSyncConfigurationsUsage() bool`
+
+HasSelectiveSyncConfigurationsUsage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

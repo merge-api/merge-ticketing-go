@@ -25,6 +25,7 @@ type Issue struct {
 	FirstIncidentTime NullableTime `json:"first_incident_time,omitempty"`
 	LastIncidentTime NullableTime `json:"last_incident_time,omitempty"`
 	IsMuted *bool `json:"is_muted,omitempty"`
+	ErrorDetails *map[string]interface{} `json:"error_details,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -283,6 +284,38 @@ func (o *Issue) SetIsMuted(v bool) {
 	o.IsMuted = &v
 }
 
+// GetErrorDetails returns the ErrorDetails field value if set, zero value otherwise.
+func (o *Issue) GetErrorDetails() map[string]interface{} {
+	if o == nil || o.ErrorDetails == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return *o.ErrorDetails
+}
+
+// GetErrorDetailsOk returns a tuple with the ErrorDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Issue) GetErrorDetailsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.ErrorDetails == nil {
+		return nil, false
+	}
+	return o.ErrorDetails, true
+}
+
+// HasErrorDetails returns a boolean if a field has been set.
+func (o *Issue) HasErrorDetails() bool {
+	if o != nil && o.ErrorDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorDetails gets a reference to the given map[string]interface{} and assigns it to the ErrorDetails field.
+func (o *Issue) SetErrorDetails(v map[string]interface{}) {
+	o.ErrorDetails = &v
+}
+
 func (o Issue) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -305,6 +338,9 @@ func (o Issue) MarshalJSON() ([]byte, error) {
 	}
 	if o.IsMuted != nil {
 		toSerialize["is_muted"] = o.IsMuted
+	}
+	if o.ErrorDetails != nil {
+		toSerialize["error_details"] = o.ErrorDetails
 	}
 	return json.Marshal(toSerialize)
 }

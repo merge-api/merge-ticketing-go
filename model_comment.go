@@ -21,12 +21,15 @@ type Comment struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The author of the Comment, if the author is a User.
 	User NullableString `json:"user,omitempty"`
+	// The author of the Comment, if the author is a Contact.
 	Contact NullableString `json:"contact,omitempty"`
 	// The comment's text body.
 	Body NullableString `json:"body,omitempty"`
 	// The comment's text body formatted as html.
 	HtmlBody NullableString `json:"html_body,omitempty"`
+	// The ticket associated with the comment. 
 	Ticket NullableString `json:"ticket,omitempty"`
 	// Whether or not the comment is internal.
 	IsPrivate NullableBool `json:"is_private,omitempty"`
@@ -34,6 +37,7 @@ type Comment struct {
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -488,6 +492,39 @@ func (o *Comment) SetRemoteWasDeleted(v bool) {
 	o.RemoteWasDeleted = &v
 }
 
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Comment) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Comment) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Comment) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *Comment) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
 func (o Comment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -522,6 +559,9 @@ func (o Comment) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
 	}
 	return json.Marshal(toSerialize)
 }

@@ -27,6 +27,7 @@ type Team struct {
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -271,6 +272,39 @@ func (o *Team) SetRemoteWasDeleted(v bool) {
 	o.RemoteWasDeleted = &v
 }
 
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Team) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Team) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Team) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *Team) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
 func (o Team) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -290,6 +324,9 @@ func (o Team) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
 	}
 	return json.Marshal(toSerialize)
 }

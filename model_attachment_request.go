@@ -22,14 +22,18 @@ type AttachmentRequest struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The attachment's name.
 	FileName NullableString `json:"file_name,omitempty"`
+	// The ticket associated with the attachment.
 	Ticket NullableString `json:"ticket,omitempty"`
 	// The attachment's url.
 	FileUrl NullableString `json:"file_url,omitempty"`
 	// The attachment's file format.
 	ContentType NullableString `json:"content_type,omitempty"`
+	// The user who uploaded the attachment.
 	UploadedBy NullableString `json:"uploaded_by,omitempty"`
 	// When the third party's attachment was created.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
+	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
+	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -345,6 +349,72 @@ func (o *AttachmentRequest) UnsetRemoteCreatedAt() {
 	o.RemoteCreatedAt.Unset()
 }
 
+// GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AttachmentRequest) GetIntegrationParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.IntegrationParams
+}
+
+// GetIntegrationParamsOk returns a tuple with the IntegrationParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AttachmentRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.IntegrationParams == nil {
+		return nil, false
+	}
+	return &o.IntegrationParams, true
+}
+
+// HasIntegrationParams returns a boolean if a field has been set.
+func (o *AttachmentRequest) HasIntegrationParams() bool {
+	if o != nil && o.IntegrationParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationParams gets a reference to the given map[string]interface{} and assigns it to the IntegrationParams field.
+func (o *AttachmentRequest) SetIntegrationParams(v map[string]interface{}) {
+	o.IntegrationParams = v
+}
+
+// GetLinkedAccountParams returns the LinkedAccountParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AttachmentRequest) GetLinkedAccountParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.LinkedAccountParams
+}
+
+// GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AttachmentRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.LinkedAccountParams == nil {
+		return nil, false
+	}
+	return &o.LinkedAccountParams, true
+}
+
+// HasLinkedAccountParams returns a boolean if a field has been set.
+func (o *AttachmentRequest) HasLinkedAccountParams() bool {
+	if o != nil && o.LinkedAccountParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedAccountParams gets a reference to the given map[string]interface{} and assigns it to the LinkedAccountParams field.
+func (o *AttachmentRequest) SetLinkedAccountParams(v map[string]interface{}) {
+	o.LinkedAccountParams = v
+}
+
 func (o AttachmentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RemoteId.IsSet() {
@@ -367,6 +437,12 @@ func (o AttachmentRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteCreatedAt.IsSet() {
 		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
+	}
+	if o.IntegrationParams != nil {
+		toSerialize["integration_params"] = o.IntegrationParams
+	}
+	if o.LinkedAccountParams != nil {
+		toSerialize["linked_account_params"] = o.LinkedAccountParams
 	}
 	return json.Marshal(toSerialize)
 }

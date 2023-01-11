@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **FirstIncidentTime** | Pointer to **NullableTime** |  | [optional] 
 **LastIncidentTime** | Pointer to **NullableTime** |  | [optional] 
 **IsMuted** | Pointer to **bool** |  | [optional] [readonly] 
+**ErrorDetails** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -220,6 +221,31 @@ SetIsMuted sets IsMuted field to given value.
 `func (o *Issue) HasIsMuted() bool`
 
 HasIsMuted returns a boolean if a field has been set.
+
+### GetErrorDetails
+
+`func (o *Issue) GetErrorDetails() map[string]interface{}`
+
+GetErrorDetails returns the ErrorDetails field if non-nil, zero value otherwise.
+
+### GetErrorDetailsOk
+
+`func (o *Issue) GetErrorDetailsOk() (*map[string]interface{}, bool)`
+
+GetErrorDetailsOk returns a tuple with the ErrorDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetErrorDetails
+
+`func (o *Issue) SetErrorDetails(v map[string]interface{})`
+
+SetErrorDetails sets ErrorDetails field to given value.
+
+### HasErrorDetails
+
+`func (o *Issue) HasErrorDetails() bool`
+
+HasErrorDetails returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

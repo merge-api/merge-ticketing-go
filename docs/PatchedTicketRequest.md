@@ -6,20 +6,24 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **NullableString** | The ticket&#39;s name. | [optional] 
 **Assignees** | Pointer to **[]string** |  | [optional] 
+**Creator** | Pointer to **NullableString** | The user who created this ticket. | [optional] 
 **DueDate** | Pointer to **NullableTime** | The ticket&#39;s due date. | [optional] 
 **Status** | Pointer to [**NullableTicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket. | [optional] 
-**Description** | Pointer to **NullableString** | The ticket&#39;s description. | [optional] 
-**Project** | Pointer to **NullableString** |  | [optional] 
+**Description** | Pointer to **NullableString** | The ticket’s description. HTML version of description is mapped if supported by the third-party platform. | [optional] 
+**Project** | Pointer to **NullableString** | The project the ticket belongs to. | [optional] 
+**Collections** | Pointer to **[]string** |  | [optional] 
 **TicketType** | Pointer to **NullableString** | The ticket&#39;s type. | [optional] 
-**Account** | Pointer to **NullableString** |  | [optional] 
-**Contact** | Pointer to **NullableString** |  | [optional] 
-**ParentTicket** | Pointer to **NullableString** |  | [optional] 
+**Account** | Pointer to **NullableString** | The account associated with the ticket. | [optional] 
+**Contact** | Pointer to **NullableString** | The contact associated with the ticket. | [optional] 
+**ParentTicket** | Pointer to **NullableString** | The ticket&#39;s parent ticket. | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was created. | [optional] 
 **RemoteUpdatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was updated. | [optional] 
 **CompletedAt** | Pointer to **NullableTime** | When the ticket was completed. | [optional] 
 **TicketUrl** | Pointer to **NullableString** | The 3rd party url of the Ticket. | [optional] 
 **Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. | [optional] 
+**IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -100,6 +104,41 @@ SetAssignees sets Assignees field to given value.
 
 HasAssignees returns a boolean if a field has been set.
 
+### GetCreator
+
+`func (o *PatchedTicketRequest) GetCreator() string`
+
+GetCreator returns the Creator field if non-nil, zero value otherwise.
+
+### GetCreatorOk
+
+`func (o *PatchedTicketRequest) GetCreatorOk() (*string, bool)`
+
+GetCreatorOk returns a tuple with the Creator field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreator
+
+`func (o *PatchedTicketRequest) SetCreator(v string)`
+
+SetCreator sets Creator field to given value.
+
+### HasCreator
+
+`func (o *PatchedTicketRequest) HasCreator() bool`
+
+HasCreator returns a boolean if a field has been set.
+
+### SetCreatorNil
+
+`func (o *PatchedTicketRequest) SetCreatorNil(b bool)`
+
+ SetCreatorNil sets the value for Creator to be an explicit nil
+
+### UnsetCreator
+`func (o *PatchedTicketRequest) UnsetCreator()`
+
+UnsetCreator ensures that no value is present for Creator, not even an explicit nil
 ### GetDueDate
 
 `func (o *PatchedTicketRequest) GetDueDate() time.Time`
@@ -240,6 +279,31 @@ HasProject returns a boolean if a field has been set.
 `func (o *PatchedTicketRequest) UnsetProject()`
 
 UnsetProject ensures that no value is present for Project, not even an explicit nil
+### GetCollections
+
+`func (o *PatchedTicketRequest) GetCollections() []string`
+
+GetCollections returns the Collections field if non-nil, zero value otherwise.
+
+### GetCollectionsOk
+
+`func (o *PatchedTicketRequest) GetCollectionsOk() (*[]string, bool)`
+
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollections
+
+`func (o *PatchedTicketRequest) SetCollections(v []string)`
+
+SetCollections sets Collections field to given value.
+
+### HasCollections
+
+`func (o *PatchedTicketRequest) HasCollections() bool`
+
+HasCollections returns a boolean if a field has been set.
+
 ### GetTicketType
 
 `func (o *PatchedTicketRequest) GetTicketType() string`
@@ -580,6 +644,76 @@ HasPriority returns a boolean if a field has been set.
 `func (o *PatchedTicketRequest) UnsetPriority()`
 
 UnsetPriority ensures that no value is present for Priority, not even an explicit nil
+### GetIntegrationParams
+
+`func (o *PatchedTicketRequest) GetIntegrationParams() map[string]interface{}`
+
+GetIntegrationParams returns the IntegrationParams field if non-nil, zero value otherwise.
+
+### GetIntegrationParamsOk
+
+`func (o *PatchedTicketRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool)`
+
+GetIntegrationParamsOk returns a tuple with the IntegrationParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationParams
+
+`func (o *PatchedTicketRequest) SetIntegrationParams(v map[string]interface{})`
+
+SetIntegrationParams sets IntegrationParams field to given value.
+
+### HasIntegrationParams
+
+`func (o *PatchedTicketRequest) HasIntegrationParams() bool`
+
+HasIntegrationParams returns a boolean if a field has been set.
+
+### SetIntegrationParamsNil
+
+`func (o *PatchedTicketRequest) SetIntegrationParamsNil(b bool)`
+
+ SetIntegrationParamsNil sets the value for IntegrationParams to be an explicit nil
+
+### UnsetIntegrationParams
+`func (o *PatchedTicketRequest) UnsetIntegrationParams()`
+
+UnsetIntegrationParams ensures that no value is present for IntegrationParams, not even an explicit nil
+### GetLinkedAccountParams
+
+`func (o *PatchedTicketRequest) GetLinkedAccountParams() map[string]interface{}`
+
+GetLinkedAccountParams returns the LinkedAccountParams field if non-nil, zero value otherwise.
+
+### GetLinkedAccountParamsOk
+
+`func (o *PatchedTicketRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool)`
+
+GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedAccountParams
+
+`func (o *PatchedTicketRequest) SetLinkedAccountParams(v map[string]interface{})`
+
+SetLinkedAccountParams sets LinkedAccountParams field to given value.
+
+### HasLinkedAccountParams
+
+`func (o *PatchedTicketRequest) HasLinkedAccountParams() bool`
+
+HasLinkedAccountParams returns a boolean if a field has been set.
+
+### SetLinkedAccountParamsNil
+
+`func (o *PatchedTicketRequest) SetLinkedAccountParamsNil(b bool)`
+
+ SetLinkedAccountParamsNil sets the value for LinkedAccountParams to be an explicit nil
+
+### UnsetLinkedAccountParams
+`func (o *PatchedTicketRequest) UnsetLinkedAccountParams()`
+
+UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

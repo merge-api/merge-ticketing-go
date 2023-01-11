@@ -6,15 +6,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**User** | Pointer to **NullableString** |  | [optional] 
-**Contact** | Pointer to **NullableString** |  | [optional] 
+**User** | Pointer to **NullableString** | The author of the Comment, if the author is a User. | [optional] 
+**Contact** | Pointer to **NullableString** | The author of the Comment, if the author is a Contact. | [optional] 
 **Body** | Pointer to **NullableString** | The comment&#39;s text body. | [optional] 
 **HtmlBody** | Pointer to **NullableString** | The comment&#39;s text body formatted as html. | [optional] 
-**Ticket** | Pointer to **NullableString** |  | [optional] 
+**Ticket** | Pointer to **NullableString** | The ticket associated with the comment.  | [optional] 
 **IsPrivate** | Pointer to **NullableBool** | Whether or not the comment is internal. | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s comment was created. | [optional] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** |  | [optional] [readonly] 
+**FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -400,6 +401,41 @@ SetRemoteWasDeleted sets RemoteWasDeleted field to given value.
 
 HasRemoteWasDeleted returns a boolean if a field has been set.
 
+### GetFieldMappings
+
+`func (o *Comment) GetFieldMappings() map[string]interface{}`
+
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+
+### GetFieldMappingsOk
+
+`func (o *Comment) GetFieldMappingsOk() (*map[string]interface{}, bool)`
+
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappings
+
+`func (o *Comment) SetFieldMappings(v map[string]interface{})`
+
+SetFieldMappings sets FieldMappings field to given value.
+
+### HasFieldMappings
+
+`func (o *Comment) HasFieldMappings() bool`
+
+HasFieldMappings returns a boolean if a field has been set.
+
+### SetFieldMappingsNil
+
+`func (o *Comment) SetFieldMappingsNil(b bool)`
+
+ SetFieldMappingsNil sets the value for FieldMappings to be an explicit nil
+
+### UnsetFieldMappings
+`func (o *Comment) UnsetFieldMappings()`
+
+UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

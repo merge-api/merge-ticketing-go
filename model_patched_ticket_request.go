@@ -21,17 +21,24 @@ type PatchedTicketRequest struct {
 	// The ticket's name.
 	Name NullableString `json:"name,omitempty"`
 	Assignees *[]string `json:"assignees,omitempty"`
+	// The user who created this ticket.
+	Creator NullableString `json:"creator,omitempty"`
 	// The ticket's due date.
 	DueDate NullableTime `json:"due_date,omitempty"`
 	// The current status of the ticket.
 	Status NullableTicketStatusEnum `json:"status,omitempty"`
-	// The ticket's description.
+	// The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
 	Description NullableString `json:"description,omitempty"`
+	// The project the ticket belongs to.
 	Project NullableString `json:"project,omitempty"`
+	Collections *[]string `json:"collections,omitempty"`
 	// The ticket's type.
 	TicketType NullableString `json:"ticket_type,omitempty"`
+	// The account associated with the ticket.
 	Account NullableString `json:"account,omitempty"`
+	// The contact associated with the ticket.
 	Contact NullableString `json:"contact,omitempty"`
+	// The ticket's parent ticket.
 	ParentTicket NullableString `json:"parent_ticket,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
 	// When the third party's ticket was created.
@@ -44,6 +51,8 @@ type PatchedTicketRequest struct {
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
 	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
+	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
+	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -137,6 +146,48 @@ func (o *PatchedTicketRequest) HasAssignees() bool {
 // SetAssignees gets a reference to the given []string and assigns it to the Assignees field.
 func (o *PatchedTicketRequest) SetAssignees(v []string) {
 	o.Assignees = &v
+}
+
+// GetCreator returns the Creator field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PatchedTicketRequest) GetCreator() string {
+	if o == nil || o.Creator.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Creator.Get()
+}
+
+// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PatchedTicketRequest) GetCreatorOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Creator.Get(), o.Creator.IsSet()
+}
+
+// HasCreator returns a boolean if a field has been set.
+func (o *PatchedTicketRequest) HasCreator() bool {
+	if o != nil && o.Creator.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCreator gets a reference to the given NullableString and assigns it to the Creator field.
+func (o *PatchedTicketRequest) SetCreator(v string) {
+	o.Creator.Set(&v)
+}
+// SetCreatorNil sets the value for Creator to be an explicit nil
+func (o *PatchedTicketRequest) SetCreatorNil() {
+	o.Creator.Set(nil)
+}
+
+// UnsetCreator ensures that no value is present for Creator, not even an explicit nil
+func (o *PatchedTicketRequest) UnsetCreator() {
+	o.Creator.Unset()
 }
 
 // GetDueDate returns the DueDate field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -305,6 +356,38 @@ func (o *PatchedTicketRequest) SetProjectNil() {
 // UnsetProject ensures that no value is present for Project, not even an explicit nil
 func (o *PatchedTicketRequest) UnsetProject() {
 	o.Project.Unset()
+}
+
+// GetCollections returns the Collections field value if set, zero value otherwise.
+func (o *PatchedTicketRequest) GetCollections() []string {
+	if o == nil || o.Collections == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Collections
+}
+
+// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedTicketRequest) GetCollectionsOk() (*[]string, bool) {
+	if o == nil || o.Collections == nil {
+		return nil, false
+	}
+	return o.Collections, true
+}
+
+// HasCollections returns a boolean if a field has been set.
+func (o *PatchedTicketRequest) HasCollections() bool {
+	if o != nil && o.Collections != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollections gets a reference to the given []string and assigns it to the Collections field.
+func (o *PatchedTicketRequest) SetCollections(v []string) {
+	o.Collections = &v
 }
 
 // GetTicketType returns the TicketType field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -717,6 +800,72 @@ func (o *PatchedTicketRequest) UnsetPriority() {
 	o.Priority.Unset()
 }
 
+// GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PatchedTicketRequest) GetIntegrationParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.IntegrationParams
+}
+
+// GetIntegrationParamsOk returns a tuple with the IntegrationParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PatchedTicketRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.IntegrationParams == nil {
+		return nil, false
+	}
+	return &o.IntegrationParams, true
+}
+
+// HasIntegrationParams returns a boolean if a field has been set.
+func (o *PatchedTicketRequest) HasIntegrationParams() bool {
+	if o != nil && o.IntegrationParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationParams gets a reference to the given map[string]interface{} and assigns it to the IntegrationParams field.
+func (o *PatchedTicketRequest) SetIntegrationParams(v map[string]interface{}) {
+	o.IntegrationParams = v
+}
+
+// GetLinkedAccountParams returns the LinkedAccountParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PatchedTicketRequest) GetLinkedAccountParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.LinkedAccountParams
+}
+
+// GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PatchedTicketRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.LinkedAccountParams == nil {
+		return nil, false
+	}
+	return &o.LinkedAccountParams, true
+}
+
+// HasLinkedAccountParams returns a boolean if a field has been set.
+func (o *PatchedTicketRequest) HasLinkedAccountParams() bool {
+	if o != nil && o.LinkedAccountParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedAccountParams gets a reference to the given map[string]interface{} and assigns it to the LinkedAccountParams field.
+func (o *PatchedTicketRequest) SetLinkedAccountParams(v map[string]interface{}) {
+	o.LinkedAccountParams = v
+}
+
 func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name.IsSet() {
@@ -724,6 +873,9 @@ func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Assignees != nil {
 		toSerialize["assignees"] = o.Assignees
+	}
+	if o.Creator.IsSet() {
+		toSerialize["creator"] = o.Creator.Get()
 	}
 	if o.DueDate.IsSet() {
 		toSerialize["due_date"] = o.DueDate.Get()
@@ -736,6 +888,9 @@ func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Project.IsSet() {
 		toSerialize["project"] = o.Project.Get()
+	}
+	if o.Collections != nil {
+		toSerialize["collections"] = o.Collections
 	}
 	if o.TicketType.IsSet() {
 		toSerialize["ticket_type"] = o.TicketType.Get()
@@ -766,6 +921,12 @@ func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Priority.IsSet() {
 		toSerialize["priority"] = o.Priority.Get()
+	}
+	if o.IntegrationParams != nil {
+		toSerialize["integration_params"] = o.IntegrationParams
+	}
+	if o.LinkedAccountParams != nil {
+		toSerialize["linked_account_params"] = o.LinkedAccountParams
 	}
 	return json.Marshal(toSerialize)
 }

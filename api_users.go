@@ -36,6 +36,7 @@ type ApiUsersListRequest struct {
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	emailAddress *string
 	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
@@ -58,6 +59,10 @@ func (r ApiUsersListRequest) CreatedBefore(createdBefore time.Time) ApiUsersList
 }
 func (r ApiUsersListRequest) Cursor(cursor string) ApiUsersListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiUsersListRequest) EmailAddress(emailAddress string) ApiUsersListRequest {
+	r.emailAddress = &emailAddress
 	return r
 }
 func (r ApiUsersListRequest) IncludeDeletedData(includeDeletedData bool) ApiUsersListRequest {
@@ -138,6 +143,9 @@ func (a *UsersApiService) UsersListExecute(r ApiUsersListRequest) (PaginatedUser
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.emailAddress != nil {
+		localVarQueryParams.Add("email_address", parameterToString(*r.emailAddress, ""))
 	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))

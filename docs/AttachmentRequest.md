@@ -6,11 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **FileName** | Pointer to **NullableString** | The attachment&#39;s name. | [optional] 
-**Ticket** | Pointer to **NullableString** |  | [optional] 
+**Ticket** | Pointer to **NullableString** | The ticket associated with the attachment. | [optional] 
 **FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. | [optional] 
 **ContentType** | Pointer to **NullableString** | The attachment&#39;s file format. | [optional] 
-**UploadedBy** | Pointer to **NullableString** |  | [optional] 
+**UploadedBy** | Pointer to **NullableString** | The user who uploaded the attachment. | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s attachment was created. | [optional] 
+**IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -276,6 +278,76 @@ HasRemoteCreatedAt returns a boolean if a field has been set.
 `func (o *AttachmentRequest) UnsetRemoteCreatedAt()`
 
 UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
+### GetIntegrationParams
+
+`func (o *AttachmentRequest) GetIntegrationParams() map[string]interface{}`
+
+GetIntegrationParams returns the IntegrationParams field if non-nil, zero value otherwise.
+
+### GetIntegrationParamsOk
+
+`func (o *AttachmentRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool)`
+
+GetIntegrationParamsOk returns a tuple with the IntegrationParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationParams
+
+`func (o *AttachmentRequest) SetIntegrationParams(v map[string]interface{})`
+
+SetIntegrationParams sets IntegrationParams field to given value.
+
+### HasIntegrationParams
+
+`func (o *AttachmentRequest) HasIntegrationParams() bool`
+
+HasIntegrationParams returns a boolean if a field has been set.
+
+### SetIntegrationParamsNil
+
+`func (o *AttachmentRequest) SetIntegrationParamsNil(b bool)`
+
+ SetIntegrationParamsNil sets the value for IntegrationParams to be an explicit nil
+
+### UnsetIntegrationParams
+`func (o *AttachmentRequest) UnsetIntegrationParams()`
+
+UnsetIntegrationParams ensures that no value is present for IntegrationParams, not even an explicit nil
+### GetLinkedAccountParams
+
+`func (o *AttachmentRequest) GetLinkedAccountParams() map[string]interface{}`
+
+GetLinkedAccountParams returns the LinkedAccountParams field if non-nil, zero value otherwise.
+
+### GetLinkedAccountParamsOk
+
+`func (o *AttachmentRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool)`
+
+GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedAccountParams
+
+`func (o *AttachmentRequest) SetLinkedAccountParams(v map[string]interface{})`
+
+SetLinkedAccountParams sets LinkedAccountParams field to given value.
+
+### HasLinkedAccountParams
+
+`func (o *AttachmentRequest) HasLinkedAccountParams() bool`
+
+HasLinkedAccountParams returns a boolean if a field has been set.
+
+### SetLinkedAccountParamsNil
+
+`func (o *AttachmentRequest) SetLinkedAccountParamsNil(b bool)`
+
+ SetLinkedAccountParamsNil sets the value for LinkedAccountParams to be an explicit nil
+
+### UnsetLinkedAccountParams
+`func (o *AttachmentRequest) UnsetLinkedAccountParams()`
+
+UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
