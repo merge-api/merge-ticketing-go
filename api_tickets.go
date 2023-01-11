@@ -33,8 +33,9 @@ type ApiTicketsCollaboratorsListRequest struct {
 	ctx _context.Context
 	ApiService *TicketsApiService
 	xAccountToken *string
-	id string
+	parentId string
 	cursor *string
+	includeDeletedData *bool
 	includeRemoteData *bool
 	pageSize *int32
 }
@@ -45,6 +46,10 @@ func (r ApiTicketsCollaboratorsListRequest) XAccountToken(xAccountToken string) 
 }
 func (r ApiTicketsCollaboratorsListRequest) Cursor(cursor string) ApiTicketsCollaboratorsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiTicketsCollaboratorsListRequest) IncludeDeletedData(includeDeletedData bool) ApiTicketsCollaboratorsListRequest {
+	r.includeDeletedData = &includeDeletedData
 	return r
 }
 func (r ApiTicketsCollaboratorsListRequest) IncludeRemoteData(includeRemoteData bool) ApiTicketsCollaboratorsListRequest {
@@ -62,16 +67,16 @@ func (r ApiTicketsCollaboratorsListRequest) Execute() (PaginatedUserList, *_neth
 
 /*
  * TicketsCollaboratorsList Method for TicketsCollaboratorsList
- * Returns a `User` object with the given `id`.
+ * Returns a list of `User` objects.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param id
+ * @param parentId
  * @return ApiTicketsCollaboratorsListRequest
  */
-func (a *TicketsApiService) TicketsCollaboratorsList(ctx _context.Context, id string) ApiTicketsCollaboratorsListRequest {
+func (a *TicketsApiService) TicketsCollaboratorsList(ctx _context.Context, parentId string) ApiTicketsCollaboratorsListRequest {
 	return ApiTicketsCollaboratorsListRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
+		parentId: parentId,
 	}
 }
 
@@ -94,8 +99,8 @@ func (a *TicketsApiService) TicketsCollaboratorsListExecute(r ApiTicketsCollabor
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/tickets/{id}/collaborators"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
+	localVarPath := localBasePath + "/tickets/{parent_id}/collaborators"
+	localVarPath = strings.Replace(localVarPath, "{"+"parent_id"+"}", _neturl.PathEscape(parameterToString(r.parentId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -106,6 +111,9 @@ func (a *TicketsApiService) TicketsCollaboratorsListExecute(r ApiTicketsCollabor
 
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
@@ -338,17 +346,34 @@ type ApiTicketsListRequest struct {
 	ApiService *TicketsApiService
 	xAccountToken *string
 	accountId *string
+	assigneeIds *string
+	collectionIds *string
+	completedAfter *time.Time
+	completedBefore *time.Time
+	contactId *string
 	createdAfter *time.Time
 	createdBefore *time.Time
 	cursor *string
+	dueAfter *time.Time
+	dueBefore *time.Time
 	includeDeletedData *bool
 	includeRemoteData *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
+	parentTicketId *string
+	priority *string
 	projectId *string
+	remoteCreatedAfter *time.Time
+	remoteCreatedBefore *time.Time
 	remoteFields *string
 	remoteId *string
+	remoteUpdatedAfter *time.Time
+	remoteUpdatedBefore *time.Time
+	showEnumOrigins *string
+	status *string
+	tags *string
+	ticketType *string
 }
 
 func (r ApiTicketsListRequest) XAccountToken(xAccountToken string) ApiTicketsListRequest {
@@ -357,6 +382,26 @@ func (r ApiTicketsListRequest) XAccountToken(xAccountToken string) ApiTicketsLis
 }
 func (r ApiTicketsListRequest) AccountId(accountId string) ApiTicketsListRequest {
 	r.accountId = &accountId
+	return r
+}
+func (r ApiTicketsListRequest) AssigneeIds(assigneeIds string) ApiTicketsListRequest {
+	r.assigneeIds = &assigneeIds
+	return r
+}
+func (r ApiTicketsListRequest) CollectionIds(collectionIds string) ApiTicketsListRequest {
+	r.collectionIds = &collectionIds
+	return r
+}
+func (r ApiTicketsListRequest) CompletedAfter(completedAfter time.Time) ApiTicketsListRequest {
+	r.completedAfter = &completedAfter
+	return r
+}
+func (r ApiTicketsListRequest) CompletedBefore(completedBefore time.Time) ApiTicketsListRequest {
+	r.completedBefore = &completedBefore
+	return r
+}
+func (r ApiTicketsListRequest) ContactId(contactId string) ApiTicketsListRequest {
+	r.contactId = &contactId
 	return r
 }
 func (r ApiTicketsListRequest) CreatedAfter(createdAfter time.Time) ApiTicketsListRequest {
@@ -369,6 +414,14 @@ func (r ApiTicketsListRequest) CreatedBefore(createdBefore time.Time) ApiTickets
 }
 func (r ApiTicketsListRequest) Cursor(cursor string) ApiTicketsListRequest {
 	r.cursor = &cursor
+	return r
+}
+func (r ApiTicketsListRequest) DueAfter(dueAfter time.Time) ApiTicketsListRequest {
+	r.dueAfter = &dueAfter
+	return r
+}
+func (r ApiTicketsListRequest) DueBefore(dueBefore time.Time) ApiTicketsListRequest {
+	r.dueBefore = &dueBefore
 	return r
 }
 func (r ApiTicketsListRequest) IncludeDeletedData(includeDeletedData bool) ApiTicketsListRequest {
@@ -391,8 +444,24 @@ func (r ApiTicketsListRequest) PageSize(pageSize int32) ApiTicketsListRequest {
 	r.pageSize = &pageSize
 	return r
 }
+func (r ApiTicketsListRequest) ParentTicketId(parentTicketId string) ApiTicketsListRequest {
+	r.parentTicketId = &parentTicketId
+	return r
+}
+func (r ApiTicketsListRequest) Priority(priority string) ApiTicketsListRequest {
+	r.priority = &priority
+	return r
+}
 func (r ApiTicketsListRequest) ProjectId(projectId string) ApiTicketsListRequest {
 	r.projectId = &projectId
+	return r
+}
+func (r ApiTicketsListRequest) RemoteCreatedAfter(remoteCreatedAfter time.Time) ApiTicketsListRequest {
+	r.remoteCreatedAfter = &remoteCreatedAfter
+	return r
+}
+func (r ApiTicketsListRequest) RemoteCreatedBefore(remoteCreatedBefore time.Time) ApiTicketsListRequest {
+	r.remoteCreatedBefore = &remoteCreatedBefore
 	return r
 }
 func (r ApiTicketsListRequest) RemoteFields(remoteFields string) ApiTicketsListRequest {
@@ -401,6 +470,30 @@ func (r ApiTicketsListRequest) RemoteFields(remoteFields string) ApiTicketsListR
 }
 func (r ApiTicketsListRequest) RemoteId(remoteId string) ApiTicketsListRequest {
 	r.remoteId = &remoteId
+	return r
+}
+func (r ApiTicketsListRequest) RemoteUpdatedAfter(remoteUpdatedAfter time.Time) ApiTicketsListRequest {
+	r.remoteUpdatedAfter = &remoteUpdatedAfter
+	return r
+}
+func (r ApiTicketsListRequest) RemoteUpdatedBefore(remoteUpdatedBefore time.Time) ApiTicketsListRequest {
+	r.remoteUpdatedBefore = &remoteUpdatedBefore
+	return r
+}
+func (r ApiTicketsListRequest) ShowEnumOrigins(showEnumOrigins string) ApiTicketsListRequest {
+	r.showEnumOrigins = &showEnumOrigins
+	return r
+}
+func (r ApiTicketsListRequest) Status(status string) ApiTicketsListRequest {
+	r.status = &status
+	return r
+}
+func (r ApiTicketsListRequest) Tags(tags string) ApiTicketsListRequest {
+	r.tags = &tags
+	return r
+}
+func (r ApiTicketsListRequest) TicketType(ticketType string) ApiTicketsListRequest {
+	r.ticketType = &ticketType
 	return r
 }
 
@@ -452,6 +545,21 @@ func (a *TicketsApiService) TicketsListExecute(r ApiTicketsListRequest) (Paginat
 	if r.accountId != nil {
 		localVarQueryParams.Add("account_id", parameterToString(*r.accountId, ""))
 	}
+	if r.assigneeIds != nil {
+		localVarQueryParams.Add("assignee_ids", parameterToString(*r.assigneeIds, ""))
+	}
+	if r.collectionIds != nil {
+		localVarQueryParams.Add("collection_ids", parameterToString(*r.collectionIds, ""))
+	}
+	if r.completedAfter != nil {
+		localVarQueryParams.Add("completed_after", parameterToString(*r.completedAfter, ""))
+	}
+	if r.completedBefore != nil {
+		localVarQueryParams.Add("completed_before", parameterToString(*r.completedBefore, ""))
+	}
+	if r.contactId != nil {
+		localVarQueryParams.Add("contact_id", parameterToString(*r.contactId, ""))
+	}
 	if r.createdAfter != nil {
 		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
 	}
@@ -460,6 +568,12 @@ func (a *TicketsApiService) TicketsListExecute(r ApiTicketsListRequest) (Paginat
 	}
 	if r.cursor != nil {
 		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.dueAfter != nil {
+		localVarQueryParams.Add("due_after", parameterToString(*r.dueAfter, ""))
+	}
+	if r.dueBefore != nil {
+		localVarQueryParams.Add("due_before", parameterToString(*r.dueBefore, ""))
 	}
 	if r.includeDeletedData != nil {
 		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
@@ -476,14 +590,44 @@ func (a *TicketsApiService) TicketsListExecute(r ApiTicketsListRequest) (Paginat
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
+	if r.parentTicketId != nil {
+		localVarQueryParams.Add("parent_ticket_id", parameterToString(*r.parentTicketId, ""))
+	}
+	if r.priority != nil {
+		localVarQueryParams.Add("priority", parameterToString(*r.priority, ""))
+	}
 	if r.projectId != nil {
 		localVarQueryParams.Add("project_id", parameterToString(*r.projectId, ""))
+	}
+	if r.remoteCreatedAfter != nil {
+		localVarQueryParams.Add("remote_created_after", parameterToString(*r.remoteCreatedAfter, ""))
+	}
+	if r.remoteCreatedBefore != nil {
+		localVarQueryParams.Add("remote_created_before", parameterToString(*r.remoteCreatedBefore, ""))
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
 	}
 	if r.remoteId != nil {
 		localVarQueryParams.Add("remote_id", parameterToString(*r.remoteId, ""))
+	}
+	if r.remoteUpdatedAfter != nil {
+		localVarQueryParams.Add("remote_updated_after", parameterToString(*r.remoteUpdatedAfter, ""))
+	}
+	if r.remoteUpdatedBefore != nil {
+		localVarQueryParams.Add("remote_updated_before", parameterToString(*r.remoteUpdatedBefore, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
+	}
+	if r.status != nil {
+		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	}
+	if r.tags != nil {
+		localVarQueryParams.Add("tags", parameterToString(*r.tags, ""))
+	}
+	if r.ticketType != nil {
+		localVarQueryParams.Add("ticket_type", parameterToString(*r.ticketType, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -841,6 +985,7 @@ func (r ApiTicketsPartialUpdateRequest) Execute() (TicketResponse, *_nethttp.Res
 
 /*
  * TicketsPartialUpdate Method for TicketsPartialUpdate
+ * Updates a `Ticket` object with the given `id`.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param id
  * @return ApiTicketsPartialUpdateRequest
@@ -969,6 +1114,7 @@ type ApiTicketsRetrieveRequest struct {
 	id string
 	includeRemoteData *bool
 	remoteFields *string
+	showEnumOrigins *string
 }
 
 func (r ApiTicketsRetrieveRequest) XAccountToken(xAccountToken string) ApiTicketsRetrieveRequest {
@@ -981,6 +1127,10 @@ func (r ApiTicketsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) Api
 }
 func (r ApiTicketsRetrieveRequest) RemoteFields(remoteFields string) ApiTicketsRetrieveRequest {
 	r.remoteFields = &remoteFields
+	return r
+}
+func (r ApiTicketsRetrieveRequest) ShowEnumOrigins(showEnumOrigins string) ApiTicketsRetrieveRequest {
+	r.showEnumOrigins = &showEnumOrigins
 	return r
 }
 
@@ -1037,6 +1187,9 @@ func (a *TicketsApiService) TicketsRetrieveExecute(r ApiTicketsRetrieveRequest) 
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))
+	}
+	if r.showEnumOrigins != nil {
+		localVarQueryParams.Add("show_enum_origins", parameterToString(*r.showEnumOrigins, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

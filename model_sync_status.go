@@ -24,6 +24,7 @@ type SyncStatus struct {
 	NextSyncStart *time.Time `json:"next_sync_start,omitempty"`
 	Status SyncStatusStatusEnum `json:"status"`
 	IsInitialSync bool `json:"is_initial_sync"`
+	SelectiveSyncConfigurationsUsage *SelectiveSyncConfigurationsUsageEnum `json:"selective_sync_configurations_usage,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -209,6 +210,38 @@ func (o *SyncStatus) SetIsInitialSync(v bool) {
 	o.IsInitialSync = v
 }
 
+// GetSelectiveSyncConfigurationsUsage returns the SelectiveSyncConfigurationsUsage field value if set, zero value otherwise.
+func (o *SyncStatus) GetSelectiveSyncConfigurationsUsage() SelectiveSyncConfigurationsUsageEnum {
+	if o == nil || o.SelectiveSyncConfigurationsUsage == nil {
+		var ret SelectiveSyncConfigurationsUsageEnum
+		return ret
+	}
+	return *o.SelectiveSyncConfigurationsUsage
+}
+
+// GetSelectiveSyncConfigurationsUsageOk returns a tuple with the SelectiveSyncConfigurationsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SyncStatus) GetSelectiveSyncConfigurationsUsageOk() (*SelectiveSyncConfigurationsUsageEnum, bool) {
+	if o == nil || o.SelectiveSyncConfigurationsUsage == nil {
+		return nil, false
+	}
+	return o.SelectiveSyncConfigurationsUsage, true
+}
+
+// HasSelectiveSyncConfigurationsUsage returns a boolean if a field has been set.
+func (o *SyncStatus) HasSelectiveSyncConfigurationsUsage() bool {
+	if o != nil && o.SelectiveSyncConfigurationsUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelectiveSyncConfigurationsUsage gets a reference to the given SelectiveSyncConfigurationsUsageEnum and assigns it to the SelectiveSyncConfigurationsUsage field.
+func (o *SyncStatus) SetSelectiveSyncConfigurationsUsage(v SelectiveSyncConfigurationsUsageEnum) {
+	o.SelectiveSyncConfigurationsUsage = &v
+}
+
 func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -228,6 +261,9 @@ func (o SyncStatus) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["is_initial_sync"] = o.IsInitialSync
+	}
+	if o.SelectiveSyncConfigurationsUsage != nil {
+		toSerialize["selective_sync_configurations_usage"] = o.SelectiveSyncConfigurationsUsage
 	}
 	return json.Marshal(toSerialize)
 }

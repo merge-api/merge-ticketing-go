@@ -20,17 +20,22 @@ import (
 type CommentRequest struct {
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
+	// The author of the Comment, if the author is a User.
 	User NullableString `json:"user,omitempty"`
+	// The author of the Comment, if the author is a Contact.
 	Contact NullableString `json:"contact,omitempty"`
 	// The comment's text body.
 	Body NullableString `json:"body,omitempty"`
 	// The comment's text body formatted as html.
 	HtmlBody NullableString `json:"html_body,omitempty"`
+	// The ticket associated with the comment. 
 	Ticket NullableString `json:"ticket,omitempty"`
 	// Whether or not the comment is internal.
 	IsPrivate NullableBool `json:"is_private,omitempty"`
 	// When the third party's comment was created.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
+	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
+	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -388,6 +393,72 @@ func (o *CommentRequest) UnsetRemoteCreatedAt() {
 	o.RemoteCreatedAt.Unset()
 }
 
+// GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CommentRequest) GetIntegrationParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.IntegrationParams
+}
+
+// GetIntegrationParamsOk returns a tuple with the IntegrationParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CommentRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.IntegrationParams == nil {
+		return nil, false
+	}
+	return &o.IntegrationParams, true
+}
+
+// HasIntegrationParams returns a boolean if a field has been set.
+func (o *CommentRequest) HasIntegrationParams() bool {
+	if o != nil && o.IntegrationParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationParams gets a reference to the given map[string]interface{} and assigns it to the IntegrationParams field.
+func (o *CommentRequest) SetIntegrationParams(v map[string]interface{}) {
+	o.IntegrationParams = v
+}
+
+// GetLinkedAccountParams returns the LinkedAccountParams field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CommentRequest) GetLinkedAccountParams() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.LinkedAccountParams
+}
+
+// GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CommentRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.LinkedAccountParams == nil {
+		return nil, false
+	}
+	return &o.LinkedAccountParams, true
+}
+
+// HasLinkedAccountParams returns a boolean if a field has been set.
+func (o *CommentRequest) HasLinkedAccountParams() bool {
+	if o != nil && o.LinkedAccountParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinkedAccountParams gets a reference to the given map[string]interface{} and assigns it to the LinkedAccountParams field.
+func (o *CommentRequest) SetLinkedAccountParams(v map[string]interface{}) {
+	o.LinkedAccountParams = v
+}
+
 func (o CommentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RemoteId.IsSet() {
@@ -413,6 +484,12 @@ func (o CommentRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RemoteCreatedAt.IsSet() {
 		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
+	}
+	if o.IntegrationParams != nil {
+		toSerialize["integration_params"] = o.IntegrationParams
+	}
+	if o.LinkedAccountParams != nil {
+		toSerialize["linked_account_params"] = o.LinkedAccountParams
 	}
 	return json.Marshal(toSerialize)
 }

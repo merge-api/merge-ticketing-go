@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ProjectsList**](ProjectsApi.md#ProjectsList) | **Get** /projects | 
 [**ProjectsRetrieve**](ProjectsApi.md#ProjectsRetrieve) | **Get** /projects/{id} | 
-[**ProjectsUsersList**](ProjectsApi.md#ProjectsUsersList) | **Get** /projects/{id}/users | 
+[**ProjectsUsersList**](ProjectsApi.md#ProjectsUsersList) | **Get** /projects/{parent_id}/users | 
 
 
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ## ProjectsUsersList
 
-> PaginatedUserList ProjectsUsersList(ctx, id).XAccountToken(xAccountToken).Cursor(cursor).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+> PaginatedUserList ProjectsUsersList(ctx, parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
 
 
 
@@ -191,14 +191,15 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    id := TODO // string | 
+    parentId := TODO // string | 
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.ProjectsUsersList(context.Background(), id).XAccountToken(xAccountToken).Cursor(cursor).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+    resp, r, err := api_client.ProjectsApi.ProjectsUsersList(context.Background(), parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.ProjectsUsersList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -214,7 +215,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | [**string**](.md) |  | 
+**parentId** | [**string**](.md) |  | 
 
 ### Other Parameters
 
@@ -226,6 +227,7 @@ Name | Type | Description  | Notes
  **xAccountToken** | **string** | Token identifying the end user. | 
 
  **cursor** | **string** | The pagination cursor value. | 
+ **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **pageSize** | **int32** | Number of results to return per page. | 
 

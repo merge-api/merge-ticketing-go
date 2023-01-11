@@ -5,13 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**User** | Pointer to **NullableString** |  | [optional] 
-**Contact** | Pointer to **NullableString** |  | [optional] 
+**User** | Pointer to **NullableString** | The author of the Comment, if the author is a User. | [optional] 
+**Contact** | Pointer to **NullableString** | The author of the Comment, if the author is a Contact. | [optional] 
 **Body** | Pointer to **NullableString** | The comment&#39;s text body. | [optional] 
 **HtmlBody** | Pointer to **NullableString** | The comment&#39;s text body formatted as html. | [optional] 
-**Ticket** | Pointer to **NullableString** |  | [optional] 
+**Ticket** | Pointer to **NullableString** | The ticket associated with the comment.  | [optional] 
 **IsPrivate** | Pointer to **NullableBool** | Whether or not the comment is internal. | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s comment was created. | [optional] 
+**IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -312,6 +314,76 @@ HasRemoteCreatedAt returns a boolean if a field has been set.
 `func (o *CommentRequest) UnsetRemoteCreatedAt()`
 
 UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
+### GetIntegrationParams
+
+`func (o *CommentRequest) GetIntegrationParams() map[string]interface{}`
+
+GetIntegrationParams returns the IntegrationParams field if non-nil, zero value otherwise.
+
+### GetIntegrationParamsOk
+
+`func (o *CommentRequest) GetIntegrationParamsOk() (*map[string]interface{}, bool)`
+
+GetIntegrationParamsOk returns a tuple with the IntegrationParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationParams
+
+`func (o *CommentRequest) SetIntegrationParams(v map[string]interface{})`
+
+SetIntegrationParams sets IntegrationParams field to given value.
+
+### HasIntegrationParams
+
+`func (o *CommentRequest) HasIntegrationParams() bool`
+
+HasIntegrationParams returns a boolean if a field has been set.
+
+### SetIntegrationParamsNil
+
+`func (o *CommentRequest) SetIntegrationParamsNil(b bool)`
+
+ SetIntegrationParamsNil sets the value for IntegrationParams to be an explicit nil
+
+### UnsetIntegrationParams
+`func (o *CommentRequest) UnsetIntegrationParams()`
+
+UnsetIntegrationParams ensures that no value is present for IntegrationParams, not even an explicit nil
+### GetLinkedAccountParams
+
+`func (o *CommentRequest) GetLinkedAccountParams() map[string]interface{}`
+
+GetLinkedAccountParams returns the LinkedAccountParams field if non-nil, zero value otherwise.
+
+### GetLinkedAccountParamsOk
+
+`func (o *CommentRequest) GetLinkedAccountParamsOk() (*map[string]interface{}, bool)`
+
+GetLinkedAccountParamsOk returns a tuple with the LinkedAccountParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinkedAccountParams
+
+`func (o *CommentRequest) SetLinkedAccountParams(v map[string]interface{})`
+
+SetLinkedAccountParams sets LinkedAccountParams field to given value.
+
+### HasLinkedAccountParams
+
+`func (o *CommentRequest) HasLinkedAccountParams() bool`
+
+HasLinkedAccountParams returns a boolean if a field has been set.
+
+### SetLinkedAccountParamsNil
+
+`func (o *CommentRequest) SetLinkedAccountParamsNil(b bool)`
+
+ SetLinkedAccountParamsNil sets the value for LinkedAccountParams to be an explicit nil
+
+### UnsetLinkedAccountParams
+`func (o *CommentRequest) UnsetLinkedAccountParams()`
+
+UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

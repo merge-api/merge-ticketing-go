@@ -24,17 +24,24 @@ type Ticket struct {
 	// The ticket's name.
 	Name NullableString `json:"name,omitempty"`
 	Assignees *[]string `json:"assignees,omitempty"`
+	// The user who created this ticket.
+	Creator NullableString `json:"creator,omitempty"`
 	// The ticket's due date.
 	DueDate NullableTime `json:"due_date,omitempty"`
 	// The current status of the ticket.
 	Status NullableTicketStatusEnum `json:"status,omitempty"`
-	// The ticket's description.
+	// The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
 	Description NullableString `json:"description,omitempty"`
+	// The project the ticket belongs to.
 	Project NullableString `json:"project,omitempty"`
+	Collections *[]string `json:"collections,omitempty"`
 	// The ticket's type.
 	TicketType NullableString `json:"ticket_type,omitempty"`
+	// The account associated with the ticket.
 	Account NullableString `json:"account,omitempty"`
+	// The contact associated with the ticket.
 	Contact NullableString `json:"contact,omitempty"`
+	// The ticket's parent ticket.
 	ParentTicket NullableString `json:"parent_ticket,omitempty"`
 	Attachments *[]string `json:"attachments,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
@@ -50,6 +57,7 @@ type Ticket struct {
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
 	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
+	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -219,6 +227,48 @@ func (o *Ticket) SetAssignees(v []string) {
 	o.Assignees = &v
 }
 
+// GetCreator returns the Creator field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Ticket) GetCreator() string {
+	if o == nil || o.Creator.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.Creator.Get()
+}
+
+// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Ticket) GetCreatorOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Creator.Get(), o.Creator.IsSet()
+}
+
+// HasCreator returns a boolean if a field has been set.
+func (o *Ticket) HasCreator() bool {
+	if o != nil && o.Creator.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCreator gets a reference to the given NullableString and assigns it to the Creator field.
+func (o *Ticket) SetCreator(v string) {
+	o.Creator.Set(&v)
+}
+// SetCreatorNil sets the value for Creator to be an explicit nil
+func (o *Ticket) SetCreatorNil() {
+	o.Creator.Set(nil)
+}
+
+// UnsetCreator ensures that no value is present for Creator, not even an explicit nil
+func (o *Ticket) UnsetCreator() {
+	o.Creator.Unset()
+}
+
 // GetDueDate returns the DueDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Ticket) GetDueDate() time.Time {
 	if o == nil || o.DueDate.Get() == nil {
@@ -385,6 +435,38 @@ func (o *Ticket) SetProjectNil() {
 // UnsetProject ensures that no value is present for Project, not even an explicit nil
 func (o *Ticket) UnsetProject() {
 	o.Project.Unset()
+}
+
+// GetCollections returns the Collections field value if set, zero value otherwise.
+func (o *Ticket) GetCollections() []string {
+	if o == nil || o.Collections == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Collections
+}
+
+// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Ticket) GetCollectionsOk() (*[]string, bool) {
+	if o == nil || o.Collections == nil {
+		return nil, false
+	}
+	return o.Collections, true
+}
+
+// HasCollections returns a boolean if a field has been set.
+func (o *Ticket) HasCollections() bool {
+	if o != nil && o.Collections != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollections gets a reference to the given []string and assigns it to the Collections field.
+func (o *Ticket) SetCollections(v []string) {
+	o.Collections = &v
 }
 
 // GetTicketType returns the TicketType field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -894,6 +976,39 @@ func (o *Ticket) UnsetPriority() {
 	o.Priority.Unset()
 }
 
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Ticket) GetFieldMappings() map[string]interface{} {
+	if o == nil  {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.FieldMappings
+}
+
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Ticket) GetFieldMappingsOk() (*map[string]interface{}, bool) {
+	if o == nil || o.FieldMappings == nil {
+		return nil, false
+	}
+	return &o.FieldMappings, true
+}
+
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Ticket) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFieldMappings gets a reference to the given map[string]interface{} and assigns it to the FieldMappings field.
+func (o *Ticket) SetFieldMappings(v map[string]interface{}) {
+	o.FieldMappings = v
+}
+
 func (o Ticket) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -908,6 +1023,9 @@ func (o Ticket) MarshalJSON() ([]byte, error) {
 	if o.Assignees != nil {
 		toSerialize["assignees"] = o.Assignees
 	}
+	if o.Creator.IsSet() {
+		toSerialize["creator"] = o.Creator.Get()
+	}
 	if o.DueDate.IsSet() {
 		toSerialize["due_date"] = o.DueDate.Get()
 	}
@@ -919,6 +1037,9 @@ func (o Ticket) MarshalJSON() ([]byte, error) {
 	}
 	if o.Project.IsSet() {
 		toSerialize["project"] = o.Project.Get()
+	}
+	if o.Collections != nil {
+		toSerialize["collections"] = o.Collections
 	}
 	if o.TicketType.IsSet() {
 		toSerialize["ticket_type"] = o.TicketType.Get()
@@ -958,6 +1079,9 @@ func (o Ticket) MarshalJSON() ([]byte, error) {
 	}
 	if o.Priority.IsSet() {
 		toSerialize["priority"] = o.Priority.Get()
+	}
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
 	}
 	return json.Marshal(toSerialize)
 }
