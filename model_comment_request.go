@@ -13,13 +13,10 @@ package merge_ticketing_client
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // CommentRequest # The Comment Object ### Description The `Comment` object is used to represent a comment on a ticket.  ### Usage Example TODO
 type CommentRequest struct {
-	// The third-party API ID of the matching object.
-	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The author of the Comment, if the author is a User.
 	User NullableString `json:"user,omitempty"`
 	// The author of the Comment, if the author is a Contact.
@@ -32,8 +29,6 @@ type CommentRequest struct {
 	Ticket NullableString `json:"ticket,omitempty"`
 	// Whether or not the comment is internal.
 	IsPrivate NullableBool `json:"is_private,omitempty"`
-	// When the third party's comment was created.
-	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
 	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
 	// raw json response by property name
@@ -55,48 +50,6 @@ func NewCommentRequest() *CommentRequest {
 func NewCommentRequestWithDefaults() *CommentRequest {
 	this := CommentRequest{}
 	return &this
-}
-
-// GetRemoteId returns the RemoteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CommentRequest) GetRemoteId() string {
-	if o == nil || o.RemoteId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.RemoteId.Get()
-}
-
-// GetRemoteIdOk returns a tuple with the RemoteId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CommentRequest) GetRemoteIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteId.Get(), o.RemoteId.IsSet()
-}
-
-// HasRemoteId returns a boolean if a field has been set.
-func (o *CommentRequest) HasRemoteId() bool {
-	if o != nil && o.RemoteId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteId gets a reference to the given NullableString and assigns it to the RemoteId field.
-func (o *CommentRequest) SetRemoteId(v string) {
-	o.RemoteId.Set(&v)
-}
-// SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-func (o *CommentRequest) SetRemoteIdNil() {
-	o.RemoteId.Set(nil)
-}
-
-// UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
-func (o *CommentRequest) UnsetRemoteId() {
-	o.RemoteId.Unset()
 }
 
 // GetUser returns the User field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -351,48 +304,6 @@ func (o *CommentRequest) UnsetIsPrivate() {
 	o.IsPrivate.Unset()
 }
 
-// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *CommentRequest) GetRemoteCreatedAt() time.Time {
-	if o == nil || o.RemoteCreatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteCreatedAt.Get()
-}
-
-// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *CommentRequest) GetRemoteCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
-}
-
-// HasRemoteCreatedAt returns a boolean if a field has been set.
-func (o *CommentRequest) HasRemoteCreatedAt() bool {
-	if o != nil && o.RemoteCreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
-func (o *CommentRequest) SetRemoteCreatedAt(v time.Time) {
-	o.RemoteCreatedAt.Set(&v)
-}
-// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-func (o *CommentRequest) SetRemoteCreatedAtNil() {
-	o.RemoteCreatedAt.Set(nil)
-}
-
-// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-func (o *CommentRequest) UnsetRemoteCreatedAt() {
-	o.RemoteCreatedAt.Unset()
-}
-
 // GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CommentRequest) GetIntegrationParams() map[string]interface{} {
 	if o == nil  {
@@ -461,9 +372,6 @@ func (o *CommentRequest) SetLinkedAccountParams(v map[string]interface{}) {
 
 func (o CommentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RemoteId.IsSet() {
-		toSerialize["remote_id"] = o.RemoteId.Get()
-	}
 	if o.User.IsSet() {
 		toSerialize["user"] = o.User.Get()
 	}
@@ -481,9 +389,6 @@ func (o CommentRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.IsPrivate.IsSet() {
 		toSerialize["is_private"] = o.IsPrivate.Get()
-	}
-	if o.RemoteCreatedAt.IsSet() {
-		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
 	}
 	if o.IntegrationParams != nil {
 		toSerialize["integration_params"] = o.IntegrationParams

@@ -51,13 +51,14 @@ type Ticket struct {
 	RemoteUpdatedAt NullableTime `json:"remote_updated_at,omitempty"`
 	// When the ticket was completed.
 	CompletedAt NullableTime `json:"completed_at,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	// The 3rd party url of the Ticket.
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
-	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+	// The priority or urgency of the Ticket.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
+	RemoteFields *[]RemoteField `json:"remote_fields,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -827,39 +828,6 @@ func (o *Ticket) UnsetCompletedAt() {
 	o.CompletedAt.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Ticket) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
-		return ret
-	}
-	return o.RemoteData
-}
-
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Ticket) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
-		return nil, false
-	}
-	return &o.RemoteData, true
-}
-
-// HasRemoteData returns a boolean if a field has been set.
-func (o *Ticket) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *Ticket) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
-}
-
 // GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
 func (o *Ticket) GetRemoteWasDeleted() bool {
 	if o == nil || o.RemoteWasDeleted == nil {
@@ -1009,6 +977,71 @@ func (o *Ticket) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Ticket) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Ticket) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Ticket) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Ticket) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
+// GetRemoteFields returns the RemoteFields field value if set, zero value otherwise.
+func (o *Ticket) GetRemoteFields() []RemoteField {
+	if o == nil || o.RemoteFields == nil {
+		var ret []RemoteField
+		return ret
+	}
+	return *o.RemoteFields
+}
+
+// GetRemoteFieldsOk returns a tuple with the RemoteFields field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Ticket) GetRemoteFieldsOk() (*[]RemoteField, bool) {
+	if o == nil || o.RemoteFields == nil {
+		return nil, false
+	}
+	return o.RemoteFields, true
+}
+
+// HasRemoteFields returns a boolean if a field has been set.
+func (o *Ticket) HasRemoteFields() bool {
+	if o != nil && o.RemoteFields != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteFields gets a reference to the given []RemoteField and assigns it to the RemoteFields field.
+func (o *Ticket) SetRemoteFields(v []RemoteField) {
+	o.RemoteFields = &v
+}
+
 func (o Ticket) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -1068,9 +1101,6 @@ func (o Ticket) MarshalJSON() ([]byte, error) {
 	if o.CompletedAt.IsSet() {
 		toSerialize["completed_at"] = o.CompletedAt.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
@@ -1082,6 +1112,12 @@ func (o Ticket) MarshalJSON() ([]byte, error) {
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
+	}
+	if o.RemoteFields != nil {
+		toSerialize["remote_fields"] = o.RemoteFields
 	}
 	return json.Marshal(toSerialize)
 }

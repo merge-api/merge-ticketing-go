@@ -33,9 +33,9 @@ type Attachment struct {
 	UploadedBy NullableString `json:"uploaded_by,omitempty"`
 	// When the third party's attachment was created.
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -383,39 +383,6 @@ func (o *Attachment) UnsetRemoteCreatedAt() {
 	o.RemoteCreatedAt.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Attachment) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
-		return ret
-	}
-	return o.RemoteData
-}
-
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Attachment) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
-		return nil, false
-	}
-	return &o.RemoteData, true
-}
-
-// HasRemoteData returns a boolean if a field has been set.
-func (o *Attachment) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *Attachment) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
-}
-
 // GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
 func (o *Attachment) GetRemoteWasDeleted() bool {
 	if o == nil || o.RemoteWasDeleted == nil {
@@ -481,6 +448,39 @@ func (o *Attachment) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Attachment) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Attachment) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Attachment) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Attachment) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Attachment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -507,14 +507,14 @@ func (o Attachment) MarshalJSON() ([]byte, error) {
 	if o.RemoteCreatedAt.IsSet() {
 		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

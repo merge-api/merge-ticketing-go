@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Scope** | [**CommonModelScopesScope**](CommonModelScopesScope.md) |  | 
-**CommonModels** | [**[]CommonModelScopesDisabledModels**](CommonModelScopesDisabledModels.md) |  | 
+**OrganizationLevelScopes** | Pointer to [**CommonModelScopeData**](CommonModelScopeData.md) |  | [optional] 
+**ScopeOverrides** | [**[]CommonModelScopeData**](CommonModelScopeData.md) |  | 
 
 ## Methods
 
 ### NewCommonModelScopes
 
-`func NewCommonModelScopes(scope CommonModelScopesScope, commonModels []CommonModelScopesDisabledModels, ) *CommonModelScopes`
+`func NewCommonModelScopes(scopeOverrides []CommonModelScopeData, ) *CommonModelScopes`
 
 NewCommonModelScopes instantiates a new CommonModelScopes object
 This constructor will assign default values to properties that have it defined,
@@ -26,44 +26,49 @@ NewCommonModelScopesWithDefaults instantiates a new CommonModelScopes object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetScope
+### GetOrganizationLevelScopes
 
-`func (o *CommonModelScopes) GetScope() CommonModelScopesScope`
+`func (o *CommonModelScopes) GetOrganizationLevelScopes() CommonModelScopeData`
 
-GetScope returns the Scope field if non-nil, zero value otherwise.
+GetOrganizationLevelScopes returns the OrganizationLevelScopes field if non-nil, zero value otherwise.
 
-### GetScopeOk
+### GetOrganizationLevelScopesOk
 
-`func (o *CommonModelScopes) GetScopeOk() (*CommonModelScopesScope, bool)`
+`func (o *CommonModelScopes) GetOrganizationLevelScopesOk() (*CommonModelScopeData, bool)`
 
-GetScopeOk returns a tuple with the Scope field if it's non-nil, zero value otherwise
+GetOrganizationLevelScopesOk returns a tuple with the OrganizationLevelScopes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetScope
+### SetOrganizationLevelScopes
 
-`func (o *CommonModelScopes) SetScope(v CommonModelScopesScope)`
+`func (o *CommonModelScopes) SetOrganizationLevelScopes(v CommonModelScopeData)`
 
-SetScope sets Scope field to given value.
+SetOrganizationLevelScopes sets OrganizationLevelScopes field to given value.
 
+### HasOrganizationLevelScopes
 
-### GetCommonModels
+`func (o *CommonModelScopes) HasOrganizationLevelScopes() bool`
 
-`func (o *CommonModelScopes) GetCommonModels() []CommonModelScopesDisabledModels`
+HasOrganizationLevelScopes returns a boolean if a field has been set.
 
-GetCommonModels returns the CommonModels field if non-nil, zero value otherwise.
+### GetScopeOverrides
 
-### GetCommonModelsOk
+`func (o *CommonModelScopes) GetScopeOverrides() []CommonModelScopeData`
 
-`func (o *CommonModelScopes) GetCommonModelsOk() (*[]CommonModelScopesDisabledModels, bool)`
+GetScopeOverrides returns the ScopeOverrides field if non-nil, zero value otherwise.
 
-GetCommonModelsOk returns a tuple with the CommonModels field if it's non-nil, zero value otherwise
+### GetScopeOverridesOk
+
+`func (o *CommonModelScopes) GetScopeOverridesOk() (*[]CommonModelScopeData, bool)`
+
+GetScopeOverridesOk returns a tuple with the ScopeOverrides field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCommonModels
+### SetScopeOverrides
 
-`func (o *CommonModelScopes) SetCommonModels(v []CommonModelScopesDisabledModels)`
+`func (o *CommonModelScopes) SetScopeOverrides(v []CommonModelScopeData)`
 
-SetCommonModels sets CommonModels field to given value.
+SetScopeOverrides sets ScopeOverrides field to given value.
 
 
 

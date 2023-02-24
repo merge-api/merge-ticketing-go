@@ -19,7 +19,7 @@ import (
 type AccountIntegration struct {
 	// Company name.
 	Name string `json:"name"`
-	// Category or categories this integration belongs to. Multiple categories should be comma separated.<br/><br>Example: For [ats, hris], enter <i>ats,hris</i>
+	// Category or categories this integration belongs to. Multiple categories should be comma separated, i.e. [ats, hris].
 	Categories *[]CategoriesEnum `json:"categories,omitempty"`
 	// Company logo in rectangular shape. <b>Upload an image with a clear background.</b>
 	Image NullableString `json:"image,omitempty"`
