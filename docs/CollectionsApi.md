@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CollectionsList**](CollectionsApi.md#CollectionsList) | **Get** /collections | 
 [**CollectionsRetrieve**](CollectionsApi.md#CollectionsRetrieve) | **Get** /collections/{id} | 
+[**CollectionsUsersList**](CollectionsApi.md#CollectionsUsersList) | **Get** /collections/{parent_id}/users | 
 
 
 
@@ -165,6 +166,86 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Collection**](Collection.md)
+
+### Authorization
+
+[tokenAuth](../README.md#tokenAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CollectionsUsersList
+
+> PaginatedUserList CollectionsUsersList(ctx, parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
+    parentId := TODO // string | 
+    cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
+    includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
+    includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
+    pageSize := int32(56) // int32 | Number of results to return per page. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CollectionsApi.CollectionsUsersList(context.Background(), parentId).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.CollectionsUsersList``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CollectionsUsersList`: PaginatedUserList
+    fmt.Fprintf(os.Stdout, "Response from `CollectionsApi.CollectionsUsersList`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**parentId** | [**string**](.md) |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCollectionsUsersListRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xAccountToken** | **string** | Token identifying the end user. | 
+
+ **cursor** | **string** | The pagination cursor value. | 
+ **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
+ **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
+ **pageSize** | **int32** | Number of results to return per page. | 
+
+### Return type
+
+[**PaginatedUserList**](PaginatedUserList.md)
 
 ### Authorization
 

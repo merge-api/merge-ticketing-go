@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Name** | Pointer to **NullableString** | The ticket&#39;s name. | [optional] 
 **Assignees** | Pointer to **[]string** |  | [optional] 
 **Creator** | Pointer to **NullableString** | The user who created this ticket. | [optional] 
@@ -19,11 +18,9 @@ Name | Type | Description | Notes
 **ParentTicket** | Pointer to **NullableString** | The ticket&#39;s parent ticket. | [optional] 
 **Attachments** | Pointer to **[]string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was created. | [optional] 
-**RemoteUpdatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was updated. | [optional] 
 **CompletedAt** | Pointer to **NullableTime** | When the ticket was completed. | [optional] 
 **TicketUrl** | Pointer to **NullableString** | The 3rd party url of the Ticket. | [optional] 
-**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. | [optional] 
+**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. | [optional] 
 **IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
 **LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
@@ -46,41 +43,6 @@ NewTicketRequestWithDefaults instantiates a new TicketRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRemoteId
-
-`func (o *TicketRequest) GetRemoteId() string`
-
-GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
-
-### GetRemoteIdOk
-
-`func (o *TicketRequest) GetRemoteIdOk() (*string, bool)`
-
-GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteId
-
-`func (o *TicketRequest) SetRemoteId(v string)`
-
-SetRemoteId sets RemoteId field to given value.
-
-### HasRemoteId
-
-`func (o *TicketRequest) HasRemoteId() bool`
-
-HasRemoteId returns a boolean if a field has been set.
-
-### SetRemoteIdNil
-
-`func (o *TicketRequest) SetRemoteIdNil(b bool)`
-
- SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-
-### UnsetRemoteId
-`func (o *TicketRequest) UnsetRemoteId()`
-
-UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetName
 
 `func (o *TicketRequest) GetName() string`
@@ -531,76 +493,6 @@ SetTags sets Tags field to given value.
 
 HasTags returns a boolean if a field has been set.
 
-### GetRemoteCreatedAt
-
-`func (o *TicketRequest) GetRemoteCreatedAt() time.Time`
-
-GetRemoteCreatedAt returns the RemoteCreatedAt field if non-nil, zero value otherwise.
-
-### GetRemoteCreatedAtOk
-
-`func (o *TicketRequest) GetRemoteCreatedAtOk() (*time.Time, bool)`
-
-GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteCreatedAt
-
-`func (o *TicketRequest) SetRemoteCreatedAt(v time.Time)`
-
-SetRemoteCreatedAt sets RemoteCreatedAt field to given value.
-
-### HasRemoteCreatedAt
-
-`func (o *TicketRequest) HasRemoteCreatedAt() bool`
-
-HasRemoteCreatedAt returns a boolean if a field has been set.
-
-### SetRemoteCreatedAtNil
-
-`func (o *TicketRequest) SetRemoteCreatedAtNil(b bool)`
-
- SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-
-### UnsetRemoteCreatedAt
-`func (o *TicketRequest) UnsetRemoteCreatedAt()`
-
-UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-### GetRemoteUpdatedAt
-
-`func (o *TicketRequest) GetRemoteUpdatedAt() time.Time`
-
-GetRemoteUpdatedAt returns the RemoteUpdatedAt field if non-nil, zero value otherwise.
-
-### GetRemoteUpdatedAtOk
-
-`func (o *TicketRequest) GetRemoteUpdatedAtOk() (*time.Time, bool)`
-
-GetRemoteUpdatedAtOk returns a tuple with the RemoteUpdatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteUpdatedAt
-
-`func (o *TicketRequest) SetRemoteUpdatedAt(v time.Time)`
-
-SetRemoteUpdatedAt sets RemoteUpdatedAt field to given value.
-
-### HasRemoteUpdatedAt
-
-`func (o *TicketRequest) HasRemoteUpdatedAt() bool`
-
-HasRemoteUpdatedAt returns a boolean if a field has been set.
-
-### SetRemoteUpdatedAtNil
-
-`func (o *TicketRequest) SetRemoteUpdatedAtNil(b bool)`
-
- SetRemoteUpdatedAtNil sets the value for RemoteUpdatedAt to be an explicit nil
-
-### UnsetRemoteUpdatedAt
-`func (o *TicketRequest) UnsetRemoteUpdatedAt()`
-
-UnsetRemoteUpdatedAt ensures that no value is present for RemoteUpdatedAt, not even an explicit nil
 ### GetCompletedAt
 
 `func (o *TicketRequest) GetCompletedAt() time.Time`

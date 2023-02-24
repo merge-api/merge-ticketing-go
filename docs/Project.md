@@ -8,9 +8,9 @@ Name | Type | Description | Notes
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Name** | Pointer to **NullableString** | The project&#39;s name.  | [optional] 
 **Description** | Pointer to **NullableString** | The project&#39;s description. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -161,41 +161,6 @@ HasDescription returns a boolean if a field has been set.
 `func (o *Project) UnsetDescription()`
 
 UnsetDescription ensures that no value is present for Description, not even an explicit nil
-### GetRemoteData
-
-`func (o *Project) GetRemoteData() []RemoteData`
-
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
-
-### GetRemoteDataOk
-
-`func (o *Project) GetRemoteDataOk() (*[]RemoteData, bool)`
-
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteData
-
-`func (o *Project) SetRemoteData(v []RemoteData)`
-
-SetRemoteData sets RemoteData field to given value.
-
-### HasRemoteData
-
-`func (o *Project) HasRemoteData() bool`
-
-HasRemoteData returns a boolean if a field has been set.
-
-### SetRemoteDataNil
-
-`func (o *Project) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Project) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 ### GetRemoteWasDeleted
 
 `func (o *Project) GetRemoteWasDeleted() bool`
@@ -256,6 +221,41 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Project) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetRemoteData
+
+`func (o *Project) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Project) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Project) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Project) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Project) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Project) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

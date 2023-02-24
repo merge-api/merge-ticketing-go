@@ -18,8 +18,6 @@ import (
 
 // TicketRequest # The Ticket Object ### Description The `Ticket` object is used to represent a ticket or a task within a system.  ### Usage Example TODO
 type TicketRequest struct {
-	// The third-party API ID of the matching object.
-	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The ticket's name.
 	Name NullableString `json:"name,omitempty"`
 	Assignees *[]string `json:"assignees,omitempty"`
@@ -44,15 +42,11 @@ type TicketRequest struct {
 	ParentTicket NullableString `json:"parent_ticket,omitempty"`
 	Attachments *[]string `json:"attachments,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
-	// When the third party's ticket was created.
-	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-	// When the third party's ticket was updated.
-	RemoteUpdatedAt NullableTime `json:"remote_updated_at,omitempty"`
 	// When the ticket was completed.
 	CompletedAt NullableTime `json:"completed_at,omitempty"`
 	// The 3rd party url of the Ticket.
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
-	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+	// The priority or urgency of the Ticket.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
 	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
 	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
@@ -75,48 +69,6 @@ func NewTicketRequest() *TicketRequest {
 func NewTicketRequestWithDefaults() *TicketRequest {
 	this := TicketRequest{}
 	return &this
-}
-
-// GetRemoteId returns the RemoteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TicketRequest) GetRemoteId() string {
-	if o == nil || o.RemoteId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.RemoteId.Get()
-}
-
-// GetRemoteIdOk returns a tuple with the RemoteId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TicketRequest) GetRemoteIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteId.Get(), o.RemoteId.IsSet()
-}
-
-// HasRemoteId returns a boolean if a field has been set.
-func (o *TicketRequest) HasRemoteId() bool {
-	if o != nil && o.RemoteId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteId gets a reference to the given NullableString and assigns it to the RemoteId field.
-func (o *TicketRequest) SetRemoteId(v string) {
-	o.RemoteId.Set(&v)
-}
-// SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-func (o *TicketRequest) SetRemoteIdNil() {
-	o.RemoteId.Set(nil)
-}
-
-// UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
-func (o *TicketRequest) UnsetRemoteId() {
-	o.RemoteId.Unset()
 }
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -667,90 +619,6 @@ func (o *TicketRequest) SetTags(v []string) {
 	o.Tags = &v
 }
 
-// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TicketRequest) GetRemoteCreatedAt() time.Time {
-	if o == nil || o.RemoteCreatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteCreatedAt.Get()
-}
-
-// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TicketRequest) GetRemoteCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
-}
-
-// HasRemoteCreatedAt returns a boolean if a field has been set.
-func (o *TicketRequest) HasRemoteCreatedAt() bool {
-	if o != nil && o.RemoteCreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
-func (o *TicketRequest) SetRemoteCreatedAt(v time.Time) {
-	o.RemoteCreatedAt.Set(&v)
-}
-// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-func (o *TicketRequest) SetRemoteCreatedAtNil() {
-	o.RemoteCreatedAt.Set(nil)
-}
-
-// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-func (o *TicketRequest) UnsetRemoteCreatedAt() {
-	o.RemoteCreatedAt.Unset()
-}
-
-// GetRemoteUpdatedAt returns the RemoteUpdatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TicketRequest) GetRemoteUpdatedAt() time.Time {
-	if o == nil || o.RemoteUpdatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteUpdatedAt.Get()
-}
-
-// GetRemoteUpdatedAtOk returns a tuple with the RemoteUpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TicketRequest) GetRemoteUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteUpdatedAt.Get(), o.RemoteUpdatedAt.IsSet()
-}
-
-// HasRemoteUpdatedAt returns a boolean if a field has been set.
-func (o *TicketRequest) HasRemoteUpdatedAt() bool {
-	if o != nil && o.RemoteUpdatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteUpdatedAt gets a reference to the given NullableTime and assigns it to the RemoteUpdatedAt field.
-func (o *TicketRequest) SetRemoteUpdatedAt(v time.Time) {
-	o.RemoteUpdatedAt.Set(&v)
-}
-// SetRemoteUpdatedAtNil sets the value for RemoteUpdatedAt to be an explicit nil
-func (o *TicketRequest) SetRemoteUpdatedAtNil() {
-	o.RemoteUpdatedAt.Set(nil)
-}
-
-// UnsetRemoteUpdatedAt ensures that no value is present for RemoteUpdatedAt, not even an explicit nil
-func (o *TicketRequest) UnsetRemoteUpdatedAt() {
-	o.RemoteUpdatedAt.Unset()
-}
-
 // GetCompletedAt returns the CompletedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TicketRequest) GetCompletedAt() time.Time {
 	if o == nil || o.CompletedAt.Get() == nil {
@@ -945,9 +813,6 @@ func (o *TicketRequest) SetLinkedAccountParams(v map[string]interface{}) {
 
 func (o TicketRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RemoteId.IsSet() {
-		toSerialize["remote_id"] = o.RemoteId.Get()
-	}
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
 	}
@@ -989,12 +854,6 @@ func (o TicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
-	}
-	if o.RemoteCreatedAt.IsSet() {
-		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
-	}
-	if o.RemoteUpdatedAt.IsSet() {
-		toSerialize["remote_updated_at"] = o.RemoteUpdatedAt.Get()
 	}
 	if o.CompletedAt.IsSet() {
 		toSerialize["completed_at"] = o.CompletedAt.Get()

@@ -12,9 +12,9 @@ Name | Type | Description | Notes
 **ContentType** | Pointer to **NullableString** | The attachment&#39;s file format. | [optional] 
 **UploadedBy** | Pointer to **NullableString** | The user who uploaded the attachment. | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s attachment was created. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** |  | [optional] [readonly] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -305,41 +305,6 @@ HasRemoteCreatedAt returns a boolean if a field has been set.
 `func (o *Attachment) UnsetRemoteCreatedAt()`
 
 UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-### GetRemoteData
-
-`func (o *Attachment) GetRemoteData() []RemoteData`
-
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
-
-### GetRemoteDataOk
-
-`func (o *Attachment) GetRemoteDataOk() (*[]RemoteData, bool)`
-
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteData
-
-`func (o *Attachment) SetRemoteData(v []RemoteData)`
-
-SetRemoteData sets RemoteData field to given value.
-
-### HasRemoteData
-
-`func (o *Attachment) HasRemoteData() bool`
-
-HasRemoteData returns a boolean if a field has been set.
-
-### SetRemoteDataNil
-
-`func (o *Attachment) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Attachment) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 ### GetRemoteWasDeleted
 
 `func (o *Attachment) GetRemoteWasDeleted() bool`
@@ -400,6 +365,41 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Attachment) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetRemoteData
+
+`func (o *Attachment) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Attachment) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Attachment) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Attachment) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Attachment) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Attachment) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

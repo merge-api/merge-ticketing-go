@@ -17,8 +17,8 @@ import (
 
 // CommonModelScopes struct for CommonModelScopes
 type CommonModelScopes struct {
-	Scope CommonModelScopesScope `json:"scope"`
-	CommonModels []CommonModelScopesDisabledModels `json:"common_models"`
+	OrganizationLevelScopes *CommonModelScopeData `json:"organization_level_scopes,omitempty"`
+	ScopeOverrides []CommonModelScopeData `json:"scope_overrides"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -27,10 +27,9 @@ type CommonModelScopes struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCommonModelScopes(scope CommonModelScopesScope, commonModels []CommonModelScopesDisabledModels) *CommonModelScopes {
+func NewCommonModelScopes(scopeOverrides []CommonModelScopeData) *CommonModelScopes {
 	this := CommonModelScopes{}
-	this.Scope = scope
-	this.CommonModels = commonModels
+	this.ScopeOverrides = scopeOverrides
 	return &this
 }
 
@@ -42,61 +41,69 @@ func NewCommonModelScopesWithDefaults() *CommonModelScopes {
 	return &this
 }
 
-// GetScope returns the Scope field value
-func (o *CommonModelScopes) GetScope() CommonModelScopesScope {
+// GetOrganizationLevelScopes returns the OrganizationLevelScopes field value if set, zero value otherwise.
+func (o *CommonModelScopes) GetOrganizationLevelScopes() CommonModelScopeData {
+	if o == nil || o.OrganizationLevelScopes == nil {
+		var ret CommonModelScopeData
+		return ret
+	}
+	return *o.OrganizationLevelScopes
+}
+
+// GetOrganizationLevelScopesOk returns a tuple with the OrganizationLevelScopes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CommonModelScopes) GetOrganizationLevelScopesOk() (*CommonModelScopeData, bool) {
+	if o == nil || o.OrganizationLevelScopes == nil {
+		return nil, false
+	}
+	return o.OrganizationLevelScopes, true
+}
+
+// HasOrganizationLevelScopes returns a boolean if a field has been set.
+func (o *CommonModelScopes) HasOrganizationLevelScopes() bool {
+	if o != nil && o.OrganizationLevelScopes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganizationLevelScopes gets a reference to the given CommonModelScopeData and assigns it to the OrganizationLevelScopes field.
+func (o *CommonModelScopes) SetOrganizationLevelScopes(v CommonModelScopeData) {
+	o.OrganizationLevelScopes = &v
+}
+
+// GetScopeOverrides returns the ScopeOverrides field value
+func (o *CommonModelScopes) GetScopeOverrides() []CommonModelScopeData {
 	if o == nil {
-		var ret CommonModelScopesScope
+		var ret []CommonModelScopeData
 		return ret
 	}
 
-	return o.Scope
+	return o.ScopeOverrides
 }
 
-// GetScopeOk returns a tuple with the Scope field value
+// GetScopeOverridesOk returns a tuple with the ScopeOverrides field value
 // and a boolean to check if the value has been set.
-func (o *CommonModelScopes) GetScopeOk() (*CommonModelScopesScope, bool) {
+func (o *CommonModelScopes) GetScopeOverridesOk() (*[]CommonModelScopeData, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Scope, true
+	return &o.ScopeOverrides, true
 }
 
-// SetScope sets field value
-func (o *CommonModelScopes) SetScope(v CommonModelScopesScope) {
-	o.Scope = v
-}
-
-// GetCommonModels returns the CommonModels field value
-func (o *CommonModelScopes) GetCommonModels() []CommonModelScopesDisabledModels {
-	if o == nil {
-		var ret []CommonModelScopesDisabledModels
-		return ret
-	}
-
-	return o.CommonModels
-}
-
-// GetCommonModelsOk returns a tuple with the CommonModels field value
-// and a boolean to check if the value has been set.
-func (o *CommonModelScopes) GetCommonModelsOk() (*[]CommonModelScopesDisabledModels, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.CommonModels, true
-}
-
-// SetCommonModels sets field value
-func (o *CommonModelScopes) SetCommonModels(v []CommonModelScopesDisabledModels) {
-	o.CommonModels = v
+// SetScopeOverrides sets field value
+func (o *CommonModelScopes) SetScopeOverrides(v []CommonModelScopeData) {
+	o.ScopeOverrides = v
 }
 
 func (o CommonModelScopes) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["scope"] = o.Scope
+	if o.OrganizationLevelScopes != nil {
+		toSerialize["organization_level_scopes"] = o.OrganizationLevelScopes
 	}
 	if true {
-		toSerialize["common_models"] = o.CommonModels
+		toSerialize["scope_overrides"] = o.ScopeOverrides
 	}
 	return json.Marshal(toSerialize)
 }

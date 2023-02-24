@@ -358,6 +358,7 @@ type ApiTicketsListRequest struct {
 	dueBefore *time.Time
 	includeDeletedData *bool
 	includeRemoteData *bool
+	includeRemoteFields *bool
 	modifiedAfter *time.Time
 	modifiedBefore *time.Time
 	pageSize *int32
@@ -430,6 +431,10 @@ func (r ApiTicketsListRequest) IncludeDeletedData(includeDeletedData bool) ApiTi
 }
 func (r ApiTicketsListRequest) IncludeRemoteData(includeRemoteData bool) ApiTicketsListRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiTicketsListRequest) IncludeRemoteFields(includeRemoteFields bool) ApiTicketsListRequest {
+	r.includeRemoteFields = &includeRemoteFields
 	return r
 }
 func (r ApiTicketsListRequest) ModifiedAfter(modifiedAfter time.Time) ApiTicketsListRequest {
@@ -580,6 +585,9 @@ func (a *TicketsApiService) TicketsListExecute(r ApiTicketsListRequest) (Paginat
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.includeRemoteFields != nil {
+		localVarQueryParams.Add("include_remote_fields", parameterToString(*r.includeRemoteFields, ""))
 	}
 	if r.modifiedAfter != nil {
 		localVarQueryParams.Add("modified_after", parameterToString(*r.modifiedAfter, ""))
@@ -1107,12 +1115,178 @@ func (a *TicketsApiService) TicketsPartialUpdateExecute(r ApiTicketsPartialUpdat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiTicketsRemoteFieldClassesListRequest struct {
+	ctx _context.Context
+	ApiService *TicketsApiService
+	xAccountToken *string
+	cursor *string
+	includeDeletedData *bool
+	includeRemoteData *bool
+	includeRemoteFields *bool
+	pageSize *int32
+}
+
+func (r ApiTicketsRemoteFieldClassesListRequest) XAccountToken(xAccountToken string) ApiTicketsRemoteFieldClassesListRequest {
+	r.xAccountToken = &xAccountToken
+	return r
+}
+func (r ApiTicketsRemoteFieldClassesListRequest) Cursor(cursor string) ApiTicketsRemoteFieldClassesListRequest {
+	r.cursor = &cursor
+	return r
+}
+func (r ApiTicketsRemoteFieldClassesListRequest) IncludeDeletedData(includeDeletedData bool) ApiTicketsRemoteFieldClassesListRequest {
+	r.includeDeletedData = &includeDeletedData
+	return r
+}
+func (r ApiTicketsRemoteFieldClassesListRequest) IncludeRemoteData(includeRemoteData bool) ApiTicketsRemoteFieldClassesListRequest {
+	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiTicketsRemoteFieldClassesListRequest) IncludeRemoteFields(includeRemoteFields bool) ApiTicketsRemoteFieldClassesListRequest {
+	r.includeRemoteFields = &includeRemoteFields
+	return r
+}
+func (r ApiTicketsRemoteFieldClassesListRequest) PageSize(pageSize int32) ApiTicketsRemoteFieldClassesListRequest {
+	r.pageSize = &pageSize
+	return r
+}
+
+func (r ApiTicketsRemoteFieldClassesListRequest) Execute() (PaginatedRemoteFieldClassList, *_nethttp.Response, error) {
+	return r.ApiService.TicketsRemoteFieldClassesListExecute(r)
+}
+
+/*
+ * TicketsRemoteFieldClassesList Method for TicketsRemoteFieldClassesList
+ * Returns a list of `RemoteFieldClass` objects.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiTicketsRemoteFieldClassesListRequest
+ */
+func (a *TicketsApiService) TicketsRemoteFieldClassesList(ctx _context.Context) ApiTicketsRemoteFieldClassesListRequest {
+	return ApiTicketsRemoteFieldClassesListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return PaginatedRemoteFieldClassList
+ */
+func (a *TicketsApiService) TicketsRemoteFieldClassesListExecute(r ApiTicketsRemoteFieldClassesListRequest) (PaginatedRemoteFieldClassList, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  PaginatedRemoteFieldClassList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TicketsApiService.TicketsRemoteFieldClassesList")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/tickets/remote-field-classes"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.xAccountToken == nil {
+		return localVarReturnValue, nil, reportError("xAccountToken is required and must be specified")
+	}
+
+	if r.cursor != nil {
+		localVarQueryParams.Add("cursor", parameterToString(*r.cursor, ""))
+	}
+	if r.includeDeletedData != nil {
+		localVarQueryParams.Add("include_deleted_data", parameterToString(*r.includeDeletedData, ""))
+	}
+	if r.includeRemoteData != nil {
+		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.includeRemoteFields != nil {
+		localVarQueryParams.Add("include_remote_fields", parameterToString(*r.includeRemoteFields, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarHeaderParams["X-Account-Token"] = parameterToString(*r.xAccountToken, "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["tokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiTicketsRetrieveRequest struct {
 	ctx _context.Context
 	ApiService *TicketsApiService
 	xAccountToken *string
 	id string
 	includeRemoteData *bool
+	includeRemoteFields *bool
 	remoteFields *string
 	showEnumOrigins *string
 }
@@ -1123,6 +1297,10 @@ func (r ApiTicketsRetrieveRequest) XAccountToken(xAccountToken string) ApiTicket
 }
 func (r ApiTicketsRetrieveRequest) IncludeRemoteData(includeRemoteData bool) ApiTicketsRetrieveRequest {
 	r.includeRemoteData = &includeRemoteData
+	return r
+}
+func (r ApiTicketsRetrieveRequest) IncludeRemoteFields(includeRemoteFields bool) ApiTicketsRetrieveRequest {
+	r.includeRemoteFields = &includeRemoteFields
 	return r
 }
 func (r ApiTicketsRetrieveRequest) RemoteFields(remoteFields string) ApiTicketsRetrieveRequest {
@@ -1184,6 +1362,9 @@ func (a *TicketsApiService) TicketsRetrieveExecute(r ApiTicketsRetrieveRequest) 
 
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
+	}
+	if r.includeRemoteFields != nil {
+		localVarQueryParams.Add("include_remote_fields", parameterToString(*r.includeRemoteFields, ""))
 	}
 	if r.remoteFields != nil {
 		localVarQueryParams.Add("remote_fields", parameterToString(*r.remoteFields, ""))

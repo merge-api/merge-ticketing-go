@@ -21,10 +21,10 @@ type Tag struct {
 	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The tag's name.
 	Name NullableString `json:"name,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -130,39 +130,6 @@ func (o *Tag) UnsetName() {
 	o.Name.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Tag) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
-		return ret
-	}
-	return o.RemoteData
-}
-
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Tag) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
-		return nil, false
-	}
-	return &o.RemoteData, true
-}
-
-// HasRemoteData returns a boolean if a field has been set.
-func (o *Tag) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *Tag) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
-}
-
 // GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
 func (o *Tag) GetRemoteWasDeleted() bool {
 	if o == nil || o.RemoteWasDeleted == nil {
@@ -228,6 +195,39 @@ func (o *Tag) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Tag) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Tag) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Tag) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Tag) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Tag) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RemoteId.IsSet() {
@@ -236,14 +236,14 @@ func (o Tag) MarshalJSON() ([]byte, error) {
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

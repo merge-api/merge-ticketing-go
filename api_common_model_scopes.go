@@ -27,34 +27,34 @@ var (
 // CommonModelScopesApiService CommonModelScopesApi service
 type CommonModelScopesApiService service
 
-type ApiCommonModelScopesRetrieveRequest struct {
+type ApiCommonModelScopesCreateRequest struct {
 	ctx _context.Context
 	ApiService *CommonModelScopesApiService
-	integrationSlug *string
+	commonModelScopesUpdateSerializer *CommonModelScopesUpdateSerializer
 	linkedAccountId *string
 }
 
-func (r ApiCommonModelScopesRetrieveRequest) IntegrationSlug(integrationSlug string) ApiCommonModelScopesRetrieveRequest {
-	r.integrationSlug = &integrationSlug
+func (r ApiCommonModelScopesCreateRequest) CommonModelScopesUpdateSerializer(commonModelScopesUpdateSerializer CommonModelScopesUpdateSerializer) ApiCommonModelScopesCreateRequest {
+	r.commonModelScopesUpdateSerializer = &commonModelScopesUpdateSerializer
 	return r
 }
-func (r ApiCommonModelScopesRetrieveRequest) LinkedAccountId(linkedAccountId string) ApiCommonModelScopesRetrieveRequest {
+func (r ApiCommonModelScopesCreateRequest) LinkedAccountId(linkedAccountId string) ApiCommonModelScopesCreateRequest {
 	r.linkedAccountId = &linkedAccountId
 	return r
 }
 
-func (r ApiCommonModelScopesRetrieveRequest) Execute() (CommonModelScopes, *_nethttp.Response, error) {
-	return r.ApiService.CommonModelScopesRetrieveExecute(r)
+func (r ApiCommonModelScopesCreateRequest) Execute() (CommonModelScopes, *_nethttp.Response, error) {
+	return r.ApiService.CommonModelScopesCreateExecute(r)
 }
 
 /*
- * CommonModelScopesRetrieve Method for CommonModelScopesRetrieve
- * Fetch the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per integration or account.
+ * CommonModelScopesCreate Method for CommonModelScopesCreate
+ * Update the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per account.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCommonModelScopesRetrieveRequest
+ * @return ApiCommonModelScopesCreateRequest
  */
-func (a *CommonModelScopesApiService) CommonModelScopesRetrieve(ctx _context.Context) ApiCommonModelScopesRetrieveRequest {
-	return ApiCommonModelScopesRetrieveRequest{
+func (a *CommonModelScopesApiService) CommonModelScopesCreate(ctx _context.Context) ApiCommonModelScopesCreateRequest {
+	return ApiCommonModelScopesCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -64,9 +64,9 @@ func (a *CommonModelScopesApiService) CommonModelScopesRetrieve(ctx _context.Con
  * Execute executes the request
  * @return CommonModelScopes
  */
-func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiCommonModelScopesRetrieveRequest) (CommonModelScopes, *_nethttp.Response, error) {
+func (a *CommonModelScopesApiService) CommonModelScopesCreateExecute(r ApiCommonModelScopesCreateRequest) (CommonModelScopes, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -74,7 +74,7 @@ func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiComm
 		localVarReturnValue  CommonModelScopes
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommonModelScopesApiService.CommonModelScopesRetrieve")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommonModelScopesApiService.CommonModelScopesCreate")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -84,15 +84,15 @@ func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiComm
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.integrationSlug != nil {
-		localVarQueryParams.Add("integration_slug", parameterToString(*r.integrationSlug, ""))
+	if r.commonModelScopesUpdateSerializer == nil {
+		return localVarReturnValue, nil, reportError("commonModelScopesUpdateSerializer is required and must be specified")
 	}
+
 	if r.linkedAccountId != nil {
 		localVarQueryParams.Add("linked_account_id", parameterToString(*r.linkedAccountId, ""))
 	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -108,6 +108,8 @@ func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiComm
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.commonModelScopesUpdateSerializer
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -159,39 +161,29 @@ func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiComm
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCommonModelScopesUpdateRequest struct {
+type ApiCommonModelScopesRetrieveRequest struct {
 	ctx _context.Context
 	ApiService *CommonModelScopesApiService
-	commonModelScopesUpdateSerializer *CommonModelScopesUpdateSerializer
-	integrationSlug *string
 	linkedAccountId *string
 }
 
-func (r ApiCommonModelScopesUpdateRequest) CommonModelScopesUpdateSerializer(commonModelScopesUpdateSerializer CommonModelScopesUpdateSerializer) ApiCommonModelScopesUpdateRequest {
-	r.commonModelScopesUpdateSerializer = &commonModelScopesUpdateSerializer
-	return r
-}
-func (r ApiCommonModelScopesUpdateRequest) IntegrationSlug(integrationSlug string) ApiCommonModelScopesUpdateRequest {
-	r.integrationSlug = &integrationSlug
-	return r
-}
-func (r ApiCommonModelScopesUpdateRequest) LinkedAccountId(linkedAccountId string) ApiCommonModelScopesUpdateRequest {
+func (r ApiCommonModelScopesRetrieveRequest) LinkedAccountId(linkedAccountId string) ApiCommonModelScopesRetrieveRequest {
 	r.linkedAccountId = &linkedAccountId
 	return r
 }
 
-func (r ApiCommonModelScopesUpdateRequest) Execute() (CommonModelScopes, *_nethttp.Response, error) {
-	return r.ApiService.CommonModelScopesUpdateExecute(r)
+func (r ApiCommonModelScopesRetrieveRequest) Execute() (CommonModelScopes, *_nethttp.Response, error) {
+	return r.ApiService.CommonModelScopesRetrieveExecute(r)
 }
 
 /*
- * CommonModelScopesUpdate Method for CommonModelScopesUpdate
- * Update the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per integration or account.
+ * CommonModelScopesRetrieve Method for CommonModelScopesRetrieve
+ * Fetch the configuration of what data is saved by Merge when syncing. Common model scopes are set as a default across all linked accounts, but can be updated to have greater granularity per account.
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCommonModelScopesUpdateRequest
+ * @return ApiCommonModelScopesRetrieveRequest
  */
-func (a *CommonModelScopesApiService) CommonModelScopesUpdate(ctx _context.Context) ApiCommonModelScopesUpdateRequest {
-	return ApiCommonModelScopesUpdateRequest{
+func (a *CommonModelScopesApiService) CommonModelScopesRetrieve(ctx _context.Context) ApiCommonModelScopesRetrieveRequest {
+	return ApiCommonModelScopesRetrieveRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -201,9 +193,9 @@ func (a *CommonModelScopesApiService) CommonModelScopesUpdate(ctx _context.Conte
  * Execute executes the request
  * @return CommonModelScopes
  */
-func (a *CommonModelScopesApiService) CommonModelScopesUpdateExecute(r ApiCommonModelScopesUpdateRequest) (CommonModelScopes, *_nethttp.Response, error) {
+func (a *CommonModelScopesApiService) CommonModelScopesRetrieveExecute(r ApiCommonModelScopesRetrieveRequest) (CommonModelScopes, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -211,7 +203,7 @@ func (a *CommonModelScopesApiService) CommonModelScopesUpdateExecute(r ApiCommon
 		localVarReturnValue  CommonModelScopes
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommonModelScopesApiService.CommonModelScopesUpdate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CommonModelScopesApiService.CommonModelScopesRetrieve")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -221,18 +213,12 @@ func (a *CommonModelScopesApiService) CommonModelScopesUpdateExecute(r ApiCommon
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.commonModelScopesUpdateSerializer == nil {
-		return localVarReturnValue, nil, reportError("commonModelScopesUpdateSerializer is required and must be specified")
-	}
 
-	if r.integrationSlug != nil {
-		localVarQueryParams.Add("integration_slug", parameterToString(*r.integrationSlug, ""))
-	}
 	if r.linkedAccountId != nil {
 		localVarQueryParams.Add("linked_account_id", parameterToString(*r.linkedAccountId, ""))
 	}
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json", "application/x-www-form-urlencoded", "multipart/form-data"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -248,8 +234,6 @@ func (a *CommonModelScopesApiService) CommonModelScopesUpdateExecute(r ApiCommon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.commonModelScopesUpdateSerializer
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

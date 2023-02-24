@@ -41,15 +41,11 @@ type PatchedTicketRequest struct {
 	// The ticket's parent ticket.
 	ParentTicket NullableString `json:"parent_ticket,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
-	// When the third party's ticket was created.
-	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
-	// When the third party's ticket was updated.
-	RemoteUpdatedAt NullableTime `json:"remote_updated_at,omitempty"`
 	// When the ticket was completed.
 	CompletedAt NullableTime `json:"completed_at,omitempty"`
 	// The 3rd party url of the Ticket.
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
-	// The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through.
+	// The priority or urgency of the Ticket.
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
 	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
 	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
@@ -590,90 +586,6 @@ func (o *PatchedTicketRequest) SetTags(v []string) {
 	o.Tags = &v
 }
 
-// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PatchedTicketRequest) GetRemoteCreatedAt() time.Time {
-	if o == nil || o.RemoteCreatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteCreatedAt.Get()
-}
-
-// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchedTicketRequest) GetRemoteCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
-}
-
-// HasRemoteCreatedAt returns a boolean if a field has been set.
-func (o *PatchedTicketRequest) HasRemoteCreatedAt() bool {
-	if o != nil && o.RemoteCreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
-func (o *PatchedTicketRequest) SetRemoteCreatedAt(v time.Time) {
-	o.RemoteCreatedAt.Set(&v)
-}
-// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-func (o *PatchedTicketRequest) SetRemoteCreatedAtNil() {
-	o.RemoteCreatedAt.Set(nil)
-}
-
-// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-func (o *PatchedTicketRequest) UnsetRemoteCreatedAt() {
-	o.RemoteCreatedAt.Unset()
-}
-
-// GetRemoteUpdatedAt returns the RemoteUpdatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PatchedTicketRequest) GetRemoteUpdatedAt() time.Time {
-	if o == nil || o.RemoteUpdatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteUpdatedAt.Get()
-}
-
-// GetRemoteUpdatedAtOk returns a tuple with the RemoteUpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PatchedTicketRequest) GetRemoteUpdatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteUpdatedAt.Get(), o.RemoteUpdatedAt.IsSet()
-}
-
-// HasRemoteUpdatedAt returns a boolean if a field has been set.
-func (o *PatchedTicketRequest) HasRemoteUpdatedAt() bool {
-	if o != nil && o.RemoteUpdatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteUpdatedAt gets a reference to the given NullableTime and assigns it to the RemoteUpdatedAt field.
-func (o *PatchedTicketRequest) SetRemoteUpdatedAt(v time.Time) {
-	o.RemoteUpdatedAt.Set(&v)
-}
-// SetRemoteUpdatedAtNil sets the value for RemoteUpdatedAt to be an explicit nil
-func (o *PatchedTicketRequest) SetRemoteUpdatedAtNil() {
-	o.RemoteUpdatedAt.Set(nil)
-}
-
-// UnsetRemoteUpdatedAt ensures that no value is present for RemoteUpdatedAt, not even an explicit nil
-func (o *PatchedTicketRequest) UnsetRemoteUpdatedAt() {
-	o.RemoteUpdatedAt.Unset()
-}
-
 // GetCompletedAt returns the CompletedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PatchedTicketRequest) GetCompletedAt() time.Time {
 	if o == nil || o.CompletedAt.Get() == nil {
@@ -906,12 +818,6 @@ func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
-	}
-	if o.RemoteCreatedAt.IsSet() {
-		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
-	}
-	if o.RemoteUpdatedAt.IsSet() {
-		toSerialize["remote_updated_at"] = o.RemoteUpdatedAt.Get()
 	}
 	if o.CompletedAt.IsSet() {
 		toSerialize["completed_at"] = o.CompletedAt.Get()

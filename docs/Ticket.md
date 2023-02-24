@@ -23,11 +23,12 @@ Name | Type | Description | Notes
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was created. | [optional] 
 **RemoteUpdatedAt** | Pointer to **NullableTime** | When the third party&#39;s ticket was updated. | [optional] 
 **CompletedAt** | Pointer to **NullableTime** | When the ticket was completed. | [optional] 
-**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteWasDeleted** | Pointer to **bool** |  | [optional] [readonly] 
 **TicketUrl** | Pointer to **NullableString** | The 3rd party url of the Ticket. | [optional] 
-**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. Possible values include: URGENT, HIGH, NORMAL, LOW - in cases where there is no clear mapping - the original value passed through. | [optional] 
+**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. | [optional] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
+**RemoteFields** | Pointer to [**[]RemoteField**](RemoteField.md) |  | [optional] [readonly] 
 
 ## Methods
 
@@ -663,41 +664,6 @@ HasCompletedAt returns a boolean if a field has been set.
 `func (o *Ticket) UnsetCompletedAt()`
 
 UnsetCompletedAt ensures that no value is present for CompletedAt, not even an explicit nil
-### GetRemoteData
-
-`func (o *Ticket) GetRemoteData() []RemoteData`
-
-GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
-
-### GetRemoteDataOk
-
-`func (o *Ticket) GetRemoteDataOk() (*[]RemoteData, bool)`
-
-GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteData
-
-`func (o *Ticket) SetRemoteData(v []RemoteData)`
-
-SetRemoteData sets RemoteData field to given value.
-
-### HasRemoteData
-
-`func (o *Ticket) HasRemoteData() bool`
-
-HasRemoteData returns a boolean if a field has been set.
-
-### SetRemoteDataNil
-
-`func (o *Ticket) SetRemoteDataNil(b bool)`
-
- SetRemoteDataNil sets the value for RemoteData to be an explicit nil
-
-### UnsetRemoteData
-`func (o *Ticket) UnsetRemoteData()`
-
-UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
 ### GetRemoteWasDeleted
 
 `func (o *Ticket) GetRemoteWasDeleted() bool`
@@ -828,6 +794,66 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Ticket) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetRemoteData
+
+`func (o *Ticket) GetRemoteData() []RemoteData`
+
+GetRemoteData returns the RemoteData field if non-nil, zero value otherwise.
+
+### GetRemoteDataOk
+
+`func (o *Ticket) GetRemoteDataOk() (*[]RemoteData, bool)`
+
+GetRemoteDataOk returns a tuple with the RemoteData field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteData
+
+`func (o *Ticket) SetRemoteData(v []RemoteData)`
+
+SetRemoteData sets RemoteData field to given value.
+
+### HasRemoteData
+
+`func (o *Ticket) HasRemoteData() bool`
+
+HasRemoteData returns a boolean if a field has been set.
+
+### SetRemoteDataNil
+
+`func (o *Ticket) SetRemoteDataNil(b bool)`
+
+ SetRemoteDataNil sets the value for RemoteData to be an explicit nil
+
+### UnsetRemoteData
+`func (o *Ticket) UnsetRemoteData()`
+
+UnsetRemoteData ensures that no value is present for RemoteData, not even an explicit nil
+### GetRemoteFields
+
+`func (o *Ticket) GetRemoteFields() []RemoteField`
+
+GetRemoteFields returns the RemoteFields field if non-nil, zero value otherwise.
+
+### GetRemoteFieldsOk
+
+`func (o *Ticket) GetRemoteFieldsOk() (*[]RemoteField, bool)`
+
+GetRemoteFieldsOk returns a tuple with the RemoteFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteFields
+
+`func (o *Ticket) SetRemoteFields(v []RemoteField)`
+
+SetRemoteFields sets RemoteFields field to given value.
+
+### HasRemoteFields
+
+`func (o *Ticket) HasRemoteFields() bool`
+
+HasRemoteFields returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

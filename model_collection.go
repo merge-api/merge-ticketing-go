@@ -28,10 +28,10 @@ type Collection struct {
 	CollectionType NullableCollectionTypeEnum `json:"collection_type,omitempty"`
 	// The parent collection for this collection.
 	ParentCollection NullableString `json:"parent_collection,omitempty"`
-	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -295,39 +295,6 @@ func (o *Collection) UnsetParentCollection() {
 	o.ParentCollection.Unset()
 }
 
-// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Collection) GetRemoteData() []RemoteData {
-	if o == nil  {
-		var ret []RemoteData
-		return ret
-	}
-	return o.RemoteData
-}
-
-// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Collection) GetRemoteDataOk() (*[]RemoteData, bool) {
-	if o == nil || o.RemoteData == nil {
-		return nil, false
-	}
-	return &o.RemoteData, true
-}
-
-// HasRemoteData returns a boolean if a field has been set.
-func (o *Collection) HasRemoteData() bool {
-	if o != nil && o.RemoteData != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
-func (o *Collection) SetRemoteData(v []RemoteData) {
-	o.RemoteData = v
-}
-
 // GetRemoteWasDeleted returns the RemoteWasDeleted field value if set, zero value otherwise.
 func (o *Collection) GetRemoteWasDeleted() bool {
 	if o == nil || o.RemoteWasDeleted == nil {
@@ -393,6 +360,39 @@ func (o *Collection) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Collection) GetRemoteData() []RemoteData {
+	if o == nil  {
+		var ret []RemoteData
+		return ret
+	}
+	return o.RemoteData
+}
+
+// GetRemoteDataOk returns a tuple with the RemoteData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Collection) GetRemoteDataOk() (*[]RemoteData, bool) {
+	if o == nil || o.RemoteData == nil {
+		return nil, false
+	}
+	return &o.RemoteData, true
+}
+
+// HasRemoteData returns a boolean if a field has been set.
+func (o *Collection) HasRemoteData() bool {
+	if o != nil && o.RemoteData != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteData gets a reference to the given []RemoteData and assigns it to the RemoteData field.
+func (o *Collection) SetRemoteData(v []RemoteData) {
+	o.RemoteData = v
+}
+
 func (o Collection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -413,14 +413,14 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	if o.ParentCollection.IsSet() {
 		toSerialize["parent_collection"] = o.ParentCollection.Get()
 	}
-	if o.RemoteData != nil {
-		toSerialize["remote_data"] = o.RemoteData
-	}
 	if o.RemoteWasDeleted != nil {
 		toSerialize["remote_was_deleted"] = o.RemoteWasDeleted
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.RemoteData != nil {
+		toSerialize["remote_data"] = o.RemoteData
 	}
 	return json.Marshal(toSerialize)
 }

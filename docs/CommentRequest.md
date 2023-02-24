@@ -4,14 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **User** | Pointer to **NullableString** | The author of the Comment, if the author is a User. | [optional] 
 **Contact** | Pointer to **NullableString** | The author of the Comment, if the author is a Contact. | [optional] 
 **Body** | Pointer to **NullableString** | The comment&#39;s text body. | [optional] 
 **HtmlBody** | Pointer to **NullableString** | The comment&#39;s text body formatted as html. | [optional] 
 **Ticket** | Pointer to **NullableString** | The ticket associated with the comment.  | [optional] 
 **IsPrivate** | Pointer to **NullableBool** | Whether or not the comment is internal. | [optional] 
-**RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s comment was created. | [optional] 
 **IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
 **LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
@@ -34,41 +32,6 @@ NewCommentRequestWithDefaults instantiates a new CommentRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRemoteId
-
-`func (o *CommentRequest) GetRemoteId() string`
-
-GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
-
-### GetRemoteIdOk
-
-`func (o *CommentRequest) GetRemoteIdOk() (*string, bool)`
-
-GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteId
-
-`func (o *CommentRequest) SetRemoteId(v string)`
-
-SetRemoteId sets RemoteId field to given value.
-
-### HasRemoteId
-
-`func (o *CommentRequest) HasRemoteId() bool`
-
-HasRemoteId returns a boolean if a field has been set.
-
-### SetRemoteIdNil
-
-`func (o *CommentRequest) SetRemoteIdNil(b bool)`
-
- SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-
-### UnsetRemoteId
-`func (o *CommentRequest) UnsetRemoteId()`
-
-UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetUser
 
 `func (o *CommentRequest) GetUser() string`
@@ -279,41 +242,6 @@ HasIsPrivate returns a boolean if a field has been set.
 `func (o *CommentRequest) UnsetIsPrivate()`
 
 UnsetIsPrivate ensures that no value is present for IsPrivate, not even an explicit nil
-### GetRemoteCreatedAt
-
-`func (o *CommentRequest) GetRemoteCreatedAt() time.Time`
-
-GetRemoteCreatedAt returns the RemoteCreatedAt field if non-nil, zero value otherwise.
-
-### GetRemoteCreatedAtOk
-
-`func (o *CommentRequest) GetRemoteCreatedAtOk() (*time.Time, bool)`
-
-GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteCreatedAt
-
-`func (o *CommentRequest) SetRemoteCreatedAt(v time.Time)`
-
-SetRemoteCreatedAt sets RemoteCreatedAt field to given value.
-
-### HasRemoteCreatedAt
-
-`func (o *CommentRequest) HasRemoteCreatedAt() bool`
-
-HasRemoteCreatedAt returns a boolean if a field has been set.
-
-### SetRemoteCreatedAtNil
-
-`func (o *CommentRequest) SetRemoteCreatedAtNil(b bool)`
-
- SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-
-### UnsetRemoteCreatedAt
-`func (o *CommentRequest) UnsetRemoteCreatedAt()`
-
-UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
 ### GetIntegrationParams
 
 `func (o *CommentRequest) GetIntegrationParams() map[string]interface{}`

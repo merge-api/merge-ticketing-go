@@ -13,13 +13,10 @@ package merge_ticketing_client
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // AttachmentRequest # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
 type AttachmentRequest struct {
-	// The third-party API ID of the matching object.
-	RemoteId NullableString `json:"remote_id,omitempty"`
 	// The attachment's name.
 	FileName NullableString `json:"file_name,omitempty"`
 	// The ticket associated with the attachment.
@@ -30,8 +27,6 @@ type AttachmentRequest struct {
 	ContentType NullableString `json:"content_type,omitempty"`
 	// The user who uploaded the attachment.
 	UploadedBy NullableString `json:"uploaded_by,omitempty"`
-	// When the third party's attachment was created.
-	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
 	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
 	// raw json response by property name
@@ -53,48 +48,6 @@ func NewAttachmentRequest() *AttachmentRequest {
 func NewAttachmentRequestWithDefaults() *AttachmentRequest {
 	this := AttachmentRequest{}
 	return &this
-}
-
-// GetRemoteId returns the RemoteId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AttachmentRequest) GetRemoteId() string {
-	if o == nil || o.RemoteId.Get() == nil {
-		var ret string
-		return ret
-	}
-	return *o.RemoteId.Get()
-}
-
-// GetRemoteIdOk returns a tuple with the RemoteId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AttachmentRequest) GetRemoteIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteId.Get(), o.RemoteId.IsSet()
-}
-
-// HasRemoteId returns a boolean if a field has been set.
-func (o *AttachmentRequest) HasRemoteId() bool {
-	if o != nil && o.RemoteId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteId gets a reference to the given NullableString and assigns it to the RemoteId field.
-func (o *AttachmentRequest) SetRemoteId(v string) {
-	o.RemoteId.Set(&v)
-}
-// SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-func (o *AttachmentRequest) SetRemoteIdNil() {
-	o.RemoteId.Set(nil)
-}
-
-// UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
-func (o *AttachmentRequest) UnsetRemoteId() {
-	o.RemoteId.Unset()
 }
 
 // GetFileName returns the FileName field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -307,48 +260,6 @@ func (o *AttachmentRequest) UnsetUploadedBy() {
 	o.UploadedBy.Unset()
 }
 
-// GetRemoteCreatedAt returns the RemoteCreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AttachmentRequest) GetRemoteCreatedAt() time.Time {
-	if o == nil || o.RemoteCreatedAt.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.RemoteCreatedAt.Get()
-}
-
-// GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AttachmentRequest) GetRemoteCreatedAtOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.RemoteCreatedAt.Get(), o.RemoteCreatedAt.IsSet()
-}
-
-// HasRemoteCreatedAt returns a boolean if a field has been set.
-func (o *AttachmentRequest) HasRemoteCreatedAt() bool {
-	if o != nil && o.RemoteCreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteCreatedAt gets a reference to the given NullableTime and assigns it to the RemoteCreatedAt field.
-func (o *AttachmentRequest) SetRemoteCreatedAt(v time.Time) {
-	o.RemoteCreatedAt.Set(&v)
-}
-// SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-func (o *AttachmentRequest) SetRemoteCreatedAtNil() {
-	o.RemoteCreatedAt.Set(nil)
-}
-
-// UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
-func (o *AttachmentRequest) UnsetRemoteCreatedAt() {
-	o.RemoteCreatedAt.Unset()
-}
-
 // GetIntegrationParams returns the IntegrationParams field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AttachmentRequest) GetIntegrationParams() map[string]interface{} {
 	if o == nil  {
@@ -417,9 +328,6 @@ func (o *AttachmentRequest) SetLinkedAccountParams(v map[string]interface{}) {
 
 func (o AttachmentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RemoteId.IsSet() {
-		toSerialize["remote_id"] = o.RemoteId.Get()
-	}
 	if o.FileName.IsSet() {
 		toSerialize["file_name"] = o.FileName.Get()
 	}
@@ -434,9 +342,6 @@ func (o AttachmentRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.UploadedBy.IsSet() {
 		toSerialize["uploaded_by"] = o.UploadedBy.Get()
-	}
-	if o.RemoteCreatedAt.IsSet() {
-		toSerialize["remote_created_at"] = o.RemoteCreatedAt.Get()
 	}
 	if o.IntegrationParams != nil {
 		toSerialize["integration_params"] = o.IntegrationParams

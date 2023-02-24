@@ -4,13 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **FileName** | Pointer to **NullableString** | The attachment&#39;s name. | [optional] 
 **Ticket** | Pointer to **NullableString** | The ticket associated with the attachment. | [optional] 
 **FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. | [optional] 
 **ContentType** | Pointer to **NullableString** | The attachment&#39;s file format. | [optional] 
 **UploadedBy** | Pointer to **NullableString** | The user who uploaded the attachment. | [optional] 
-**RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s attachment was created. | [optional] 
 **IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
 **LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
 
@@ -33,41 +31,6 @@ NewAttachmentRequestWithDefaults instantiates a new AttachmentRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRemoteId
-
-`func (o *AttachmentRequest) GetRemoteId() string`
-
-GetRemoteId returns the RemoteId field if non-nil, zero value otherwise.
-
-### GetRemoteIdOk
-
-`func (o *AttachmentRequest) GetRemoteIdOk() (*string, bool)`
-
-GetRemoteIdOk returns a tuple with the RemoteId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteId
-
-`func (o *AttachmentRequest) SetRemoteId(v string)`
-
-SetRemoteId sets RemoteId field to given value.
-
-### HasRemoteId
-
-`func (o *AttachmentRequest) HasRemoteId() bool`
-
-HasRemoteId returns a boolean if a field has been set.
-
-### SetRemoteIdNil
-
-`func (o *AttachmentRequest) SetRemoteIdNil(b bool)`
-
- SetRemoteIdNil sets the value for RemoteId to be an explicit nil
-
-### UnsetRemoteId
-`func (o *AttachmentRequest) UnsetRemoteId()`
-
-UnsetRemoteId ensures that no value is present for RemoteId, not even an explicit nil
 ### GetFileName
 
 `func (o *AttachmentRequest) GetFileName() string`
@@ -243,41 +206,6 @@ HasUploadedBy returns a boolean if a field has been set.
 `func (o *AttachmentRequest) UnsetUploadedBy()`
 
 UnsetUploadedBy ensures that no value is present for UploadedBy, not even an explicit nil
-### GetRemoteCreatedAt
-
-`func (o *AttachmentRequest) GetRemoteCreatedAt() time.Time`
-
-GetRemoteCreatedAt returns the RemoteCreatedAt field if non-nil, zero value otherwise.
-
-### GetRemoteCreatedAtOk
-
-`func (o *AttachmentRequest) GetRemoteCreatedAtOk() (*time.Time, bool)`
-
-GetRemoteCreatedAtOk returns a tuple with the RemoteCreatedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteCreatedAt
-
-`func (o *AttachmentRequest) SetRemoteCreatedAt(v time.Time)`
-
-SetRemoteCreatedAt sets RemoteCreatedAt field to given value.
-
-### HasRemoteCreatedAt
-
-`func (o *AttachmentRequest) HasRemoteCreatedAt() bool`
-
-HasRemoteCreatedAt returns a boolean if a field has been set.
-
-### SetRemoteCreatedAtNil
-
-`func (o *AttachmentRequest) SetRemoteCreatedAtNil(b bool)`
-
- SetRemoteCreatedAtNil sets the value for RemoteCreatedAt to be an explicit nil
-
-### UnsetRemoteCreatedAt
-`func (o *AttachmentRequest) UnsetRemoteCreatedAt()`
-
-UnsetRemoteCreatedAt ensures that no value is present for RemoteCreatedAt, not even an explicit nil
 ### GetIntegrationParams
 
 `func (o *AttachmentRequest) GetIntegrationParams() map[string]interface{}`

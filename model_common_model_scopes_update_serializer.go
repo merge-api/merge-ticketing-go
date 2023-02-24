@@ -18,7 +18,7 @@ import (
 // CommonModelScopesUpdateSerializer struct for CommonModelScopesUpdateSerializer
 type CommonModelScopesUpdateSerializer struct {
 	// The common model scopes to update.
-	CommonModels []CommonModelScopesPutInnerDeserializerRequest `json:"common_models"`
+	CommonModels []CommonModelScopesPostInnerDeserializerRequest `json:"common_models"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -27,7 +27,7 @@ type CommonModelScopesUpdateSerializer struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCommonModelScopesUpdateSerializer(commonModels []CommonModelScopesPutInnerDeserializerRequest) *CommonModelScopesUpdateSerializer {
+func NewCommonModelScopesUpdateSerializer(commonModels []CommonModelScopesPostInnerDeserializerRequest) *CommonModelScopesUpdateSerializer {
 	this := CommonModelScopesUpdateSerializer{}
 	this.CommonModels = commonModels
 	return &this
@@ -42,9 +42,9 @@ func NewCommonModelScopesUpdateSerializerWithDefaults() *CommonModelScopesUpdate
 }
 
 // GetCommonModels returns the CommonModels field value
-func (o *CommonModelScopesUpdateSerializer) GetCommonModels() []CommonModelScopesPutInnerDeserializerRequest {
+func (o *CommonModelScopesUpdateSerializer) GetCommonModels() []CommonModelScopesPostInnerDeserializerRequest {
 	if o == nil {
-		var ret []CommonModelScopesPutInnerDeserializerRequest
+		var ret []CommonModelScopesPostInnerDeserializerRequest
 		return ret
 	}
 
@@ -53,7 +53,7 @@ func (o *CommonModelScopesUpdateSerializer) GetCommonModels() []CommonModelScope
 
 // GetCommonModelsOk returns a tuple with the CommonModels field value
 // and a boolean to check if the value has been set.
-func (o *CommonModelScopesUpdateSerializer) GetCommonModelsOk() (*[]CommonModelScopesPutInnerDeserializerRequest, bool) {
+func (o *CommonModelScopesUpdateSerializer) GetCommonModelsOk() (*[]CommonModelScopesPostInnerDeserializerRequest, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -61,7 +61,7 @@ func (o *CommonModelScopesUpdateSerializer) GetCommonModelsOk() (*[]CommonModelS
 }
 
 // SetCommonModels sets field value
-func (o *CommonModelScopesUpdateSerializer) SetCommonModels(v []CommonModelScopesPutInnerDeserializerRequest) {
+func (o *CommonModelScopesUpdateSerializer) SetCommonModels(v []CommonModelScopesPostInnerDeserializerRequest) {
 	o.CommonModels = v
 }
 
