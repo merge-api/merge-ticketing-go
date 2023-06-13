@@ -8,10 +8,11 @@ Name | Type | Description | Notes
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
 **Name** | Pointer to **NullableString** | The collection&#39;s name. | [optional] 
 **Description** | Pointer to **NullableString** | The collection&#39;s description. | [optional] 
-**CollectionType** | Pointer to [**NullableCollectionTypeEnum**](CollectionTypeEnum.md) | The collection&#39;s type. | [optional] 
+**CollectionType** | Pointer to [**NullableCollectionTypeEnum**](CollectionTypeEnum.md) | The collection&#39;s type.  * &#x60;LIST&#x60; - LIST * &#x60;PROJECT&#x60; - PROJECT | [optional] 
 **ParentCollection** | Pointer to **NullableString** | The parent collection for this collection. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -293,6 +294,31 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Collection) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Collection) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Collection) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Collection) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Collection) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Collection) GetRemoteData() []RemoteData`

@@ -25,7 +25,7 @@ type PatchedTicketRequest struct {
 	Creator NullableString `json:"creator,omitempty"`
 	// The ticket's due date.
 	DueDate NullableTime `json:"due_date,omitempty"`
-	// The current status of the ticket.
+	// The current status of the ticket.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD
 	Status NullableTicketStatusEnum `json:"status,omitempty"`
 	// The ticket’s description. HTML version of description is mapped if supported by the third-party platform.
 	Description NullableString `json:"description,omitempty"`
@@ -45,10 +45,11 @@ type PatchedTicketRequest struct {
 	CompletedAt NullableTime `json:"completed_at,omitempty"`
 	// The 3rd party url of the Ticket.
 	TicketUrl NullableString `json:"ticket_url,omitempty"`
-	// The priority or urgency of the Ticket.
+	// The priority or urgency of the Ticket.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW
 	Priority NullablePriorityEnum `json:"priority,omitempty"`
 	IntegrationParams map[string]interface{} `json:"integration_params,omitempty"`
 	LinkedAccountParams map[string]interface{} `json:"linked_account_params,omitempty"`
+	RemoteFields *[]RemoteFieldRequest `json:"remote_fields,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -778,6 +779,38 @@ func (o *PatchedTicketRequest) SetLinkedAccountParams(v map[string]interface{}) 
 	o.LinkedAccountParams = v
 }
 
+// GetRemoteFields returns the RemoteFields field value if set, zero value otherwise.
+func (o *PatchedTicketRequest) GetRemoteFields() []RemoteFieldRequest {
+	if o == nil || o.RemoteFields == nil {
+		var ret []RemoteFieldRequest
+		return ret
+	}
+	return *o.RemoteFields
+}
+
+// GetRemoteFieldsOk returns a tuple with the RemoteFields field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedTicketRequest) GetRemoteFieldsOk() (*[]RemoteFieldRequest, bool) {
+	if o == nil || o.RemoteFields == nil {
+		return nil, false
+	}
+	return o.RemoteFields, true
+}
+
+// HasRemoteFields returns a boolean if a field has been set.
+func (o *PatchedTicketRequest) HasRemoteFields() bool {
+	if o != nil && o.RemoteFields != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRemoteFields gets a reference to the given []RemoteFieldRequest and assigns it to the RemoteFields field.
+func (o *PatchedTicketRequest) SetRemoteFields(v []RemoteFieldRequest) {
+	o.RemoteFields = &v
+}
+
 func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name.IsSet() {
@@ -833,6 +866,9 @@ func (o PatchedTicketRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.LinkedAccountParams != nil {
 		toSerialize["linked_account_params"] = o.LinkedAccountParams
+	}
+	if o.RemoteFields != nil {
+		toSerialize["remote_fields"] = o.RemoteFields
 	}
 	return json.Marshal(toSerialize)
 }

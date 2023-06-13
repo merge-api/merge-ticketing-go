@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// TicketStatusEnum the model 'TicketStatusEnum'
+// TicketStatusEnum * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD
 type TicketStatusEnum string
 
 // apologies but this is to get around an import error

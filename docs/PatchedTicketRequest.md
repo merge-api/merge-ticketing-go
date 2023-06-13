@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Assignees** | Pointer to **[]string** |  | [optional] 
 **Creator** | Pointer to **NullableString** | The user who created this ticket. | [optional] 
 **DueDate** | Pointer to **NullableTime** | The ticket&#39;s due date. | [optional] 
-**Status** | Pointer to [**NullableTicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket. | [optional] 
+**Status** | Pointer to [**NullableTicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD | [optional] 
 **Description** | Pointer to **NullableString** | The ticket’s description. HTML version of description is mapped if supported by the third-party platform. | [optional] 
 **Project** | Pointer to **NullableString** | The project the ticket belongs to. | [optional] 
 **Collections** | Pointer to **[]string** |  | [optional] 
@@ -19,9 +19,10 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** |  | [optional] 
 **CompletedAt** | Pointer to **NullableTime** | When the ticket was completed. | [optional] 
 **TicketUrl** | Pointer to **NullableString** | The 3rd party url of the Ticket. | [optional] 
-**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. | [optional] 
+**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW | [optional] 
 **IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 
 **LinkedAccountParams** | Pointer to **map[string]interface{}** |  | [optional] 
+**RemoteFields** | Pointer to [**[]RemoteFieldRequest**](RemoteFieldRequest.md) |  | [optional] 
 
 ## Methods
 
@@ -642,6 +643,31 @@ HasLinkedAccountParams returns a boolean if a field has been set.
 `func (o *PatchedTicketRequest) UnsetLinkedAccountParams()`
 
 UnsetLinkedAccountParams ensures that no value is present for LinkedAccountParams, not even an explicit nil
+### GetRemoteFields
+
+`func (o *PatchedTicketRequest) GetRemoteFields() []RemoteFieldRequest`
+
+GetRemoteFields returns the RemoteFields field if non-nil, zero value otherwise.
+
+### GetRemoteFieldsOk
+
+`func (o *PatchedTicketRequest) GetRemoteFieldsOk() (*[]RemoteFieldRequest, bool)`
+
+GetRemoteFieldsOk returns a tuple with the RemoteFields field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRemoteFields
+
+`func (o *PatchedTicketRequest) SetRemoteFields(v []RemoteFieldRequest)`
+
+SetRemoteFields sets RemoteFields field to given value.
+
+### HasRemoteFields
+
+`func (o *PatchedTicketRequest) HasRemoteFields() bool`
+
+HasRemoteFields returns a boolean if a field has been set.
+
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

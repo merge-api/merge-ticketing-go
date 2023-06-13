@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// FieldFormatEnum the model 'FieldFormatEnum'
+// FieldFormatEnum * `string` - string * `number` - number * `date` - date * `datetime` - datetime * `bool` - bool * `list` - list
 type FieldFormatEnum string
 
 // apologies but this is to get around an import error

@@ -204,11 +204,11 @@ func main() {
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
     includeRemoteFields := true // bool | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     parentTicketId := "parentTicketId_example" // string | If provided, will only return sub tickets of the parent_ticket_id. (optional)
-    priority := "priority_example" // string | If provided, will only return tickets of this priority. (optional)
+    priority := "priority_example" // string | If provided, will only return tickets of this priority.  * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW (optional)
     projectId := "projectId_example" // string | If provided, will only return tickets for this project. (optional)
     remoteCreatedAfter := time.Now() // time.Time | If provided, will only return tickets created in the third party platform after this datetime. (optional)
     remoteCreatedBefore := time.Now() // time.Time | If provided, will only return tickets created in the third party platform before this datetime. (optional)
@@ -217,7 +217,7 @@ func main() {
     remoteUpdatedAfter := time.Now() // time.Time | If provided, will only return tickets updated in the third party platform after this datetime. (optional)
     remoteUpdatedBefore := time.Now() // time.Time | If provided, will only return tickets updated in the third party platform before this datetime. (optional)
     showEnumOrigins := "priority,status,ticket_type" // string | Which fields should be returned in non-normalized form. (optional)
-    status := "status_example" // string | If provided, will only return tickets of this status. (optional)
+    status := "status_example" // string | If provided, will only return tickets of this status.  * `OPEN` - OPEN * `CLOSED` - CLOSED * `IN_PROGRESS` - IN_PROGRESS * `ON_HOLD` - ON_HOLD (optional)
     tags := "tags_example" // string | If provided, will only return tickets matching the tags; multiple tags can be separated by commas. (optional)
     ticketType := "ticketType_example" // string | If provided, will only return tickets of this type. (optional)
 
@@ -259,11 +259,11 @@ Name | Type | Description  | Notes
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
  **includeRemoteFields** | **bool** | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **parentTicketId** | **string** | If provided, will only return sub tickets of the parent_ticket_id. | 
- **priority** | **string** | If provided, will only return tickets of this priority. | 
+ **priority** | **string** | If provided, will only return tickets of this priority.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW | 
  **projectId** | **string** | If provided, will only return tickets for this project. | 
  **remoteCreatedAfter** | **time.Time** | If provided, will only return tickets created in the third party platform after this datetime. | 
  **remoteCreatedBefore** | **time.Time** | If provided, will only return tickets created in the third party platform before this datetime. | 
@@ -272,7 +272,7 @@ Name | Type | Description  | Notes
  **remoteUpdatedAfter** | **time.Time** | If provided, will only return tickets updated in the third party platform after this datetime. | 
  **remoteUpdatedBefore** | **time.Time** | If provided, will only return tickets updated in the third party platform before this datetime. | 
  **showEnumOrigins** | **string** | Which fields should be returned in non-normalized form. | 
- **status** | **string** | If provided, will only return tickets of this status. | 
+ **status** | **string** | If provided, will only return tickets of this status.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD | 
  **tags** | **string** | If provided, will only return tickets matching the tags; multiple tags can be separated by commas. | 
  **ticketType** | **string** | If provided, will only return tickets of this type. | 
 
@@ -512,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## TicketsRemoteFieldClassesList
 
-> PaginatedRemoteFieldClassList TicketsRemoteFieldClassesList(ctx).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeRemoteFields(includeRemoteFields).PageSize(pageSize).Execute()
+> PaginatedRemoteFieldClassList TicketsRemoteFieldClassesList(ctx).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
 
 
 
@@ -535,12 +535,11 @@ func main() {
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    includeRemoteFields := true // bool | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TicketsApi.TicketsRemoteFieldClassesList(context.Background()).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).IncludeRemoteFields(includeRemoteFields).PageSize(pageSize).Execute()
+    resp, r, err := api_client.TicketsApi.TicketsRemoteFieldClassesList(context.Background()).XAccountToken(xAccountToken).Cursor(cursor).IncludeDeletedData(includeDeletedData).IncludeRemoteData(includeRemoteData).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TicketsApi.TicketsRemoteFieldClassesList``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -565,7 +564,6 @@ Name | Type | Description  | Notes
  **cursor** | **string** | The pagination cursor value. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **includeRemoteFields** | **bool** | Whether to include all remote fields, including fields that Merge did not map to common models, in a normalized format. | 
  **pageSize** | **int32** | Number of results to return per page. | 
 
 ### Return type

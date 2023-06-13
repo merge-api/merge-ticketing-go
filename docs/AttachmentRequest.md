@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FileName** | Pointer to **NullableString** | The attachment&#39;s name. | [optional] 
+**FileName** | Pointer to **NullableString** | The attachment&#39;s name. It is required to include the file extension in the attachment&#39;s name. | [optional] 
 **Ticket** | Pointer to **NullableString** | The ticket associated with the attachment. | [optional] 
-**FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. | [optional] 
+**FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. It is required to include the file extension in the file&#39;s URL. | [optional] 
 **ContentType** | Pointer to **NullableString** | The attachment&#39;s file format. | [optional] 
 **UploadedBy** | Pointer to **NullableString** | The user who uploaded the attachment. | [optional] 
 **IntegrationParams** | Pointer to **map[string]interface{}** |  | [optional] 

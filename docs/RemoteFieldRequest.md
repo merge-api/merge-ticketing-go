@@ -1,73 +1,73 @@
-# RemoteField
+# RemoteFieldRequest
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RemoteFieldClass** | [**RemoteFieldClass**](RemoteFieldClass.md) |  | 
+**RemoteFieldClass** | **string** |  | 
 **Value** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
-### NewRemoteField
+### NewRemoteFieldRequest
 
-`func NewRemoteField(remoteFieldClass RemoteFieldClass, ) *RemoteField`
+`func NewRemoteFieldRequest(remoteFieldClass string, ) *RemoteFieldRequest`
 
-NewRemoteField instantiates a new RemoteField object
+NewRemoteFieldRequest instantiates a new RemoteFieldRequest object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewRemoteFieldWithDefaults
+### NewRemoteFieldRequestWithDefaults
 
-`func NewRemoteFieldWithDefaults() *RemoteField`
+`func NewRemoteFieldRequestWithDefaults() *RemoteFieldRequest`
 
-NewRemoteFieldWithDefaults instantiates a new RemoteField object
+NewRemoteFieldRequestWithDefaults instantiates a new RemoteFieldRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetRemoteFieldClass
 
-`func (o *RemoteField) GetRemoteFieldClass() RemoteFieldClass`
+`func (o *RemoteFieldRequest) GetRemoteFieldClass() string`
 
 GetRemoteFieldClass returns the RemoteFieldClass field if non-nil, zero value otherwise.
 
 ### GetRemoteFieldClassOk
 
-`func (o *RemoteField) GetRemoteFieldClassOk() (*RemoteFieldClass, bool)`
+`func (o *RemoteFieldRequest) GetRemoteFieldClassOk() (*string, bool)`
 
 GetRemoteFieldClassOk returns a tuple with the RemoteFieldClass field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemoteFieldClass
 
-`func (o *RemoteField) SetRemoteFieldClass(v RemoteFieldClass)`
+`func (o *RemoteFieldRequest) SetRemoteFieldClass(v string)`
 
 SetRemoteFieldClass sets RemoteFieldClass field to given value.
 
 
 ### GetValue
 
-`func (o *RemoteField) GetValue() map[string]interface{}`
+`func (o *RemoteFieldRequest) GetValue() map[string]interface{}`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *RemoteField) GetValueOk() (*map[string]interface{}, bool)`
+`func (o *RemoteFieldRequest) GetValueOk() (*map[string]interface{}, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *RemoteField) SetValue(v map[string]interface{})`
+`func (o *RemoteFieldRequest) SetValue(v map[string]interface{})`
 
 SetValue sets Value field to given value.
 
 ### HasValue
 
-`func (o *RemoteField) HasValue() bool`
+`func (o *RemoteFieldRequest) HasValue() bool`
 
 HasValue returns a boolean if a field has been set.
 

@@ -63,8 +63,6 @@ type APIClient struct {
 
 	CommentsApi *CommentsApiService
 
-	CommonModelScopesApi *CommonModelScopesApiService
-
 	ContactsApi *ContactsApiService
 
 	DeleteAccountApi *DeleteAccountApiService
@@ -123,7 +121,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AvailableActionsApi = (*AvailableActionsApiService)(&c.common)
 	c.CollectionsApi = (*CollectionsApiService)(&c.common)
 	c.CommentsApi = (*CommentsApiService)(&c.common)
-	c.CommonModelScopesApi = (*CommonModelScopesApiService)(&c.common)
 	c.ContactsApi = (*ContactsApiService)(&c.common)
 	c.DeleteAccountApi = (*DeleteAccountApiService)(&c.common)
 	c.ForceResyncApi = (*ForceResyncApiService)(&c.common)

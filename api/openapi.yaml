@@ -123,7 +123,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -132,7 +133,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -271,7 +273,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -280,7 +283,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -483,7 +487,11 @@ paths:
         schema:
           type: string
         style: simple
-      - description: If provided, will only return collections of the given type.
+      - description: |-
+          If provided, will only return collections of the given type.
+
+          * `LIST` - LIST
+          * `PROJECT` - PROJECT
         explode: true
         in: query
         name: collection_type
@@ -543,7 +551,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -552,7 +561,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -829,7 +839,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -838,7 +849,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -1004,69 +1016,6 @@ paths:
       - comments
       x-merge-meta-post: META_POST
       x-endpoint-availability: ENDPOINT_AVAILABILITY_PUBLIC
-  /common-model-scopes:
-    get:
-      description: Fetch the configuration of what data is saved by Merge when syncing.
-        Common model scopes are set as a default across all linked accounts, but can
-        be updated to have greater granularity per account.
-      operationId: common_model_scopes_retrieve
-      parameters:
-      - description: ID of specific linked account to fetch
-        explode: true
-        in: query
-        name: linked_account_id
-        required: false
-        schema:
-          type: string
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonModelScopes'
-      security:
-      - tokenAuth: []
-      tags:
-      - common-model-scopes
-      x-endpoint-availability: ENDPOINT_AVAILABILITY_PUBLIC
-    post:
-      description: Update the configuration of what data is saved by Merge when syncing.
-        Common model scopes are set as a default across all linked accounts, but can
-        be updated to have greater granularity per account.
-      operationId: common_model_scopes_create
-      parameters:
-      - description: ID of specific linked account to fetch
-        explode: true
-        in: query
-        name: linked_account_id
-        required: false
-        schema:
-          type: string
-        style: form
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CommonModelScopesUpdateSerializer'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/CommonModelScopesUpdateSerializer'
-          multipart/form-data:
-            schema:
-              $ref: '#/components/schemas/CommonModelScopesUpdateSerializer'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CommonModelScopes'
-      security:
-      - tokenAuth: []
-      tags:
-      - common-model-scopes
-      x-endpoint-availability: ENDPOINT_AVAILABILITY_PUBLIC
   /contacts:
     get:
       description: Returns a list of `Contact` objects.
@@ -1128,7 +1077,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -1137,7 +1087,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -1340,7 +1291,7 @@ paths:
         schema:
           type: string
         style: form
-      - description: If provided, will only return issues whose first incident time
+      - description: If provided, will only return issues whose last incident time
           was after this datetime.
         explode: true
         in: query
@@ -1351,7 +1302,7 @@ paths:
           nullable: true
           type: string
         style: form
-      - description: If provided, will only return issues whose first incident time
+      - description: If provided, will only return issues whose last incident time
           was before this datetime.
         explode: true
         in: query
@@ -1379,7 +1330,12 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: |-
+          Status of the issue. Options: ('ONGOING', 'RESOLVED')
+
+          * `ONGOING` - ONGOING
+          * `RESOLVED` - RESOLVED
+        explode: true
         in: query
         name: status
         required: false
@@ -1456,7 +1412,17 @@ paths:
       description: List linked accounts for your organization.
       operationId: linked_accounts_list
       parameters:
-      - explode: true
+      - description: |-
+          Options: ('hris', 'ats', 'accounting', 'ticketing', 'crm', 'mktg', 'filestorage')
+
+          * `hris` - hris
+          * `ats` - ats
+          * `accounting` - accounting
+          * `ticketing` - ticketing
+          * `crm` - crm
+          * `mktg` - mktg
+          * `filestorage` - filestorage
+        explode: true
         in: query
         name: category
         required: false
@@ -1465,6 +1431,7 @@ paths:
           - accounting
           - ats
           - crm
+          - filestorage
           - hris
           - mktg
           - ticketing
@@ -1688,7 +1655,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -1697,7 +1665,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -1893,7 +1862,7 @@ paths:
                 StartDateConditionExample:
                   summary: Employees that started on or after January 1st, 2022
                   value:
-                    linked_account_conditons:
+                  - linked_account_conditions:
                     - condition_schema_id: 123e4567-e89b-12d3-a456-426655440000
                       common_model: hris.Employee
                       native_name: Started At
@@ -1943,7 +1912,7 @@ paths:
                 StartDateConditionExample:
                   summary: Employees that started on or after January 1st, 2022
                   value:
-                    linked_account_conditons:
+                  - linked_account_conditions:
                     - condition_schema_id: 123e4567-e89b-12d3-a456-426655440000
                       common_model: hris.Employee
                       native_name: Started At
@@ -2007,8 +1976,8 @@ paths:
                 PaginatedConditionSchemaListExample:
                   summary: Employees that started on or after January 1st, 2022
                   value:
-                    previous: null
-                    next: null
+                    next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
+                    previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
                     results:
                     - id: 123e4567-e89b-12d3-a456-426655440000
                       common_model: hris.Employee
@@ -2031,7 +2000,7 @@ paths:
   /sync-status:
     get:
       description: 'Get syncing status. Possible values: `DISABLED`, `DONE`, `FAILED`,
-        `PAUSED`, `SYNCING`'
+        `PARTIALLY_SYNCED`, `PAUSED`, `SYNCING`'
       operationId: sync_status_list
       parameters:
       - description: Token identifying the end user.
@@ -2075,8 +2044,11 @@ paths:
       x-endpoint-availability: ENDPOINT_AVAILABILITY_PUBLIC
   /sync-status/resync:
     post:
-      description: Force re-sync of all models. This is only available for organizations
-        on Merge's Grow and Expand plans.
+      description: Force re-sync of all models. This is available for all organizations
+        via the dashboard. Force re-sync is also available programmatically via API
+        for monthly, quarterly, and highest sync frequency customers on the Core,
+        Professional, or Enterprise plans. Doing so will consume a sync credit for
+        the relevant linked account.
       operationId: sync_status_resync_create
       parameters:
       - description: Token identifying the end user.
@@ -2161,7 +2133,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -2170,7 +2143,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -2309,7 +2283,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -2318,7 +2293,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -2546,7 +2522,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -2555,7 +2532,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -2583,7 +2561,13 @@ paths:
         schema:
           type: string
         style: form
-      - description: If provided, will only return tickets of this priority.
+      - description: |-
+          If provided, will only return tickets of this priority.
+
+          * `URGENT` - URGENT
+          * `HIGH` - HIGH
+          * `NORMAL` - NORMAL
+          * `LOW` - LOW
         explode: true
         in: query
         name: priority
@@ -2701,7 +2685,13 @@ paths:
           - ticket_type
           type: string
         style: form
-      - description: If provided, will only return tickets of this status.
+      - description: |-
+          If provided, will only return tickets of this status.
+
+          * `OPEN` - OPEN
+          * `CLOSED` - CLOSED
+          * `IN_PROGRESS` - IN_PROGRESS
+          * `ON_HOLD` - ON_HOLD
         explode: true
         in: query
         name: status
@@ -3117,15 +3107,6 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: Whether to include all remote fields, including fields that Merge
-          did not map to common models, in a normalized format.
-        explode: true
-        in: query
-        name: include_remote_fields
-        required: false
-        schema:
-          type: boolean
-        style: form
       - description: Number of results to return per page.
         explode: true
         in: query
@@ -3216,7 +3197,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: If provided, will only return objects modified after this datetime.
+      - description: If provided, only objects synced by Merge after this date time
+          will be returned.
         explode: true
         in: query
         name: modified_after
@@ -3225,7 +3207,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: If provided, will only return objects modified before this datetime.
+      - description: If provided, only objects synced by Merge before this date time
+          will be returned.
         explode: true
         in: query
         name: modified_before
@@ -3389,6 +3372,7 @@ components:
         - royco.com
         id: 17a54124-287f-494d-965e-3c5b330c9a68
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -3436,6 +3420,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -3680,6 +3670,10 @@ components:
       type: object
       x-merge-category: ticketing
     AccountDetailsAndActionsStatusEnum:
+      description: |-
+        * `COMPLETE` - COMPLETE
+        * `INCOMPLETE` - INCOMPLETE
+        * `RELINK_NEEDED` - RELINK_NEEDED
       enum:
       - COMPLETE
       - INCOMPLETE
@@ -3692,9 +3686,12 @@ components:
         color: color
         name: name
         square_image: https://openapi-generator.tech
+        api_endpoints_to_documentation_urls:
+          key: ""
         categories:
         - null
         - null
+        is_in_beta: true
         slug: slug
       properties:
         name:
@@ -3727,6 +3724,17 @@ components:
         slug:
           readOnly: true
           type: string
+        is_in_beta:
+          description: If checked, this integration will not appear in the linking
+            flow, and will appear elsewhere with a Beta tag.
+          type: boolean
+        api_endpoints_to_documentation_urls:
+          additionalProperties: {}
+          description: 'Mapping of API endpoints to documentation urls for support.
+            Example: {''GET'': [[''/common-model-scopes'', ''https://docs.merge.dev/accounting/common-model-scopes/#common_model_scopes_retrieve''],[''/common-model-actions'',
+            ''https://docs.merge.dev/accounting/common-model-actions/#common_model_actions_retrieve'']],
+            ''POST'': []}'
+          type: object
       required:
       - name
       type: object
@@ -3739,9 +3747,12 @@ components:
           color: color
           name: name
           square_image: https://openapi-generator.tech
+          api_endpoints_to_documentation_urls:
+            key: ""
           categories:
           - null
           - null
+          is_in_beta: true
           slug: slug
       properties:
         account_token:
@@ -3777,6 +3788,7 @@ components:
         id: 17a54124-287f-494d-965e-3c5b330c9a68
         remote_was_deleted: true
         remote_created_at: 2022-11-10T00:00:00Z
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -3796,7 +3808,8 @@ components:
           nullable: true
           type: string
         file_name:
-          description: The attachment's name.
+          description: The attachment's name. It is required to include the file extension
+            in the attachment's name.
           example: Screenshot.png
           nullable: true
           type: string
@@ -3808,7 +3821,8 @@ components:
           type: string
           x-merge-expands-to: Ticket
         file_url:
-          description: The attachment's url.
+          description: The attachment's url. It is required to include the file extension
+            in the file's URL.
           example: http://alturl.com/p749b
           nullable: true
           type: string
@@ -3842,6 +3856,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -3872,7 +3892,8 @@ components:
           unique_linked_account_field: unique_linked_account_field_value
       properties:
         file_name:
-          description: The attachment's name.
+          description: The attachment's name. It is required to include the file extension
+            in the attachment's name.
           example: Screenshot.png
           nullable: true
           type: string
@@ -3884,7 +3905,8 @@ components:
           type: string
           x-merge-expands-to: Ticket
         file_url:
-          description: The attachment's url.
+          description: The attachment's url. It is required to include the file extension
+            in the file's URL.
           example: http://alturl.com/p749b
           nullable: true
           type: string
@@ -3942,9 +3964,12 @@ components:
           color: color
           name: name
           square_image: https://openapi-generator.tech
+          api_endpoints_to_documentation_urls:
+            key: ""
           categories:
           - null
           - null
+          is_in_beta: true
           slug: slug
         passthrough_available: true
       properties:
@@ -3975,6 +4000,14 @@ components:
       type: object
       x-merge-category: ticketing
     CategoriesEnum:
+      description: |-
+        * `hris` - hris
+        * `ats` - ats
+        * `accounting` - accounting
+        * `ticketing` - ticketing
+        * `crm` - crm
+        * `mktg` - mktg
+        * `filestorage` - filestorage
       enum:
       - hris
       - ats
@@ -3982,9 +4015,18 @@ components:
       - ticketing
       - crm
       - mktg
+      - filestorage
       type: string
       x-merge-category: ticketing
     CategoryEnum:
+      description: |-
+        * `hris` - hris
+        * `ats` - ats
+        * `accounting` - accounting
+        * `ticketing` - ticketing
+        * `crm` - crm
+        * `mktg` - mktg
+        * `filestorage` - filestorage
       enum:
       - hris
       - ats
@@ -3992,6 +4034,7 @@ components:
       - ticketing
       - crm
       - mktg
+      - filestorage
       type: string
       x-merge-category: ticketing
     Collection:
@@ -4015,6 +4058,7 @@ components:
         description: For tracking all tasks related to Platform for Q1
         id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         collection_type: LIST
         remote_data:
         - path: path
@@ -4047,7 +4091,11 @@ components:
         collection_type:
           allOf:
           - $ref: '#/components/schemas/CollectionTypeEnum'
-          description: The collection's type.
+          description: |-
+            The collection's type.
+
+            * `LIST` - LIST
+            * `PROJECT` - PROJECT
           example: LIST
           nullable: true
         parent_collection:
@@ -4071,6 +4119,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -4081,6 +4135,9 @@ components:
       x-merge-expands: '{"parent_collection": "Collection"}'
       x-merge-category: ticketing
     CollectionTypeEnum:
+      description: |-
+        * `LIST` - LIST
+        * `PROJECT` - PROJECT
       enum:
       - LIST
       - PROJECT
@@ -4096,20 +4153,10 @@ components:
         TODO
       example:
         is_private: true
-        field_mappings:
-          organization_defined_targets:
-            custom_key: custom_value
-          linked_account_defined_targets:
-            custom_key: custom_value
         ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         html_body: When will these integrations be done? You all should use <b>Merge<b>.
         remote_id: "19202938"
-        contact: dde3fb16-b8eb-483d-81c4-b78100816f15
-        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-        remote_was_deleted: true
         body: When will these integrations be done? You all should use Merge.
-        remote_created_at: 1990-11-10T00:00:00Z
-        user: 17a54124-287f-494d-965e-3c5b330c9a68
         remote_data:
         - path: path
           data:
@@ -4117,6 +4164,17 @@ components:
         - path: path
           data:
             key: ""
+        field_mappings:
+          organization_defined_targets:
+            custom_key: custom_value
+          linked_account_defined_targets:
+            custom_key: custom_value
+        contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+        id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        remote_was_deleted: true
+        remote_created_at: 1990-11-10T00:00:00Z
+        modified_at: 2021-10-16T00:00:00Z
+        user: 17a54124-287f-494d-965e-3c5b330c9a68
       properties:
         id:
           example: 0958cbc6-6040-430a-848e-aafacbadf4ae
@@ -4182,6 +4240,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -4298,20 +4362,10 @@ components:
           title: Unrecognized Field
         model:
           is_private: true
-          field_mappings:
-            organization_defined_targets:
-              custom_key: custom_value
-            linked_account_defined_targets:
-              custom_key: custom_value
           ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           html_body: When will these integrations be done? You all should use <b>Merge<b>.
           remote_id: "19202938"
-          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
-          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          remote_was_deleted: true
           body: When will these integrations be done? You all should use Merge.
-          remote_created_at: 1990-11-10T00:00:00Z
-          user: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_data:
           - path: path
             data:
@@ -4319,6 +4373,17 @@ components:
           - path: path
             data:
               key: ""
+          field_mappings:
+            organization_defined_targets:
+              custom_key: custom_value
+            linked_account_defined_targets:
+              custom_key: custom_value
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 1990-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
         logs:
         - log_id: 99433219-8017-4acd-bb3c-ceb23d663832
           dashboard_view: https://app.merge.dev/logs/99433219-8017-4acd-bb3c-ceb23d663832
@@ -4364,106 +4429,6 @@ components:
       - warnings
       type: object
       x-merge-category: ticketing
-    CommonModelScopeData:
-      example:
-        linked_account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        common_models:
-        - model_name: model_name
-          is_disabled: true
-          disabled_fields:
-          - disabled_fields
-          - disabled_fields
-          model_id: model_id
-          enabled_actions:
-          - null
-          - null
-        - model_name: model_name
-          is_disabled: true
-          disabled_fields:
-          - disabled_fields
-          - disabled_fields
-          model_id: model_id
-          enabled_actions:
-          - null
-          - null
-      properties:
-        common_models:
-          items:
-            $ref: '#/components/schemas/CommonModelScopesDisabledModels'
-          type: array
-        linked_account_id:
-          format: uuid
-          type: string
-      required:
-      - common_models
-      type: object
-      x-merge-category: ticketing
-    CommonModelScopes:
-      example:
-        scope_overrides:
-        - linked_account_id: c640b80b-fac9-409f-aa19-1f9221aec445
-          common_models:
-          - model_name: Employee
-            model_id: hris.Employee
-            enabled_actions:
-            - READ
-            - WRITE
-            is_disabled: false
-            disabled_fields:
-            - employment
-          - model_name: Employment
-            model_id: hris.Employment
-            enabled_actions: []
-            is_disabled: true
-            disabled_fields: []
-        organization_level_scopes:
-          linked_account_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          common_models:
-          - model_name: model_name
-            is_disabled: true
-            disabled_fields:
-            - disabled_fields
-            - disabled_fields
-            model_id: model_id
-            enabled_actions:
-            - null
-            - null
-          - model_name: model_name
-            is_disabled: true
-            disabled_fields:
-            - disabled_fields
-            - disabled_fields
-            model_id: model_id
-            enabled_actions:
-            - null
-            - null
-      properties:
-        organization_level_scopes:
-          $ref: '#/components/schemas/CommonModelScopeData'
-        scope_overrides:
-          example:
-          - linked_account_id: c640b80b-fac9-409f-aa19-1f9221aec445
-            common_models:
-            - model_name: Employee
-              model_id: hris.Employee
-              enabled_actions:
-              - READ
-              - WRITE
-              is_disabled: false
-              disabled_fields:
-              - employment
-            - model_name: Employment
-              model_id: hris.Employment
-              enabled_actions: []
-              is_disabled: true
-              disabled_fields: []
-          items:
-            $ref: '#/components/schemas/CommonModelScopeData'
-          type: array
-      required:
-      - scope_overrides
-      type: object
-      x-merge-category: ticketing
     CommonModelScopesBodyRequest:
       example:
         disabled_fields:
@@ -4497,105 +4462,6 @@ components:
       - model_id
       type: object
       x-merge-category: ticketing
-    CommonModelScopesDisabledModels:
-      example:
-        model_name: model_name
-        is_disabled: true
-        disabled_fields:
-        - disabled_fields
-        - disabled_fields
-        model_id: model_id
-        enabled_actions:
-        - null
-        - null
-      properties:
-        model_name:
-          type: string
-        model_id:
-          type: string
-        enabled_actions:
-          items:
-            $ref: '#/components/schemas/CommonModelScopesDisabledModelsEnabledActionsEnum'
-          type: array
-        is_disabled:
-          type: boolean
-        disabled_fields:
-          items:
-            type: string
-          type: array
-      required:
-      - disabled_fields
-      - enabled_actions
-      - is_disabled
-      - model_id
-      - model_name
-      type: object
-      x-merge-category: ticketing
-    CommonModelScopesDisabledModelsEnabledActionsEnum:
-      enum:
-      - ENABLED_ACTION_READ
-      - ENABLED_ACTION_WRITE
-      type: string
-      x-merge-category: ticketing
-    CommonModelScopesPostInnerDeserializerRequest:
-      example:
-        disabled_fields:
-        - disabled_fields
-        - disabled_fields
-        model_id: hris.Employee
-        enabled_actions:
-        - READ
-        - WRITE
-      properties:
-        model_id:
-          example: hris.Employee
-          minLength: 1
-          type: string
-        enabled_actions:
-          example:
-          - READ
-          - WRITE
-          items:
-            $ref: '#/components/schemas/EnabledActionsEnum'
-          type: array
-        disabled_fields:
-          items:
-            minLength: 1
-            type: string
-          type: array
-      required:
-      - disabled_fields
-      - enabled_actions
-      - model_id
-      type: object
-      x-merge-category: ticketing
-    CommonModelScopesUpdateSerializer:
-      example:
-        common_models:
-        - disabled_fields:
-          - disabled_fields
-          - disabled_fields
-          model_id: hris.Employee
-          enabled_actions:
-          - READ
-          - WRITE
-        - disabled_fields:
-          - disabled_fields
-          - disabled_fields
-          model_id: hris.Employee
-          enabled_actions:
-          - READ
-          - WRITE
-      properties:
-        common_models:
-          description: The common model scopes to update.
-          items:
-            $ref: '#/components/schemas/CommonModelScopesPostInnerDeserializerRequest'
-          type: array
-      required:
-      - common_models
-      type: object
-      x-merge-category: ticketing
     ConditionSchema:
       example:
         common_model: common_model
@@ -4604,6 +4470,7 @@ components:
           operator: operator
         - is_unique: true
           operator: operator
+        condition_type: ""
         is_unique: true
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         native_name: native_name
@@ -4632,7 +4499,18 @@ components:
             the condition can be AND'd together multiple times.
           type: boolean
         condition_type:
-          $ref: '#/components/schemas/ConditionTypeEnum'
+          allOf:
+          - $ref: '#/components/schemas/ConditionTypeEnum'
+          description: |-
+            The type of value(s) that can be set for this condition.
+
+            * `BOOLEAN` - BOOLEAN
+            * `DATE` - DATE
+            * `DATE_TIME` - DATE_TIME
+            * `INTEGER` - INTEGER
+            * `FLOAT` - FLOAT
+            * `STRING` - STRING
+            * `LIST_OF_STRINGS` - LIST_OF_STRINGS
         operators:
           description: The schemas for the operators that can be used on a condition.
           items:
@@ -4647,6 +4525,14 @@ components:
       type: object
       x-merge-category: ticketing
     ConditionTypeEnum:
+      description: |-
+        * `BOOLEAN` - BOOLEAN
+        * `DATE` - DATE
+        * `DATE_TIME` - DATE_TIME
+        * `INTEGER` - INTEGER
+        * `FLOAT` - FLOAT
+        * `STRING` - STRING
+        * `LIST_OF_STRINGS` - LIST_OF_STRINGS
       enum:
       - BOOLEAN
       - DATE
@@ -4678,6 +4564,7 @@ components:
         details: Executive Assistant to Tom Wambsgans
         id: 17a54124-287f-494d-965e-3c5b330c9a68
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         account: 28b54125-287f-494d-965e-3c5b330c9a68
         remote_data:
         - path: path
@@ -4739,6 +4626,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -4876,12 +4769,19 @@ components:
         "method": "POST", "status_code": 200}'
       x-merge-category: ticketing
     EnabledActionsEnum:
+      description: |-
+        * `READ` - READ
+        * `WRITE` - WRITE
       enum:
       - READ
       - WRITE
       type: string
       x-merge-category: ticketing
     EncodingEnum:
+      description: |-
+        * `RAW` - RAW
+        * `BASE64` - BASE64
+        * `GZIP_BASE64` - GZIP_BASE64
       enum:
       - RAW
       - BASE64
@@ -4962,6 +4862,7 @@ components:
             scoped for a given Linked Account.
           items:
             $ref: '#/components/schemas/CommonModelScopesBodyRequest'
+          nullable: true
           type: array
       required:
       - categories
@@ -4996,6 +4897,13 @@ components:
       type: object
       x-merge-category: ticketing
     FieldFormatEnum:
+      description: |-
+        * `string` - string
+        * `number` - number
+        * `date` - date
+        * `datetime` - datetime
+        * `bool` - bool
+        * `list` - list
       enum:
       - string
       - number
@@ -5006,6 +4914,13 @@ components:
       type: string
       x-merge-category: ticketing
     FieldTypeEnum:
+      description: |-
+        * `string` - string
+        * `number` - number
+        * `date` - date
+        * `datetime` - datetime
+        * `bool` - bool
+        * `list` - list
       enum:
       - string
       - number
@@ -5055,6 +4970,11 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/IssueStatusEnum'
+          description: |-
+            Status of the issue. Options: ('ONGOING', 'RESOLVED')
+
+            * `ONGOING` - ONGOING
+            * `RESOLVED` - RESOLVED
           example: ONGOING
         error_description:
           example: string
@@ -5079,21 +4999,51 @@ components:
           readOnly: true
           type: boolean
         error_details:
-          additionalProperties: {}
           example:
           - Missing employee permissions.
           - Missing time off permissions.
+          items:
+            type: string
           readOnly: true
-          type: object
+          type: array
       required:
       - error_description
       type: object
       x-merge-category: ticketing
     IssueStatusEnum:
+      description: |-
+        * `ONGOING` - ONGOING
+        * `RESOLVED` - RESOLVED
       enum:
       - ONGOING
       - RESOLVED
       type: string
+      x-merge-category: ticketing
+    ItemFormatEnum:
+      type: boolean
+      x-merge-category: ticketing
+    ItemSchema:
+      example:
+        item_type: ""
+        item_format: ""
+        item_choices:
+        - item_choices
+        - item_choices
+      properties:
+        item_type:
+          allOf:
+          - $ref: '#/components/schemas/ItemTypeEnum'
+        item_format:
+          allOf:
+          - $ref: '#/components/schemas/ItemFormatEnum'
+        item_choices:
+          items:
+            type: string
+          type: array
+      type: object
+      x-merge-category: ticketing
+    ItemTypeEnum:
+      type: boolean
       x-merge-category: ticketing
     LinkToken:
       example:
@@ -5292,6 +5242,14 @@ components:
       type: object
       x-merge-category: ticketing
     MethodEnum:
+      description: |-
+        * `GET` - GET
+        * `OPTIONS` - OPTIONS
+        * `HEAD` - HEAD
+        * `POST` - POST
+        * `PUT` - PUT
+        * `PATCH` - PATCH
+        * `DELETE` - DELETE
       enum:
       - GET
       - OPTIONS
@@ -5383,8 +5341,12 @@ components:
         encoding:
           allOf:
           - $ref: '#/components/schemas/EncodingEnum'
-          description: The encoding of the value of `data`. Defaults to `RAW` if not
-            defined.
+          description: |-
+            The encoding of the value of `data`. Defaults to `RAW` if not defined.
+
+            * `RAW` - RAW
+            * `BASE64` - BASE64
+            * `GZIP_BASE64` - GZIP_BASE64
           example: BASE64
           nullable: true
         file_name:
@@ -5540,6 +5502,7 @@ components:
           - royco.com
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5559,6 +5522,7 @@ components:
           - royco.com
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5600,6 +5564,7 @@ components:
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
           remote_created_at: 2022-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5621,6 +5586,7 @@ components:
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
           remote_created_at: 2022-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5659,6 +5625,7 @@ components:
           description: For tracking all tasks related to Platform for Q1
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           collection_type: LIST
           remote_data:
           - path: path
@@ -5678,6 +5645,7 @@ components:
           description: For tracking all tasks related to Platform for Q1
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           collection_type: LIST
           remote_data:
           - path: path
@@ -5707,20 +5675,10 @@ components:
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
         - is_private: true
-          field_mappings:
-            organization_defined_targets:
-              custom_key: custom_value
-            linked_account_defined_targets:
-              custom_key: custom_value
           ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           html_body: When will these integrations be done? You all should use <b>Merge<b>.
           remote_id: "19202938"
-          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
-          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          remote_was_deleted: true
           body: When will these integrations be done? You all should use Merge.
-          remote_created_at: 1990-11-10T00:00:00Z
-          user: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_data:
           - path: path
             data:
@@ -5728,21 +5686,22 @@ components:
           - path: path
             data:
               key: ""
+          field_mappings:
+            organization_defined_targets:
+              custom_key: custom_value
+            linked_account_defined_targets:
+              custom_key: custom_value
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 1990-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
         - is_private: true
-          field_mappings:
-            organization_defined_targets:
-              custom_key: custom_value
-            linked_account_defined_targets:
-              custom_key: custom_value
           ticket: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           html_body: When will these integrations be done? You all should use <b>Merge<b>.
           remote_id: "19202938"
-          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
-          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
-          remote_was_deleted: true
           body: When will these integrations be done? You all should use Merge.
-          remote_created_at: 1990-11-10T00:00:00Z
-          user: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_data:
           - path: path
             data:
@@ -5750,6 +5709,17 @@ components:
           - path: path
             data:
               key: ""
+          field_mappings:
+            organization_defined_targets:
+              custom_key: custom_value
+            linked_account_defined_targets:
+              custom_key: custom_value
+          contact: dde3fb16-b8eb-483d-81c4-b78100816f15
+          id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          remote_was_deleted: true
+          remote_created_at: 1990-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
+          user: 17a54124-287f-494d-965e-3c5b330c9a68
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -5776,6 +5746,7 @@ components:
             operator: operator
           - is_unique: true
             operator: operator
+          condition_type: ""
           is_unique: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           native_name: native_name
@@ -5786,6 +5757,7 @@ components:
             operator: operator
           - is_unique: true
             operator: operator
+          condition_type: ""
           is_unique: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           native_name: native_name
@@ -5822,6 +5794,7 @@ components:
           details: Executive Assistant to Tom Wambsgans
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           account: 28b54125-287f-494d-965e-3c5b330c9a68
           remote_data:
           - path: path
@@ -5842,6 +5815,7 @@ components:
           details: Executive Assistant to Tom Wambsgans
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           account: 28b54125-287f-494d-965e-3c5b330c9a68
           remote_data:
           - path: path
@@ -5920,6 +5894,7 @@ components:
           description: For tracking all tasks related to Platform for Q1
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5937,6 +5912,7 @@ components:
           description: For tracking all tasks related to Platform for Q1
           id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -5966,52 +5942,34 @@ components:
         results:
         - remote_key_name: remote_key_name
           is_required: true
-          remote_fields:
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           item_schema:
-            item_type: item_type
-            item_format: item_format
+            item_type: ""
+            item_format: ""
             item_choices:
             - item_choices
             - item_choices
           description: description
           is_custom: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: id
           display_name: display_name
           field_choices:
           - field_choices
           - field_choices
-          field_type: ""
-          field_format: ""
         - remote_key_name: remote_key_name
           is_required: true
-          remote_fields:
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           item_schema:
-            item_type: item_type
-            item_format: item_format
+            item_type: ""
+            item_format: ""
             item_choices:
             - item_choices
             - item_choices
           description: description
           is_custom: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          id: id
           display_name: display_name
           field_choices:
           - field_choices
           - field_choices
-          field_type: ""
-          field_format: ""
       properties:
         next:
           example: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
@@ -6032,15 +5990,13 @@ components:
         next: cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw
         previous: cj1sZXdwd2VycWVtY29zZnNkc2NzUWxNMEUxTXk0ME16UXpNallsTWtJ
         results:
-        - selective_sync_configurations_usage: IN_NEXT_SYNC
-          next_sync_start: 2021-03-30T20:44:18.662942Z
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
           model_name: Ticket
           model_id: ticketing.Ticket
           last_sync_start: 2021-03-30T19:44:18.695973Z
           is_initial_sync: true
           status: SYNCING
-        - selective_sync_configurations_usage: IN_NEXT_SYNC
-          next_sync_start: 2021-03-30T20:44:18.662942Z
+        - next_sync_start: 2021-03-30T20:44:18.662942Z
           model_name: Ticket
           model_id: ticketing.Ticket
           last_sync_start: 2021-03-30T19:44:18.695973Z
@@ -6074,6 +6030,7 @@ components:
           remote_id: "19202938"
           name: Ticketing API
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6089,6 +6046,7 @@ components:
           remote_id: "19202938"
           name: Ticketing API
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6126,6 +6084,7 @@ components:
           description: Platform and Integrations Team
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6143,6 +6102,7 @@ components:
           description: Platform and Integrations Team
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6188,15 +6148,44 @@ components:
           - fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           contact: 65c345ba-6870-4974-87ba-dd31509c367a
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          modified_at: 2021-10-16T00:00:00Z
           creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           remote_id: "19202938"
           remote_fields:
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
           due_date: 2022-10-11T00:00:00Z
           ticket_url: https://thirdpartysoftware.com/project/3/issue/1
           priority: HIGH
@@ -6236,15 +6225,44 @@ components:
           - fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           contact: 65c345ba-6870-4974-87ba-dd31509c367a
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          modified_at: 2021-10-16T00:00:00Z
           creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           remote_id: "19202938"
           remote_fields:
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
           due_date: 2022-10-11T00:00:00Z
           ticket_url: https://thirdpartysoftware.com/project/3/issue/1
           priority: HIGH
@@ -6301,6 +6319,7 @@ components:
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           avatar: https://merge.dev/user_profile_pic.png
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6323,6 +6342,7 @@ components:
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           avatar: https://merge.dev/user_profile_pic.png
           remote_was_deleted: true
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -6350,6 +6370,11 @@ components:
         model:
           ticket_type: incident
           creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          remote_fields:
+          - value: string
+            remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
+          - value: string
+            remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
           due_date: 2022-10-11T00:00:00Z
           assignees:
           - 17a54124-287f-494d-965e-3c5b330c9a68
@@ -6391,6 +6416,11 @@ components:
       example:
         ticket_type: incident
         creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        remote_fields:
+        - value: string
+          remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
+        - value: string
+          remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
         due_date: 2022-10-11T00:00:00Z
         assignees:
         - 17a54124-287f-494d-965e-3c5b330c9a68
@@ -6442,7 +6472,13 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/TicketStatusEnum'
-          description: The current status of the ticket.
+          description: |-
+            The current status of the ticket.
+
+            * `OPEN` - OPEN
+            * `CLOSED` - CLOSED
+            * `IN_PROGRESS` - IN_PROGRESS
+            * `ON_HOLD` - ON_HOLD
           example: OPEN
           nullable: true
         description:
@@ -6494,6 +6530,8 @@ components:
           - enterprise
           - other-tag
           items:
+            description: The tag's name.
+            nullable: true
             type: string
           type: array
         completed_at:
@@ -6512,7 +6550,13 @@ components:
         priority:
           allOf:
           - $ref: '#/components/schemas/PriorityEnum'
-          description: The priority or urgency of the Ticket.
+          description: |-
+            The priority or urgency of the Ticket.
+
+            * `URGENT` - URGENT
+            * `HIGH` - HIGH
+            * `NORMAL` - NORMAL
+            * `LOW` - LOW
           example: HIGH
           nullable: true
         integration_params:
@@ -6529,9 +6573,19 @@ components:
           nullable: true
           type: object
           writeOnly: true
+        remote_fields:
+          items:
+            $ref: '#/components/schemas/RemoteFieldRequest'
+          type: array
+          writeOnly: true
       type: object
       x-merge-category: ticketing
     PriorityEnum:
+      description: |-
+        * `URGENT` - URGENT
+        * `HIGH` - HIGH
+        * `NORMAL` - NORMAL
+        * `LOW` - LOW
       enum:
       - URGENT
       - HIGH
@@ -6558,6 +6612,7 @@ components:
         description: For tracking all tasks related to Platform for Q1
         id: fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -6600,6 +6655,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -6625,19 +6686,32 @@ components:
       x-merge-category: ticketing
     RemoteField:
       example:
-        value:
-          key: ""
-        remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        value: string
+        remote_field_class:
+          remote_key_name: remote_key_name
+          is_required: true
+          item_schema:
+            item_type: ""
+            item_format: ""
+            item_choices:
+            - item_choices
+            - item_choices
+          description: description
+          is_custom: true
+          id: id
+          display_name: display_name
+          field_choices:
+          - field_choices
+          - field_choices
       properties:
+        remote_field_class:
+          $ref: '#/components/schemas/RemoteFieldClass'
         value:
           additionalProperties: {}
-          nullable: true
+          example: string
           type: object
-        remote_field_class:
-          format: uuid
-          nullable: true
-          type: string
-          x-merge-expands-to: RemoteFieldClass
+      required:
+      - remote_field_class
       type: object
       x-merge-expands: '{"remote_field_class": "RemoteFieldClass"}'
       x-merge-category: ticketing
@@ -6645,70 +6719,62 @@ components:
       example:
         remote_key_name: remote_key_name
         is_required: true
-        remote_fields:
-        - value:
-            key: ""
-          remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - value:
-            key: ""
-          remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         item_schema:
-          item_type: item_type
-          item_format: item_format
+          item_type: ""
+          item_format: ""
           item_choices:
           - item_choices
           - item_choices
         description: description
         is_custom: true
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        id: id
         display_name: display_name
         field_choices:
         - field_choices
         - field_choices
-        field_type: ""
-        field_format: ""
       properties:
+        id:
+          type: string
         display_name:
-          nullable: true
           type: string
         remote_key_name:
-          nullable: true
           type: string
         description:
-          nullable: true
           type: string
+        is_custom:
+          type: boolean
         is_required:
           type: boolean
         field_type:
-          allOf:
-          - $ref: '#/components/schemas/FieldTypeEnum'
-          readOnly: true
+          $ref: '#/components/schemas/FieldTypeEnum'
         field_format:
-          allOf:
-          - $ref: '#/components/schemas/FieldFormatEnum'
-          readOnly: true
+          $ref: '#/components/schemas/FieldFormatEnum'
         field_choices:
           items:
-            nullable: true
             type: string
-          nullable: true
-          readOnly: true
           type: array
         item_schema:
-          $ref: '#/components/schemas/RemoteFieldClass_item_schema'
-        is_custom:
-          nullable: true
-          type: boolean
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        remote_fields:
-          items:
-            $ref: '#/components/schemas/RemoteField'
-          readOnly: true
-          type: array
+          $ref: '#/components/schemas/ItemSchema'
       type: object
+      x-merge-category: ticketing
+    RemoteFieldRequest:
+      example:
+        value: string
+        remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
+      properties:
+        remote_field_class:
+          example: b057d1d2-c204-4da8-a74c-c91d1a260614
+          format: uuid
+          type: string
+          x-merge-expands-to: RemoteFieldClass
+        value:
+          additionalProperties: {}
+          example: string
+          type: object
+      required:
+      - remote_field_class
+      type: object
+      x-merge-expands: '{"remote_field_class": "RemoteFieldClass"}'
       x-merge-category: ticketing
     RemoteKey:
       description: |-
@@ -6816,6 +6882,10 @@ components:
       type: object
       x-merge-category: ticketing
     RequestFormatEnum:
+      description: |-
+        * `JSON` - JSON
+        * `XML` - XML
+        * `MULTIPART` - MULTIPART
       enum:
       - JSON
       - XML
@@ -6823,12 +6893,18 @@ components:
       type: string
       x-merge-category: ticketing
     ResponseTypeEnum:
+      description: |-
+        * `JSON` - JSON
+        * `BASE64_GZIP` - BASE64_GZIP
       enum:
       - JSON
       - BASE64_GZIP
       type: string
       x-merge-category: ticketing
     SelectiveSyncConfigurationsUsageEnum:
+      description: |-
+        * `IN_NEXT_SYNC` - IN_NEXT_SYNC
+        * `IN_LAST_SYNC` - IN_LAST_SYNC
       enum:
       - IN_NEXT_SYNC
       - IN_LAST_SYNC
@@ -6843,7 +6919,6 @@ components:
         ### Usage Example
         View the `SyncStatus` for an account to see how recently its models were synced.
       example:
-        selective_sync_configurations_usage: IN_NEXT_SYNC
         next_sync_start: 2021-03-30T20:44:18.662942Z
         model_name: Ticket
         model_id: ticketing.Ticket
@@ -6873,9 +6948,7 @@ components:
           example: true
           type: boolean
         selective_sync_configurations_usage:
-          allOf:
-          - $ref: '#/components/schemas/SelectiveSyncConfigurationsUsageEnum'
-          example: IN_NEXT_SYNC
+          $ref: '#/components/schemas/SelectiveSyncConfigurationsUsageEnum'
       required:
       - is_initial_sync
       - model_id
@@ -6887,12 +6960,20 @@ components:
         "status": "SYNCING", "is_initial_sync": true}'
       x-merge-category: ticketing
     SyncStatusStatusEnum:
+      description: |-
+        * `SYNCING` - SYNCING
+        * `DONE` - DONE
+        * `FAILED` - FAILED
+        * `DISABLED` - DISABLED
+        * `PAUSED` - PAUSED
+        * `PARTIALLY_SYNCED` - PARTIALLY_SYNCED
       enum:
       - SYNCING
       - DONE
       - FAILED
       - DISABLED
       - PAUSED
+      - PARTIALLY_SYNCED
       type: string
       x-merge-category: ticketing
     Tag:
@@ -6912,6 +6993,7 @@ components:
         remote_id: "19202938"
         name: Ticketing API
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -6944,6 +7026,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -6971,6 +7059,7 @@ components:
         description: Platform and Integrations Team
         id: 17a54124-287f-494d-965e-3c5b330c9a68
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -7013,6 +7102,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -7049,15 +7144,44 @@ components:
         - fb8c55b6-1cb8-4b4c-9fb6-17924231619d
         contact: 65c345ba-6870-4974-87ba-dd31509c367a
         id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+        modified_at: 2021-10-16T00:00:00Z
         creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         remote_id: "19202938"
         remote_fields:
-        - value:
-            key: ""
-          remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        - value:
-            key: ""
-          remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        - value: string
+          remote_field_class:
+            remote_key_name: remote_key_name
+            is_required: true
+            item_schema:
+              item_type: ""
+              item_format: ""
+              item_choices:
+              - item_choices
+              - item_choices
+            description: description
+            is_custom: true
+            id: id
+            display_name: display_name
+            field_choices:
+            - field_choices
+            - field_choices
+        - value: string
+          remote_field_class:
+            remote_key_name: remote_key_name
+            is_required: true
+            item_schema:
+              item_type: ""
+              item_format: ""
+              item_choices:
+              - item_choices
+              - item_choices
+            description: description
+            is_custom: true
+            id: id
+            display_name: display_name
+            field_choices:
+            - field_choices
+            - field_choices
         due_date: 2022-10-11T00:00:00Z
         ticket_url: https://thirdpartysoftware.com/project/3/issue/1
         priority: HIGH
@@ -7119,7 +7243,13 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/TicketStatusEnum'
-          description: The current status of the ticket.
+          description: |-
+            The current status of the ticket.
+
+            * `OPEN` - OPEN
+            * `CLOSED` - CLOSED
+            * `IN_PROGRESS` - IN_PROGRESS
+            * `ON_HOLD` - ON_HOLD
           example: OPEN
           nullable: true
         description:
@@ -7186,6 +7316,8 @@ components:
           - enterprise
           - other-tag
           items:
+            description: The tag's name.
+            nullable: true
             type: string
           type: array
         remote_created_at:
@@ -7219,7 +7351,13 @@ components:
         priority:
           allOf:
           - $ref: '#/components/schemas/PriorityEnum'
-          description: The priority or urgency of the Ticket.
+          description: |-
+            The priority or urgency of the Ticket.
+
+            * `URGENT` - URGENT
+            * `HIGH` - HIGH
+            * `NORMAL` - NORMAL
+            * `LOW` - LOW
           example: HIGH
           nullable: true
         field_mappings:
@@ -7232,6 +7370,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -7256,6 +7400,11 @@ components:
           attachments:
           - 42747df1-95e7-46e2-93cc-66f1191edca5
           - 92f972d0-2526-434b-9409-4c3b468e08f0
+          remote_fields:
+          - value: string
+            remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
+          - value: string
+            remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
           due_date: 2022-10-11T00:00:00Z
           assignees:
           - 17a54124-287f-494d-965e-3c5b330c9a68
@@ -7300,6 +7449,11 @@ components:
         attachments:
         - 42747df1-95e7-46e2-93cc-66f1191edca5
         - 92f972d0-2526-434b-9409-4c3b468e08f0
+        remote_fields:
+        - value: string
+          remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
+        - value: string
+          remote_field_class: b057d1d2-c204-4da8-a74c-c91d1a260614
         due_date: 2022-10-11T00:00:00Z
         assignees:
         - 17a54124-287f-494d-965e-3c5b330c9a68
@@ -7353,7 +7507,13 @@ components:
         status:
           allOf:
           - $ref: '#/components/schemas/TicketStatusEnum'
-          description: The current status of the ticket.
+          description: |-
+            The current status of the ticket.
+
+            * `OPEN` - OPEN
+            * `CLOSED` - CLOSED
+            * `IN_PROGRESS` - IN_PROGRESS
+            * `ON_HOLD` - ON_HOLD
           example: OPEN
           nullable: true
         description:
@@ -7420,6 +7580,8 @@ components:
           - enterprise
           - other-tag
           items:
+            description: The tag's name.
+            nullable: true
             type: string
           type: array
         completed_at:
@@ -7438,7 +7600,13 @@ components:
         priority:
           allOf:
           - $ref: '#/components/schemas/PriorityEnum'
-          description: The priority or urgency of the Ticket.
+          description: |-
+            The priority or urgency of the Ticket.
+
+            * `URGENT` - URGENT
+            * `HIGH` - HIGH
+            * `NORMAL` - NORMAL
+            * `LOW` - LOW
           example: HIGH
           nullable: true
         integration_params:
@@ -7454,6 +7622,11 @@ components:
             unique_linked_account_field: unique_linked_account_field_value
           nullable: true
           type: object
+          writeOnly: true
+        remote_fields:
+          items:
+            $ref: '#/components/schemas/RemoteFieldRequest'
+          type: array
           writeOnly: true
       type: object
       x-merge-expands: '{"account": "Account", "assignees": "User", "attachments":
@@ -7492,15 +7665,44 @@ components:
           - fb8c55b6-1cb8-4b4c-9fb6-17924231619d
           contact: 65c345ba-6870-4974-87ba-dd31509c367a
           id: 0958cbc6-6040-430a-848e-aafacbadf4ae
+          modified_at: 2021-10-16T00:00:00Z
           creator: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           remote_id: "19202938"
           remote_fields:
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          - value:
-              key: ""
-            remote_field_class: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
+          - value: string
+            remote_field_class:
+              remote_key_name: remote_key_name
+              is_required: true
+              item_schema:
+                item_type: ""
+                item_format: ""
+                item_choices:
+                - item_choices
+                - item_choices
+              description: description
+              is_custom: true
+              id: id
+              display_name: display_name
+              field_choices:
+              - field_choices
+              - field_choices
           due_date: 2022-10-11T00:00:00Z
           ticket_url: https://thirdpartysoftware.com/project/3/issue/1
           priority: HIGH
@@ -7568,6 +7770,11 @@ components:
       type: object
       x-merge-category: ticketing
     TicketStatusEnum:
+      description: |-
+        * `OPEN` - OPEN
+        * `CLOSED` - CLOSED
+        * `IN_PROGRESS` - IN_PROGRESS
+        * `ON_HOLD` - ON_HOLD
       enum:
       - OPEN
       - CLOSED
@@ -7622,6 +7829,7 @@ components:
           id: 17a54124-287f-494d-965e-3c5b330c9a68
           remote_was_deleted: true
           remote_created_at: 2022-11-10T00:00:00Z
+          modified_at: 2021-10-16T00:00:00Z
           remote_data:
           - path: path
             data:
@@ -7698,6 +7906,7 @@ components:
         id: 17a54124-287f-494d-965e-3c5b330c9a68
         avatar: https://merge.dev/user_profile_pic.png
         remote_was_deleted: true
+        modified_at: 2021-10-16T00:00:00Z
         remote_data:
         - path: path
           data:
@@ -7761,6 +7970,12 @@ components:
           nullable: true
           readOnly: true
           type: object
+        modified_at:
+          description: This is the datetime that this object was last updated by Merge
+          example: 2021-10-16T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
         remote_data:
           items:
             $ref: '#/components/schemas/RemoteData'
@@ -7841,29 +8056,6 @@ components:
       - is_active
       type: object
       x-merge-category: ticketing
-    RemoteFieldClass_item_schema:
-      example:
-        item_type: item_type
-        item_format: item_format
-        item_choices:
-        - item_choices
-        - item_choices
-      nullable: true
-      properties:
-        item_type:
-          nullable: true
-          type: string
-        item_format:
-          nullable: true
-          type: string
-        item_choices:
-          items:
-            nullable: true
-            type: string
-          nullable: true
-          type: array
-      readOnly: true
-      type: object
   securitySchemes:
     tokenAuth:
       description: Token-based authentication with required prefix "Bearer"

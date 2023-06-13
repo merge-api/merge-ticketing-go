@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// CategoryEnum the model 'CategoryEnum'
+// CategoryEnum * `hris` - hris * `ats` - ats * `accounting` - accounting * `ticketing` - ticketing * `crm` - crm * `mktg` - mktg * `filestorage` - filestorage
 type CategoryEnum string
 
 // apologies but this is to get around an import error
@@ -31,6 +31,7 @@ const (
 	CATEGORYENUM_TICKETING CategoryEnum = "ticketing"
 	CATEGORYENUM_CRM CategoryEnum = "crm"
 	CATEGORYENUM_MKTG CategoryEnum = "mktg"
+	CATEGORYENUM_FILESTORAGE CategoryEnum = "filestorage"
 )
 
 var allowedCategoryEnumEnumValues = []CategoryEnum{
@@ -40,6 +41,7 @@ var allowedCategoryEnumEnumValues = []CategoryEnum{
 	"ticketing",
 	"crm",
 	"mktg",
+	"filestorage",
 }
 
 func (v *CategoryEnum) UnmarshalJSON(src []byte) error {

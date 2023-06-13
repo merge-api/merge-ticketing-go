@@ -1122,7 +1122,6 @@ type ApiTicketsRemoteFieldClassesListRequest struct {
 	cursor *string
 	includeDeletedData *bool
 	includeRemoteData *bool
-	includeRemoteFields *bool
 	pageSize *int32
 }
 
@@ -1140,10 +1139,6 @@ func (r ApiTicketsRemoteFieldClassesListRequest) IncludeDeletedData(includeDelet
 }
 func (r ApiTicketsRemoteFieldClassesListRequest) IncludeRemoteData(includeRemoteData bool) ApiTicketsRemoteFieldClassesListRequest {
 	r.includeRemoteData = &includeRemoteData
-	return r
-}
-func (r ApiTicketsRemoteFieldClassesListRequest) IncludeRemoteFields(includeRemoteFields bool) ApiTicketsRemoteFieldClassesListRequest {
-	r.includeRemoteFields = &includeRemoteFields
 	return r
 }
 func (r ApiTicketsRemoteFieldClassesListRequest) PageSize(pageSize int32) ApiTicketsRemoteFieldClassesListRequest {
@@ -1204,9 +1199,6 @@ func (a *TicketsApiService) TicketsRemoteFieldClassesListExecute(r ApiTicketsRem
 	}
 	if r.includeRemoteData != nil {
 		localVarQueryParams.Add("include_remote_data", parameterToString(*r.includeRemoteData, ""))
-	}
-	if r.includeRemoteFields != nil {
-		localVarQueryParams.Add("include_remote_fields", parameterToString(*r.includeRemoteFields, ""))
 	}
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))

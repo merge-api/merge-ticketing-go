@@ -4,17 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DisplayName** | Pointer to **NullableString** |  | [optional] 
-**RemoteKeyName** | Pointer to **NullableString** |  | [optional] 
-**Description** | Pointer to **NullableString** |  | [optional] 
+**Id** | Pointer to **string** |  | [optional] 
+**DisplayName** | Pointer to **string** |  | [optional] 
+**RemoteKeyName** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
+**IsCustom** | Pointer to **bool** |  | [optional] 
 **IsRequired** | Pointer to **bool** |  | [optional] 
-**FieldType** | Pointer to [**FieldTypeEnum**](FieldTypeEnum.md) |  | [optional] [readonly] 
-**FieldFormat** | Pointer to [**FieldFormatEnum**](FieldFormatEnum.md) |  | [optional] [readonly] 
-**FieldChoices** | Pointer to **[]string** |  | [optional] [readonly] 
-**ItemSchema** | Pointer to [**NullableRemoteFieldClassItemSchema**](RemoteFieldClassItemSchema.md) |  | [optional] 
-**IsCustom** | Pointer to **NullableBool** |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**RemoteFields** | Pointer to [**[]RemoteField**](RemoteField.md) |  | [optional] [readonly] 
+**FieldType** | Pointer to [**FieldTypeEnum**](FieldTypeEnum.md) |  | [optional] 
+**FieldFormat** | Pointer to [**FieldFormatEnum**](FieldFormatEnum.md) |  | [optional] 
+**FieldChoices** | Pointer to **[]string** |  | [optional] 
+**ItemSchema** | Pointer to [**ItemSchema**](ItemSchema.md) |  | [optional] 
 
 ## Methods
 
@@ -34,6 +33,31 @@ will change when the set of required properties is changed
 NewRemoteFieldClassWithDefaults instantiates a new RemoteFieldClass object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *RemoteFieldClass) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *RemoteFieldClass) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *RemoteFieldClass) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *RemoteFieldClass) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -60,16 +84,6 @@ SetDisplayName sets DisplayName field to given value.
 
 HasDisplayName returns a boolean if a field has been set.
 
-### SetDisplayNameNil
-
-`func (o *RemoteFieldClass) SetDisplayNameNil(b bool)`
-
- SetDisplayNameNil sets the value for DisplayName to be an explicit nil
-
-### UnsetDisplayName
-`func (o *RemoteFieldClass) UnsetDisplayName()`
-
-UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
 ### GetRemoteKeyName
 
 `func (o *RemoteFieldClass) GetRemoteKeyName() string`
@@ -95,16 +109,6 @@ SetRemoteKeyName sets RemoteKeyName field to given value.
 
 HasRemoteKeyName returns a boolean if a field has been set.
 
-### SetRemoteKeyNameNil
-
-`func (o *RemoteFieldClass) SetRemoteKeyNameNil(b bool)`
-
- SetRemoteKeyNameNil sets the value for RemoteKeyName to be an explicit nil
-
-### UnsetRemoteKeyName
-`func (o *RemoteFieldClass) UnsetRemoteKeyName()`
-
-UnsetRemoteKeyName ensures that no value is present for RemoteKeyName, not even an explicit nil
 ### GetDescription
 
 `func (o *RemoteFieldClass) GetDescription() string`
@@ -130,16 +134,31 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### SetDescriptionNil
+### GetIsCustom
 
-`func (o *RemoteFieldClass) SetDescriptionNil(b bool)`
+`func (o *RemoteFieldClass) GetIsCustom() bool`
 
- SetDescriptionNil sets the value for Description to be an explicit nil
+GetIsCustom returns the IsCustom field if non-nil, zero value otherwise.
 
-### UnsetDescription
-`func (o *RemoteFieldClass) UnsetDescription()`
+### GetIsCustomOk
 
-UnsetDescription ensures that no value is present for Description, not even an explicit nil
+`func (o *RemoteFieldClass) GetIsCustomOk() (*bool, bool)`
+
+GetIsCustomOk returns a tuple with the IsCustom field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsCustom
+
+`func (o *RemoteFieldClass) SetIsCustom(v bool)`
+
+SetIsCustom sets IsCustom field to given value.
+
+### HasIsCustom
+
+`func (o *RemoteFieldClass) HasIsCustom() bool`
+
+HasIsCustom returns a boolean if a field has been set.
+
 ### GetIsRequired
 
 `func (o *RemoteFieldClass) GetIsRequired() bool`
@@ -240,32 +259,22 @@ SetFieldChoices sets FieldChoices field to given value.
 
 HasFieldChoices returns a boolean if a field has been set.
 
-### SetFieldChoicesNil
-
-`func (o *RemoteFieldClass) SetFieldChoicesNil(b bool)`
-
- SetFieldChoicesNil sets the value for FieldChoices to be an explicit nil
-
-### UnsetFieldChoices
-`func (o *RemoteFieldClass) UnsetFieldChoices()`
-
-UnsetFieldChoices ensures that no value is present for FieldChoices, not even an explicit nil
 ### GetItemSchema
 
-`func (o *RemoteFieldClass) GetItemSchema() RemoteFieldClassItemSchema`
+`func (o *RemoteFieldClass) GetItemSchema() ItemSchema`
 
 GetItemSchema returns the ItemSchema field if non-nil, zero value otherwise.
 
 ### GetItemSchemaOk
 
-`func (o *RemoteFieldClass) GetItemSchemaOk() (*RemoteFieldClassItemSchema, bool)`
+`func (o *RemoteFieldClass) GetItemSchemaOk() (*ItemSchema, bool)`
 
 GetItemSchemaOk returns a tuple with the ItemSchema field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItemSchema
 
-`func (o *RemoteFieldClass) SetItemSchema(v RemoteFieldClassItemSchema)`
+`func (o *RemoteFieldClass) SetItemSchema(v ItemSchema)`
 
 SetItemSchema sets ItemSchema field to given value.
 
@@ -274,101 +283,6 @@ SetItemSchema sets ItemSchema field to given value.
 `func (o *RemoteFieldClass) HasItemSchema() bool`
 
 HasItemSchema returns a boolean if a field has been set.
-
-### SetItemSchemaNil
-
-`func (o *RemoteFieldClass) SetItemSchemaNil(b bool)`
-
- SetItemSchemaNil sets the value for ItemSchema to be an explicit nil
-
-### UnsetItemSchema
-`func (o *RemoteFieldClass) UnsetItemSchema()`
-
-UnsetItemSchema ensures that no value is present for ItemSchema, not even an explicit nil
-### GetIsCustom
-
-`func (o *RemoteFieldClass) GetIsCustom() bool`
-
-GetIsCustom returns the IsCustom field if non-nil, zero value otherwise.
-
-### GetIsCustomOk
-
-`func (o *RemoteFieldClass) GetIsCustomOk() (*bool, bool)`
-
-GetIsCustomOk returns a tuple with the IsCustom field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsCustom
-
-`func (o *RemoteFieldClass) SetIsCustom(v bool)`
-
-SetIsCustom sets IsCustom field to given value.
-
-### HasIsCustom
-
-`func (o *RemoteFieldClass) HasIsCustom() bool`
-
-HasIsCustom returns a boolean if a field has been set.
-
-### SetIsCustomNil
-
-`func (o *RemoteFieldClass) SetIsCustomNil(b bool)`
-
- SetIsCustomNil sets the value for IsCustom to be an explicit nil
-
-### UnsetIsCustom
-`func (o *RemoteFieldClass) UnsetIsCustom()`
-
-UnsetIsCustom ensures that no value is present for IsCustom, not even an explicit nil
-### GetId
-
-`func (o *RemoteFieldClass) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *RemoteFieldClass) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *RemoteFieldClass) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *RemoteFieldClass) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetRemoteFields
-
-`func (o *RemoteFieldClass) GetRemoteFields() []RemoteField`
-
-GetRemoteFields returns the RemoteFields field if non-nil, zero value otherwise.
-
-### GetRemoteFieldsOk
-
-`func (o *RemoteFieldClass) GetRemoteFieldsOk() (*[]RemoteField, bool)`
-
-GetRemoteFieldsOk returns a tuple with the RemoteFields field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRemoteFields
-
-`func (o *RemoteFieldClass) SetRemoteFields(v []RemoteField)`
-
-SetRemoteFields sets RemoteFields field to given value.
-
-### HasRemoteFields
-
-`func (o *RemoteFieldClass) HasRemoteFields() bool`
-
-HasRemoteFields returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
