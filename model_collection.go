@@ -13,6 +13,7 @@ package merge_ticketing_client
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // Collection # The Collection Object ### Description The `Collection` object is used to represent collections of tickets. Collections may include other collections as sub collections.  ### Usage Example TODO
@@ -24,13 +25,15 @@ type Collection struct {
 	Name NullableString `json:"name,omitempty"`
 	// The collection's description.
 	Description NullableString `json:"description,omitempty"`
-	// The collection's type.
+	// The collection's type.  * `LIST` - LIST * `PROJECT` - PROJECT
 	CollectionType NullableCollectionTypeEnum `json:"collection_type,omitempty"`
 	// The parent collection for this collection.
 	ParentCollection NullableString `json:"parent_collection,omitempty"`
 	// Indicates whether or not this object has been deleted by third party webhooks.
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
@@ -360,6 +363,38 @@ func (o *Collection) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *Collection) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *Collection) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *Collection) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Collection) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -418,6 +453,9 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

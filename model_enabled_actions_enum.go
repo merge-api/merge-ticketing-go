@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// EnabledActionsEnum the model 'EnabledActionsEnum'
+// EnabledActionsEnum * `READ` - READ * `WRITE` - WRITE
 type EnabledActionsEnum string
 
 // apologies but this is to get around an import error

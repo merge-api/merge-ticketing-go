@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// PriorityEnum the model 'PriorityEnum'
+// PriorityEnum * `URGENT` - URGENT * `HIGH` - HIGH * `NORMAL` - NORMAL * `LOW` - LOW
 type PriorityEnum string
 
 // apologies but this is to get around an import error

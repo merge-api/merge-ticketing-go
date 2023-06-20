@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Account** | Pointer to **NullableString** | The contact&#39;s account. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** | Indicates whether or not this object has been deleted by third party webhooks. | [optional] [readonly] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -329,6 +330,31 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Contact) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Contact) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Contact) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Contact) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Contact) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Contact) GetRemoteData() []RemoteData`

@@ -33,14 +33,14 @@ import (
 
 func main() {
     xAccountToken := "xAccountToken_example" // string | Token identifying the end user.
-    collectionType := "collectionType_example" // string | If provided, will only return collections of the given type. (optional)
+    collectionType := "collectionType_example" // string | If provided, will only return collections of the given type.  * `LIST` - LIST * `PROJECT` - PROJECT (optional)
     createdAfter := time.Now() // time.Time | If provided, will only return objects created after this datetime. (optional)
     createdBefore := time.Now() // time.Time | If provided, will only return objects created before this datetime. (optional)
     cursor := "cD0yMDIxLTAxLTA2KzAzJTNBMjQlM0E1My40MzQzMjYlMkIwMCUzQTAw" // string | The pagination cursor value. (optional)
     includeDeletedData := true // bool | Whether to include data that was marked as deleted by third party webhooks. (optional)
     includeRemoteData := true // bool | Whether to include the original data Merge fetched from the third-party to produce these models. (optional)
-    modifiedAfter := time.Now() // time.Time | If provided, will only return objects modified after this datetime. (optional)
-    modifiedBefore := time.Now() // time.Time | If provided, will only return objects modified before this datetime. (optional)
+    modifiedAfter := time.Now() // time.Time | If provided, only objects synced by Merge after this date time will be returned. (optional)
+    modifiedBefore := time.Now() // time.Time | If provided, only objects synced by Merge before this date time will be returned. (optional)
     pageSize := int32(56) // int32 | Number of results to return per page. (optional)
     parentCollectionId := "parentCollectionId_example" // string | If provided, will only return collections whose parent collection matches the given id. (optional)
     remoteFields := "collection_type" // string | Deprecated. Use show_enum_origins. (optional)
@@ -71,14 +71,14 @@ Other parameters are passed through a pointer to a apiCollectionsListRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xAccountToken** | **string** | Token identifying the end user. | 
- **collectionType** | **string** | If provided, will only return collections of the given type. | 
+ **collectionType** | **string** | If provided, will only return collections of the given type.  * &#x60;LIST&#x60; - LIST * &#x60;PROJECT&#x60; - PROJECT | 
  **createdAfter** | **time.Time** | If provided, will only return objects created after this datetime. | 
  **createdBefore** | **time.Time** | If provided, will only return objects created before this datetime. | 
  **cursor** | **string** | The pagination cursor value. | 
  **includeDeletedData** | **bool** | Whether to include data that was marked as deleted by third party webhooks. | 
  **includeRemoteData** | **bool** | Whether to include the original data Merge fetched from the third-party to produce these models. | 
- **modifiedAfter** | **time.Time** | If provided, will only return objects modified after this datetime. | 
- **modifiedBefore** | **time.Time** | If provided, will only return objects modified before this datetime. | 
+ **modifiedAfter** | **time.Time** | If provided, only objects synced by Merge after this date time will be returned. | 
+ **modifiedBefore** | **time.Time** | If provided, only objects synced by Merge before this date time will be returned. | 
  **pageSize** | **int32** | Number of results to return per page. | 
  **parentCollectionId** | **string** | If provided, will only return collections whose parent collection matches the given id. | 
  **remoteFields** | **string** | Deprecated. Use show_enum_origins. | 

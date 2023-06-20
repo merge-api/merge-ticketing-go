@@ -232,6 +232,16 @@ SetCommonModels sets CommonModels field to given value.
 
 HasCommonModels returns a boolean if a field has been set.
 
+### SetCommonModelsNil
+
+`func (o *EndUserDetailsRequest) SetCommonModelsNil(b bool)`
+
+ SetCommonModelsNil sets the value for CommonModels to be an explicit nil
+
+### UnsetCommonModels
+`func (o *EndUserDetailsRequest) UnsetCommonModels()`
+
+UnsetCommonModels ensures that no value is present for CommonModels, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

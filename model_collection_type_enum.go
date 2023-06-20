@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// CollectionTypeEnum the model 'CollectionTypeEnum'
+// CollectionTypeEnum * `LIST` - LIST * `PROJECT` - PROJECT
 type CollectionTypeEnum string
 
 // apologies but this is to get around an import error

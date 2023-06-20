@@ -17,17 +17,16 @@ import (
 
 // RemoteFieldClass struct for RemoteFieldClass
 type RemoteFieldClass struct {
-	DisplayName NullableString `json:"display_name,omitempty"`
-	RemoteKeyName NullableString `json:"remote_key_name,omitempty"`
-	Description NullableString `json:"description,omitempty"`
+	Id *string `json:"id,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	RemoteKeyName *string `json:"remote_key_name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IsCustom *bool `json:"is_custom,omitempty"`
 	IsRequired *bool `json:"is_required,omitempty"`
 	FieldType *FieldTypeEnum `json:"field_type,omitempty"`
 	FieldFormat *FieldFormatEnum `json:"field_format,omitempty"`
-	FieldChoices []string `json:"field_choices,omitempty"`
-	ItemSchema NullableRemoteFieldClassItemSchema `json:"item_schema,omitempty"`
-	IsCustom NullableBool `json:"is_custom,omitempty"`
-	Id *string `json:"id,omitempty"`
-	RemoteFields *[]RemoteField `json:"remote_fields,omitempty"`
+	FieldChoices *[]string `json:"field_choices,omitempty"`
+	ItemSchema *ItemSchema `json:"item_schema,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
 }
@@ -49,130 +48,164 @@ func NewRemoteFieldClassWithDefaults() *RemoteFieldClass {
 	return &this
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RemoteFieldClass) GetDisplayName() string {
-	if o == nil || o.DisplayName.Get() == nil {
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RemoteFieldClass) GetId() string {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName.Get()
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RemoteFieldClass) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *RemoteFieldClass) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RemoteFieldClass) SetId(v string) {
+	o.Id = &v
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *RemoteFieldClass) GetDisplayName() string {
+	if o == nil || o.DisplayName == nil {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
 }
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RemoteFieldClass) GetDisplayNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.DisplayName == nil {
 		return nil, false
 	}
-	return o.DisplayName.Get(), o.DisplayName.IsSet()
+	return o.DisplayName, true
 }
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *RemoteFieldClass) HasDisplayName() bool {
-	if o != nil && o.DisplayName.IsSet() {
+	if o != nil && o.DisplayName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDisplayName gets a reference to the given NullableString and assigns it to the DisplayName field.
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
 func (o *RemoteFieldClass) SetDisplayName(v string) {
-	o.DisplayName.Set(&v)
-}
-// SetDisplayNameNil sets the value for DisplayName to be an explicit nil
-func (o *RemoteFieldClass) SetDisplayNameNil() {
-	o.DisplayName.Set(nil)
+	o.DisplayName = &v
 }
 
-// UnsetDisplayName ensures that no value is present for DisplayName, not even an explicit nil
-func (o *RemoteFieldClass) UnsetDisplayName() {
-	o.DisplayName.Unset()
-}
-
-// GetRemoteKeyName returns the RemoteKeyName field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetRemoteKeyName returns the RemoteKeyName field value if set, zero value otherwise.
 func (o *RemoteFieldClass) GetRemoteKeyName() string {
-	if o == nil || o.RemoteKeyName.Get() == nil {
+	if o == nil || o.RemoteKeyName == nil {
 		var ret string
 		return ret
 	}
-	return *o.RemoteKeyName.Get()
+	return *o.RemoteKeyName
 }
 
 // GetRemoteKeyNameOk returns a tuple with the RemoteKeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RemoteFieldClass) GetRemoteKeyNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.RemoteKeyName == nil {
 		return nil, false
 	}
-	return o.RemoteKeyName.Get(), o.RemoteKeyName.IsSet()
+	return o.RemoteKeyName, true
 }
 
 // HasRemoteKeyName returns a boolean if a field has been set.
 func (o *RemoteFieldClass) HasRemoteKeyName() bool {
-	if o != nil && o.RemoteKeyName.IsSet() {
+	if o != nil && o.RemoteKeyName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRemoteKeyName gets a reference to the given NullableString and assigns it to the RemoteKeyName field.
+// SetRemoteKeyName gets a reference to the given string and assigns it to the RemoteKeyName field.
 func (o *RemoteFieldClass) SetRemoteKeyName(v string) {
-	o.RemoteKeyName.Set(&v)
-}
-// SetRemoteKeyNameNil sets the value for RemoteKeyName to be an explicit nil
-func (o *RemoteFieldClass) SetRemoteKeyNameNil() {
-	o.RemoteKeyName.Set(nil)
+	o.RemoteKeyName = &v
 }
 
-// UnsetRemoteKeyName ensures that no value is present for RemoteKeyName, not even an explicit nil
-func (o *RemoteFieldClass) UnsetRemoteKeyName() {
-	o.RemoteKeyName.Unset()
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RemoteFieldClass) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
+	if o == nil || o.Description == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description.Get()
+	return *o.Description
 }
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RemoteFieldClass) GetDescriptionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.Description == nil {
 		return nil, false
 	}
-	return o.Description.Get(), o.Description.IsSet()
+	return o.Description, true
 }
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RemoteFieldClass) HasDescription() bool {
-	if o != nil && o.Description.IsSet() {
+	if o != nil && o.Description != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *RemoteFieldClass) SetDescription(v string) {
-	o.Description.Set(&v)
-}
-// SetDescriptionNil sets the value for Description to be an explicit nil
-func (o *RemoteFieldClass) SetDescriptionNil() {
-	o.Description.Set(nil)
+	o.Description = &v
 }
 
-// UnsetDescription ensures that no value is present for Description, not even an explicit nil
-func (o *RemoteFieldClass) UnsetDescription() {
-	o.Description.Unset()
+// GetIsCustom returns the IsCustom field value if set, zero value otherwise.
+func (o *RemoteFieldClass) GetIsCustom() bool {
+	if o == nil || o.IsCustom == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsCustom
+}
+
+// GetIsCustomOk returns a tuple with the IsCustom field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RemoteFieldClass) GetIsCustomOk() (*bool, bool) {
+	if o == nil || o.IsCustom == nil {
+		return nil, false
+	}
+	return o.IsCustom, true
+}
+
+// HasIsCustom returns a boolean if a field has been set.
+func (o *RemoteFieldClass) HasIsCustom() bool {
+	if o != nil && o.IsCustom != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCustom gets a reference to the given bool and assigns it to the IsCustom field.
+func (o *RemoteFieldClass) SetIsCustom(v bool) {
+	o.IsCustom = &v
 }
 
 // GetIsRequired returns the IsRequired field value if set, zero value otherwise.
@@ -271,23 +304,22 @@ func (o *RemoteFieldClass) SetFieldFormat(v FieldFormatEnum) {
 	o.FieldFormat = &v
 }
 
-// GetFieldChoices returns the FieldChoices field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetFieldChoices returns the FieldChoices field value if set, zero value otherwise.
 func (o *RemoteFieldClass) GetFieldChoices() []string {
-	if o == nil  {
+	if o == nil || o.FieldChoices == nil {
 		var ret []string
 		return ret
 	}
-	return o.FieldChoices
+	return *o.FieldChoices
 }
 
 // GetFieldChoicesOk returns a tuple with the FieldChoices field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *RemoteFieldClass) GetFieldChoicesOk() (*[]string, bool) {
 	if o == nil || o.FieldChoices == nil {
 		return nil, false
 	}
-	return &o.FieldChoices, true
+	return o.FieldChoices, true
 }
 
 // HasFieldChoices returns a boolean if a field has been set.
@@ -301,167 +333,57 @@ func (o *RemoteFieldClass) HasFieldChoices() bool {
 
 // SetFieldChoices gets a reference to the given []string and assigns it to the FieldChoices field.
 func (o *RemoteFieldClass) SetFieldChoices(v []string) {
-	o.FieldChoices = v
+	o.FieldChoices = &v
 }
 
-// GetItemSchema returns the ItemSchema field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RemoteFieldClass) GetItemSchema() RemoteFieldClassItemSchema {
-	if o == nil || o.ItemSchema.Get() == nil {
-		var ret RemoteFieldClassItemSchema
+// GetItemSchema returns the ItemSchema field value if set, zero value otherwise.
+func (o *RemoteFieldClass) GetItemSchema() ItemSchema {
+	if o == nil || o.ItemSchema == nil {
+		var ret ItemSchema
 		return ret
 	}
-	return *o.ItemSchema.Get()
+	return *o.ItemSchema
 }
 
 // GetItemSchemaOk returns a tuple with the ItemSchema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RemoteFieldClass) GetItemSchemaOk() (*RemoteFieldClassItemSchema, bool) {
-	if o == nil  {
+func (o *RemoteFieldClass) GetItemSchemaOk() (*ItemSchema, bool) {
+	if o == nil || o.ItemSchema == nil {
 		return nil, false
 	}
-	return o.ItemSchema.Get(), o.ItemSchema.IsSet()
+	return o.ItemSchema, true
 }
 
 // HasItemSchema returns a boolean if a field has been set.
 func (o *RemoteFieldClass) HasItemSchema() bool {
-	if o != nil && o.ItemSchema.IsSet() {
+	if o != nil && o.ItemSchema != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetItemSchema gets a reference to the given NullableRemoteFieldClassItemSchema and assigns it to the ItemSchema field.
-func (o *RemoteFieldClass) SetItemSchema(v RemoteFieldClassItemSchema) {
-	o.ItemSchema.Set(&v)
-}
-// SetItemSchemaNil sets the value for ItemSchema to be an explicit nil
-func (o *RemoteFieldClass) SetItemSchemaNil() {
-	o.ItemSchema.Set(nil)
-}
-
-// UnsetItemSchema ensures that no value is present for ItemSchema, not even an explicit nil
-func (o *RemoteFieldClass) UnsetItemSchema() {
-	o.ItemSchema.Unset()
-}
-
-// GetIsCustom returns the IsCustom field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RemoteFieldClass) GetIsCustom() bool {
-	if o == nil || o.IsCustom.Get() == nil {
-		var ret bool
-		return ret
-	}
-	return *o.IsCustom.Get()
-}
-
-// GetIsCustomOk returns a tuple with the IsCustom field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RemoteFieldClass) GetIsCustomOk() (*bool, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.IsCustom.Get(), o.IsCustom.IsSet()
-}
-
-// HasIsCustom returns a boolean if a field has been set.
-func (o *RemoteFieldClass) HasIsCustom() bool {
-	if o != nil && o.IsCustom.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetIsCustom gets a reference to the given NullableBool and assigns it to the IsCustom field.
-func (o *RemoteFieldClass) SetIsCustom(v bool) {
-	o.IsCustom.Set(&v)
-}
-// SetIsCustomNil sets the value for IsCustom to be an explicit nil
-func (o *RemoteFieldClass) SetIsCustomNil() {
-	o.IsCustom.Set(nil)
-}
-
-// UnsetIsCustom ensures that no value is present for IsCustom, not even an explicit nil
-func (o *RemoteFieldClass) UnsetIsCustom() {
-	o.IsCustom.Unset()
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *RemoteFieldClass) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RemoteFieldClass) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *RemoteFieldClass) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *RemoteFieldClass) SetId(v string) {
-	o.Id = &v
-}
-
-// GetRemoteFields returns the RemoteFields field value if set, zero value otherwise.
-func (o *RemoteFieldClass) GetRemoteFields() []RemoteField {
-	if o == nil || o.RemoteFields == nil {
-		var ret []RemoteField
-		return ret
-	}
-	return *o.RemoteFields
-}
-
-// GetRemoteFieldsOk returns a tuple with the RemoteFields field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RemoteFieldClass) GetRemoteFieldsOk() (*[]RemoteField, bool) {
-	if o == nil || o.RemoteFields == nil {
-		return nil, false
-	}
-	return o.RemoteFields, true
-}
-
-// HasRemoteFields returns a boolean if a field has been set.
-func (o *RemoteFieldClass) HasRemoteFields() bool {
-	if o != nil && o.RemoteFields != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRemoteFields gets a reference to the given []RemoteField and assigns it to the RemoteFields field.
-func (o *RemoteFieldClass) SetRemoteFields(v []RemoteField) {
-	o.RemoteFields = &v
+// SetItemSchema gets a reference to the given ItemSchema and assigns it to the ItemSchema field.
+func (o *RemoteFieldClass) SetItemSchema(v ItemSchema) {
+	o.ItemSchema = &v
 }
 
 func (o RemoteFieldClass) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DisplayName.IsSet() {
-		toSerialize["display_name"] = o.DisplayName.Get()
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
 	}
-	if o.RemoteKeyName.IsSet() {
-		toSerialize["remote_key_name"] = o.RemoteKeyName.Get()
+	if o.DisplayName != nil {
+		toSerialize["display_name"] = o.DisplayName
 	}
-	if o.Description.IsSet() {
-		toSerialize["description"] = o.Description.Get()
+	if o.RemoteKeyName != nil {
+		toSerialize["remote_key_name"] = o.RemoteKeyName
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.IsCustom != nil {
+		toSerialize["is_custom"] = o.IsCustom
 	}
 	if o.IsRequired != nil {
 		toSerialize["is_required"] = o.IsRequired
@@ -475,17 +397,8 @@ func (o RemoteFieldClass) MarshalJSON() ([]byte, error) {
 	if o.FieldChoices != nil {
 		toSerialize["field_choices"] = o.FieldChoices
 	}
-	if o.ItemSchema.IsSet() {
-		toSerialize["item_schema"] = o.ItemSchema.Get()
-	}
-	if o.IsCustom.IsSet() {
-		toSerialize["is_custom"] = o.IsCustom.Get()
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.RemoteFields != nil {
-		toSerialize["remote_fields"] = o.RemoteFields
+	if o.ItemSchema != nil {
+		toSerialize["item_schema"] = o.ItemSchema
 	}
 	return json.Marshal(toSerialize)
 }

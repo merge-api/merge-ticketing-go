@@ -21,11 +21,11 @@ type Attachment struct {
 	Id *string `json:"id,omitempty"`
 	// The third-party API ID of the matching object.
 	RemoteId NullableString `json:"remote_id,omitempty"`
-	// The attachment's name.
+	// The attachment's name. It is required to include the file extension in the attachment's name.
 	FileName NullableString `json:"file_name,omitempty"`
 	// The ticket associated with the attachment.
 	Ticket NullableString `json:"ticket,omitempty"`
-	// The attachment's url.
+	// The attachment's url. It is required to include the file extension in the file's URL.
 	FileUrl NullableString `json:"file_url,omitempty"`
 	// The attachment's file format.
 	ContentType NullableString `json:"content_type,omitempty"`
@@ -35,6 +35,8 @@ type Attachment struct {
 	RemoteCreatedAt NullableTime `json:"remote_created_at,omitempty"`
 	RemoteWasDeleted *bool `json:"remote_was_deleted,omitempty"`
 	FieldMappings map[string]interface{} `json:"field_mappings,omitempty"`
+	// This is the datetime that this object was last updated by Merge
+	ModifiedAt *time.Time `json:"modified_at,omitempty"`
 	RemoteData []RemoteData `json:"remote_data,omitempty"`
 	// raw json response by property name
 	ResponseRaw map[string]json.RawMessage `json:"-"`
@@ -448,6 +450,38 @@ func (o *Attachment) SetFieldMappings(v map[string]interface{}) {
 	o.FieldMappings = v
 }
 
+// GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
+func (o *Attachment) GetModifiedAt() time.Time {
+	if o == nil || o.ModifiedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ModifiedAt
+}
+
+// GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Attachment) GetModifiedAtOk() (*time.Time, bool) {
+	if o == nil || o.ModifiedAt == nil {
+		return nil, false
+	}
+	return o.ModifiedAt, true
+}
+
+// HasModifiedAt returns a boolean if a field has been set.
+func (o *Attachment) HasModifiedAt() bool {
+	if o != nil && o.ModifiedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetModifiedAt gets a reference to the given time.Time and assigns it to the ModifiedAt field.
+func (o *Attachment) SetModifiedAt(v time.Time) {
+	o.ModifiedAt = &v
+}
+
 // GetRemoteData returns the RemoteData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Attachment) GetRemoteData() []RemoteData {
 	if o == nil  {
@@ -512,6 +546,9 @@ func (o Attachment) MarshalJSON() ([]byte, error) {
 	}
 	if o.FieldMappings != nil {
 		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
 	}
 	if o.RemoteData != nil {
 		toSerialize["remote_data"] = o.RemoteData

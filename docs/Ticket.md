@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Assignees** | Pointer to **[]string** |  | [optional] 
 **Creator** | Pointer to **NullableString** | The user who created this ticket. | [optional] 
 **DueDate** | Pointer to **NullableTime** | The ticket&#39;s due date. | [optional] 
-**Status** | Pointer to [**NullableTicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket. | [optional] 
+**Status** | Pointer to [**NullableTicketStatusEnum**](TicketStatusEnum.md) | The current status of the ticket.  * &#x60;OPEN&#x60; - OPEN * &#x60;CLOSED&#x60; - CLOSED * &#x60;IN_PROGRESS&#x60; - IN_PROGRESS * &#x60;ON_HOLD&#x60; - ON_HOLD | [optional] 
 **Description** | Pointer to **NullableString** | The ticket’s description. HTML version of description is mapped if supported by the third-party platform. | [optional] 
 **Project** | Pointer to **NullableString** | The project the ticket belongs to. | [optional] 
 **Collections** | Pointer to **[]string** |  | [optional] 
@@ -25,8 +25,9 @@ Name | Type | Description | Notes
 **CompletedAt** | Pointer to **NullableTime** | When the ticket was completed. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** |  | [optional] [readonly] 
 **TicketUrl** | Pointer to **NullableString** | The 3rd party url of the Ticket. | [optional] 
-**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket. | [optional] 
+**Priority** | Pointer to [**NullablePriorityEnum**](PriorityEnum.md) | The priority or urgency of the Ticket.  * &#x60;URGENT&#x60; - URGENT * &#x60;HIGH&#x60; - HIGH * &#x60;NORMAL&#x60; - NORMAL * &#x60;LOW&#x60; - LOW | [optional] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 **RemoteFields** | Pointer to [**[]RemoteField**](RemoteField.md) |  | [optional] [readonly] 
 
@@ -794,6 +795,31 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Ticket) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Ticket) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Ticket) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Ticket) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Ticket) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Ticket) GetRemoteData() []RemoteData`

@@ -17,11 +17,11 @@ import (
 
 // AttachmentRequest # The Attachment Object ### Description The `Attachment` object is used to represent an attachment for a ticket.  ### Usage Example TODO
 type AttachmentRequest struct {
-	// The attachment's name.
+	// The attachment's name. It is required to include the file extension in the attachment's name.
 	FileName NullableString `json:"file_name,omitempty"`
 	// The ticket associated with the attachment.
 	Ticket NullableString `json:"ticket,omitempty"`
-	// The attachment's url.
+	// The attachment's url. It is required to include the file extension in the file's URL.
 	FileUrl NullableString `json:"file_url,omitempty"`
 	// The attachment's file format.
 	ContentType NullableString `json:"content_type,omitempty"`

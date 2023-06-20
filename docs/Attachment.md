@@ -6,14 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **RemoteId** | Pointer to **NullableString** | The third-party API ID of the matching object. | [optional] 
-**FileName** | Pointer to **NullableString** | The attachment&#39;s name. | [optional] 
+**FileName** | Pointer to **NullableString** | The attachment&#39;s name. It is required to include the file extension in the attachment&#39;s name. | [optional] 
 **Ticket** | Pointer to **NullableString** | The ticket associated with the attachment. | [optional] 
-**FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. | [optional] 
+**FileUrl** | Pointer to **NullableString** | The attachment&#39;s url. It is required to include the file extension in the file&#39;s URL. | [optional] 
 **ContentType** | Pointer to **NullableString** | The attachment&#39;s file format. | [optional] 
 **UploadedBy** | Pointer to **NullableString** | The user who uploaded the attachment. | [optional] 
 **RemoteCreatedAt** | Pointer to **NullableTime** | When the third party&#39;s attachment was created. | [optional] 
 **RemoteWasDeleted** | Pointer to **bool** |  | [optional] [readonly] 
 **FieldMappings** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**ModifiedAt** | Pointer to **time.Time** | This is the datetime that this object was last updated by Merge | [optional] [readonly] 
 **RemoteData** | Pointer to [**[]RemoteData**](RemoteData.md) |  | [optional] [readonly] 
 
 ## Methods
@@ -365,6 +366,31 @@ HasFieldMappings returns a boolean if a field has been set.
 `func (o *Attachment) UnsetFieldMappings()`
 
 UnsetFieldMappings ensures that no value is present for FieldMappings, not even an explicit nil
+### GetModifiedAt
+
+`func (o *Attachment) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *Attachment) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *Attachment) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *Attachment) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
+
 ### GetRemoteData
 
 `func (o *Attachment) GetRemoteData() []RemoteData`
